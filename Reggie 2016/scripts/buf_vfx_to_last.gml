@@ -3,4 +3,4 @@
 
 */
 
-global.buff_grid[#16,ds_grid_height(global.buff_grid)-1]=argument0;
+global.buff_grid[#16,ds_grid_height(global.buff_grid)-1] = argument0;

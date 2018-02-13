@@ -234,7 +234,7 @@ if recipes_list[counter]&lt;&gt;0 {
  draw_sprite_ext(spr,0,xx+9,yy+counter*20+43,0.5,0.5,0,c_white,1);
 
 //Clickable text boxes:
-spr=ite(recipes_list[counter],selected,1,0);
+spr=tern(recipes_list[counter],selected,1,0);
 if gui_draw_sprite_clickable(spr_window_name_box,spr,xx+29,yy+counter*20+43,1)=true
  {selected=recipes_list[counter];
   update_array=true; }
@@ -280,7 +280,7 @@ str+="#You will get:# -"+recipes_array[1]+" ("+string(recipes_array[2])+")"+":# 
 draw_text_ext(xx+234,yy+113,str,13,180);
 
 //Craft button:
-spr=ite(check,true,0,1);
+spr=tern(check,true,0,1);
 if gui_draw_sprite_clickable(spr_window_button_craft,spr,xx+249,yy+348,true)
  {if spr=0 { 
  i=3;

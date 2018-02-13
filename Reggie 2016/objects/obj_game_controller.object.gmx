@@ -68,7 +68,8 @@ _mouseHudPos=0;
 _hudOffset=1.5;
 _heartFrame=0;
 //display_set_gui_maximise(gui_get_scale(),gui_get_scale(),0,0);
-_string="HG_world_lighting_set_ambient(-1,0.5,make_colour_rgb(255,255,255));";
+//_string="HG_world_lighting_set_ambient(-1,0.5,make_colour_rgb(255,255,255));";
+_string = "";
 _reloadStatePrev=0;
 _roomGoto=room_menu;
 sett_update_settings();
@@ -438,17 +439,18 @@ _heartFrame=(_heartFrame+0.2) mod (sprite_get_number(spr_heart));
 
 //Offset:
 
-if !(global.scene_active) {
+if (!global.scene_active) {
 
  //Not in scene:
  
  if (_hudOffset&lt;0.003) {
  
-  _hudOffset=0;
+ _hudOffset=0;
   
   } else if (_hudOffset&gt;0) {
   
-   _hudOffset*=0.90;
+   if (!instance_exists(obj_initializer))
+    _hudOffset *= 0.90;
    
    }
   
@@ -616,13 +618,13 @@ switch (global.abs_end_action) begin
   
  case ABSEND.returnToMenu:   
    game_free();
-   global.abs_end_action=0;
+   global.abs_end_action = 0;
    room_goto(room_menu); 
   break;
   
  case ABSEND.roomGoto:
-   //game_free();   
-   global.abs_end_action=0;
+   game_free();   
+   global.abs_end_action = 0;
    room_goto(_roomGoto);
   break;
   
@@ -868,7 +870,7 @@ if instance_exists(weaponHoldingPar) {
  if inv_count_item(ammo_name)&lt;1 and weaponHoldingPar.xammo&lt;1
   draw_text(xx+17,yy+19,"No ammo left!")
   else
-   draw_text(xx+17,yy+19,string(ammo)+"/"+string(ammo_inv)+ite_ext(weaponHoldingPar.b_state=1," [Reloading]",""));
+   draw_text(xx+17,yy+19,string(ammo)+"/"+string(ammo_inv)+cpptern(weaponHoldingPar.b_state=1," [Reloading]",""));
    
  draw_text(xx+17,yy+44,"-"+ammo_name);
  draw_text(xx+17,yy+57,"-"+frm);
@@ -1206,34 +1208,6 @@ _string=s;
 if game_paused() exit;
 
 show_debug_overlay(true);
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="76">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///TEMP - Restart game
-
-if game_paused() exit;
-
-game_free();
-game_restart();
 </string>
           </argument>
         </arguments>

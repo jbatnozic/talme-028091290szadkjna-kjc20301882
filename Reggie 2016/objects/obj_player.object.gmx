@@ -197,6 +197,7 @@ if !(global.scene_active) begin
   _health=0;
   //fade_trigger_scr(c_black,"player_died_scr",false);
   show_message("You have died.");
+  game_change_room(room_menu);
   }
   else if _health&gt;PLAYER.topHealth
    _health=PLAYER.topHealth; 
@@ -712,7 +713,7 @@ if (__item &lt;&gt; "") and
 
 //draw_sprite_ext(mask_index,0,x,y,1,1,0,c_white,0.5);
 
-draw_sprite_ext(spr_player_run,image_index,x,y,_imageXScale,ite_ext(_movementState&lt;&gt;0,0.5,1),0,c_white,1);
+draw_sprite_ext(spr_player_run,image_index,x,y,_imageXScale,cpptern(_movementState&lt;&gt;0,0.5,1),0,c_white,1);
 
 /*var s;
 

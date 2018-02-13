@@ -30,13 +30,28 @@
 // Not player-interactible (see obj_mm_button).*
 // *-currently is for testing.
 
-global.game_name="TESTRUN"; //PEP
-game_initialize(1,0);
+global.game_name = "TESTRUN"; //PEP
+
+// Initialize only what's necessary for the menu:
+game_initialize(1, 0);
+
+NSP_initialize();
+
 sett_initialize();
-gui_set_scale(1.25);
-application_surface_draw_enable(true);
-display_set_gui_maximise(gui_get_scale(),gui_get_scale(),0,0);
+
+// Restore graphics settings:
+sett_reset_display();
+gui_set_scale( real(string_digits(sett_get_value("GUI Scale")))/100 );
+
+display_set_gui_maximise(gui_get_scale(), gui_get_scale(), 0, 0);
 window_set_fullscreen(sett_get_value("Fullscreen")=="On");
+
+// Other:
+application_surface_draw_enable(true);
+
+
+
+
 </string>
           </argument>
         </arguments>
@@ -59,9 +74,16 @@ window_set_fullscreen(sett_get_value("Fullscreen")=="On");
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (!instance_exists(obj_gui_settings))
+            <string>if (!instance_exists(obj_gui_settings)) {
+
   if (window_get_fullscreen() &lt;&gt; (sett_get_value("Fullscreen")=="On"))
     window_set_fullscreen(sett_get_value("Fullscreen")=="On");
+    
+  gui_set_scale( real(string_digits(sett_get_value("GUI Scale")))/100 );
+
+  display_set_gui_maximise(gui_get_scale(), gui_get_scale(), 0, 0);
+    
+  }
 </string>
           </argument>
         </arguments>
@@ -87,12 +109,12 @@ window_set_fullscreen(sett_get_value("Fullscreen")=="On");
             <string>
 draw_background(bg_poster,0,0);
 
-draw_set_valign(fa_top);
+/*draw_set_valign(fa_top);
 draw_set_halign(fa_left);
 
 draw_set_colour(c_black);
 
-draw_text(x,y,"MAIN MENU:#Press 1 to play");
+draw_text(x,y,"MAIN MENU:#Press 1 to play");*/
 </string>
           </argument>
         </arguments>

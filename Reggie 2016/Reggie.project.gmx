@@ -33,6 +33,7 @@
         <sprite>sprites\spr_ctrl_hg</sprite>
         <sprite>sprites\spr_ctrl_fsm</sprite>
         <sprite>sprites\spr_ctrl_pfd</sprite>
+        <sprite>sprites\spr_ctrl_init</sprite>
         <sprite>sprites\spr_ctrl_camera_foot</sprite>
       </sprites>
     </sprites>
@@ -94,6 +95,7 @@
         <sprite>sprites\spr_window_settings_field</sprite>
         <sprite>sprites\spr_window_settings_change</sprite>
         <sprite>sprites\spr_window_settings_toggle</sprite>
+        <sprite>sprites\spr_window_settings_exec</sprite>
         <sprite>sprites\spr_window_settings_scale</sprite>
         <sprite>sprites\spr_window_settings_selection</sprite>
       </sprites>
@@ -233,8 +235,8 @@
       <script>scripts\game_set_properties.gml</script>
       <script>scripts\game_free.gml</script>
       <scripts name="Misc">
-        <script>scripts\ite.gml</script>
-        <script>scripts\ite_ext.gml</script>
+        <script>scripts\tern.gml</script>
+        <script>scripts\cpptern.gml</script>
         <script>scripts\gp_sum.gml</script>
         <script>scripts\bias_0.gml</script>
         <script>scripts\bias_1.gml</script>
@@ -279,7 +281,7 @@
         <script>scripts\terr_write.gml</script>
         <script>scripts\terr_read.gml</script>
       </scripts>
-      <scripts name="Interface">
+      <scripts name="Interface / GUI">
         <script>scripts\InterfaceNotes.gml</script>
         <script>scripts\gui_refresh.gml</script>
         <script>scripts\gui_draw_sprite_clickable.gml</script>
@@ -451,6 +453,7 @@
         <script>scripts\sett_fetch_desc.gml</script>
         <script>scripts\sett_update_controls.gml</script>
         <script>scripts\sett_update_settings.gml</script>
+        <script>scripts\sett_reset_display.gml</script>
       </scripts>
       <scripts name="Heart">
         <script>scripts\HeartNotes.gml</script>
@@ -1012,6 +1015,7 @@
         <object>objects\obj_scenery</object>
         <object>objects\obj_camera</object>
         <object>objects\obj_heart_attack</object>
+        <object>objects\obj_initializer</object>
       </objects>
       <objects name="Support">
         <object>objects\obj_camera_foot</object>
@@ -1143,10 +1147,10 @@
           <object>objects\obj_hospital_window</object>
         </objects>
         <objects name="Cemetary">
-          <object>objects\obj_ceme_raskal</object>
           <object>objects\obj_ceme_gravekeepers_home</object>
           <object>objects\obj_ceme_gravekeeper</object>
           <object>objects\spr_ceme_veteran</object>
+          <object>objects\obj_ceme_raskal</object>
         </objects>
       </objects>
     </objects>

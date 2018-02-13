@@ -53,7 +53,7 @@ max_rows=0;
           <argument>
             <kind>1</kind>
             <string>//Update settings:
-if (room&lt;&gt;room_menu)
+if (room != room_menu)
  sett_update_settings();
 
 sett_update_controls();
@@ -280,26 +280,39 @@ for (i=0; i&lt;=9; i+=1) begin
  if list_array[i]&lt;&gt;-1 {
   
   if gui_draw_sprite_hover(spr_window_settings_field,0,xx+8,yy+60+i*20)=true {
+  
    str=sett_fetch_desc(list_array[i]);
    draw_set_colour(c_black);
    draw_text_ext(xx+10,yy+267,str,15,345);
-   if mode=0 {
+   
+   if mode==0 {
     a=keyboard_get_input();
     str='#To change a key binding press and hold the new key then press "Change".#Currently pressed button: '+a[1];
     draw_set_colour(c_dkgray);
     draw_text_ext(xx+10,yy+288,str,13,345);
     }
+    
    }
   
   draw_set_colour(c_black);  
   draw_text(xx+12,yy+62+i*20,global.sett_grid[#0,list_array[i]]);
   
-  if mode&lt;&gt;0
-   draw_text(xx+142,yy+61+i*20,force_string(sett_get_value(global.sett_grid[#0,list_array[i]])))
-   else 
-    draw_text(xx+142,yy+61+i*20,key_to_string(sett_get_value(global.sett_grid[#0,list_array[i]])));
+  if (global.sett_grid[#1,list_array[i]] != SETT_TYPE.execute_string) {
+  
+    if (mode != 0)
+      draw_text(xx+142,yy+61+i*20,force_string(sett_get_value(global.sett_grid[#0,list_array[i]])))
+    else 
+      draw_text(xx+142,yy+61+i*20,key_to_string(sett_get_value(global.sett_grid[#0,list_array[i]])));
     
-  sett_draw_widget(global.sett_grid[#0,list_array[i]],global.sett_grid[#1,list_array[i]],list_array[i],xx+211,yy+63+i*20);
+    }
+    
+  sett_draw_widget( global.sett_grid[#0,list_array[i]]
+                  , global.sett_grid[#1,list_array[i]]
+                  , list_array[i]
+                  , xx+211
+                  , yy+63+i*20
+                  , global.sett_grid[#5,list_array[i]]
+                  ) ;
   
   }
   

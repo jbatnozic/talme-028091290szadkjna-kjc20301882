@@ -56,14 +56,14 @@ md=0;
 if (delay==0) {
 
   if (mode=="new") {
-    game_initialize(0,1);
+    //game_initialize(0, 1);
     room_goto_next();
     instance_destroy();
     }
-    else {
-      game_load_checkpoint(name);
-      instance_destroy(); 
-      }
+  else {
+    game_load_checkpoint(name);
+    instance_destroy(); 
+    }
 
   }
 </string>

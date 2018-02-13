@@ -363,7 +363,7 @@ switch (mode) begin
       update_desc=true; }
 
     //Entry names:
-    draw_set_color(ite(global.journal_grid[#2,counter+scroll-1],"",c_red,c_black));
+    draw_set_color(tern(global.journal_grid[#2,counter+scroll-1],"",c_red,c_black));
     draw_text(xx+12,yy+66+20*counter,entries_array[counter,1]);
 
     }

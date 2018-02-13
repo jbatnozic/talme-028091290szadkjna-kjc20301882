@@ -7,10 +7,11 @@ No arguments.
 Returns nothing.
 */
 
-global.buff_grid=ds_grid_create(17,0);
-global.buff_speed=6; // Putting a higher number here will result in better
-                     // performance but less accuracy. At 6 the system's window
-                     // if mistake is about 100 milliseconds.
+global.buff_user_list = ds_list_create();
+global.buff_grid = ds_grid_create(17, 0);
+global.buff_speed = 6; // Putting a higher number here will result in better
+                       // performance but less accuracy. At 6 the system's window
+                       // if mistake is about 100 milliseconds.
 
 //DEFINE BUFFS:
 
@@ -40,7 +41,7 @@ enum BUFF_ID {
  // enum BUFF_ID above! Otherwise errors WILL occur. This kind of order
  // saves the system a lot of searching and speeds it up a lot.
  
- //Neutral buff: buf_define_buff(BUFF_ID.abc,false,0,0,1,1,1,0,0,1,1,1,1,1,1,1);
+ // Neutral buff: buf_define_buff(BUFF_ID.abc,false,0,0,1,1,1,0,0,1,1,1,1,1,1,1);
  
  buf_define_buff(BUFF_ID.heart_attack_1,false,0,0,0.80,0.82,0.80,0,0,1,1,1,1,1,1,1);
  buf_define_buff(BUFF_ID.heart_attack_2,false,0,0,0.75,0.80,0.75,0,0,1,1,1,1,1,1,1);

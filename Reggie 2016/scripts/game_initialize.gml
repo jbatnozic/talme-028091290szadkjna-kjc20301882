@@ -1,4 +1,4 @@
-///game_initialize(no_dynamic,new_game)
+///game_initialize(no_dynamic, new_game)
 /*
 
 */ 
@@ -125,7 +125,7 @@ game_set_properties();
 // DYNAMIC: //
 //**********//
 
-if (argument0=true) exit;
+if (argument0 == true) exit;
 
 crafting_initialise();
 journal_initialise();
@@ -144,7 +144,7 @@ barter_initialise();
 heart_initialise();
 sev_initialise();
 
-if (argument1==1)
+if (argument1 == true)
   sev_set_new_game();
 
 NSP_initialize();

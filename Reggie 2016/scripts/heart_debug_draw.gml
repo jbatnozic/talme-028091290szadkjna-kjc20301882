@@ -38,6 +38,6 @@ draw_set_valign(fa_top);
 
 draw_text(argument0,argument1+108,"Admin mod: "+string(global.heart_admin_mod)+
                                   "#Counter: "+string(global.heart_time_passed)+
-                                  "#Safe period: "+ite_ext(global.heart_time_passed<=HEART.safe_period,"Yes","No")+
+                                  "#Safe period: "+cpptern(global.heart_time_passed<=HEART.safe_period,"Yes","No")+
                                   "#Damage mod: "+string(30-HEART.max_ter_mod*((global.player_obj_id)._health/PLAYER.topHealth))+"%"
                                   );

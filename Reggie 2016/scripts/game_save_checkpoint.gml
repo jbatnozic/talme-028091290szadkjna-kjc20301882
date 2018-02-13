@@ -7,7 +7,7 @@ instance_activate_all();
 
 with (bodyParObj) {
 
- _bufSave=ds_grid_write(local_buff_grid);
+ _bufSave = ds_grid_write(local_buff_grid);
  
  }
 

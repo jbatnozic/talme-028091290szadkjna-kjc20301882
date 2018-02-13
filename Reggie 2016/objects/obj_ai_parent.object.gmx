@@ -852,7 +852,7 @@ if instance_exists(tracker)=true and tracker&gt;0 {
   
  //Grounded &amp; ceiling check: 
  __grounded=_grounded;
- __ceiling=place_meeting_terrain(x,y-_jumpPower-ite_ext(_moveType==1,_relY,0),false);
+ __ceiling=place_meeting_terrain(x,y-_jumpPower-cpptern(_moveType==1,_relY,0),false);
 
  //Left / right:
  if (__grounded=true or _hspeed=0) {
@@ -1270,7 +1270,7 @@ if object_index=obj_ai_parent and
   //Needed angle:
   if c=true
    n=point_direction(x,y,_target.x,_target.y)
-   else n=ite_ext(image_xscale==1,0,-1);
+   else n=cpptern(image_xscale==1,0,-1);
   //Angle difference:
   d=angle_difference(n,_weaponAngle); 
   //Speed coefficient:
@@ -1500,7 +1500,7 @@ if other._grounded=1
 
 
 draw_sprite_ext(mask_index,0,x,y,1,1,0,c_white,0.5);
-draw_sprite_ext(sprite_index,0,x,y,image_xscale,ite(_moveHeight,1,0.5,1),1,c_white,1);
+draw_sprite_ext(sprite_index,0,x,y,image_xscale,tern(_moveHeight,1,0.5,1),1,c_white,1);
 
 if _attackTimer&gt;=0
  draw_sprite_ext(mask_index,0,x,y,1,1,0,c_yellow,0.5);

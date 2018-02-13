@@ -426,7 +426,7 @@ if _hspeed&lt;&gt;0 {
             <string>///Draw Self
 
 draw_sprite_ext(mask_index,0,x,y,1,1,0,c_white,0.25);
-draw_sprite_ext(sprite_index,0,x,y,image_xscale,ite(_moveHeight,1,0.5,1),1,c_white,1);
+draw_sprite_ext(sprite_index,0,x,y,image_xscale,tern(_moveHeight,1,0.5,1),1,c_white,1);
 
 if _attackTimer&gt;=0
  draw_sprite_ext(mask_index,0,x,y,1,1,0,c_yellow,0.5);

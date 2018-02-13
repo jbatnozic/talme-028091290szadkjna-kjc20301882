@@ -265,7 +265,7 @@ if global.inventory_list[counter]&lt;&gt;-1 {
  draw_sprite_ext(spr,0,xx+9,yy+counter*20+43,0.5,0.5,0,c_white,1); 
 
 //Clickable text boxes:
-spr=ite(global.inventory_list[counter],selected,1,0);
+spr=tern(global.inventory_list[counter],selected,1,0);
 if gui_draw_sprite_clickable(spr_window_name_box,spr,xx+29,yy+counter*20+43,1)=true
  {selected=global.inventory_list[counter];
   desc_text="";
@@ -391,8 +391,8 @@ if selected&lt;&gt;0 begin
 
 //Item name:
 draw_set_color(c_black); 
-if selected&gt;0 str=global.inventory_current[selected,1]+ite(sign(global.inventory_current[selected,3]-1),1," ("+string(global.inventory_current[selected,3])+")","");
- else if selected&gt;-6 str=global.inventory_quick[-selected,1]+ite(sign(global.inventory_quick[-selected,3]-1),1," ("+string(global.inventory_quick[-selected,3])+")","");
+if selected&gt;0 str=global.inventory_current[selected,1]+tern(sign(global.inventory_current[selected,3]-1),1," ("+string(global.inventory_current[selected,3])+")","");
+ else if selected&gt;-6 str=global.inventory_quick[-selected,1]+tern(sign(global.inventory_quick[-selected,3]-1),1," ("+string(global.inventory_quick[-selected,3])+")","");
   else str=global.inventory_armour[1];
 draw_text(xx+252,yy+42,str);
 

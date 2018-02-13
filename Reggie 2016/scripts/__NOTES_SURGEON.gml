@@ -12,6 +12,11 @@
    ++Shops' inventories do not increase when The Player sells something, but they
      do decrease when The Player buys something.
      
+   ROOM INITIALIZATION ORDER:
+   1. obj_initializer
+   2. obj_hg_controller
+   3. obj_game_controller
+     
    OBJECT DEPTHS: [Objects with higher depths go first]
    -150 Finite state machines
    -125 Mercury controller
@@ -37,6 +42,7 @@
   Enemy animations
   Setting to turn splat surfaces on/off
   Sound (sfx system)
+  Fix 'dirs' in obj_gui_load_game
   
   -Polish:
    Rewrite screen_shake

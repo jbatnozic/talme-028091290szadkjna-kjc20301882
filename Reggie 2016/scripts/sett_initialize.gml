@@ -10,7 +10,8 @@ enum SETT_TYPE {
  control_button,
  title,
  fixed,
- toggle
+ toggle,
+ execute_string
 
  }
  
@@ -73,15 +74,15 @@ global.sett_map=ds_map_create();
  sett_define_value("GUI Scale",SETT_TYPE.selection,SETT_GROUP.graphics,"100%","125%","150%","175%","200%");
   sett_desc_to_last("Determines size of the GUI elements.");
  sett_define_value("Fullscreen",SETT_TYPE.toggle,SETT_GROUP.graphics,"Off","On");
-  sett_desc_to_last("::");
+  sett_desc_to_last("Toggle whether the game will run in fullscreen or windowed mode.");
  sett_define_value("Info Box Opacity",SETT_TYPE.percent_scale,SETT_GROUP.graphics,0,100);
   sett_desc_to_last("Minimal opacity of the info box when it fades (when not in use).");
  sett_define_value("Frame skipping",SETT_TYPE.toggle,SETT_GROUP.graphics,"On","Off");
   sett_desc_to_last("Helps improve performance when On.");
  sett_define_value("V-Sync",SETT_TYPE.toggle,SETT_GROUP.graphics,"On","Off");
-  sett_desc_to_last("::");
+  sett_desc_to_last("When On, vertical synchronization can help avoid screen tearing. This setting may or may not work depending on your graphics card settings. IMPORTANT: After changing, go to 'Misc' section and reset the display.");
  sett_define_value("Anti-Alias",SETT_TYPE.selection,SETT_GROUP.graphics,"x0","x2","x4","x8");
-  sett_desc_to_last("::");
+  sett_desc_to_last("When On (> x0), anti-aliasing smoothes out jagged edges. This setting may or may not work depending on your graphics card settings. IMPORTANT: After changing, go to 'Misc' section and reset the display.");
  sett_define_value("Interpolation",SETT_TYPE.toggle,SETT_GROUP.graphics,"On","Off");
   sett_desc_to_last("::");
  sett_define_value("Smooth lighting",SETT_TYPE.toggle,SETT_GROUP.graphics,"On","Off");
@@ -97,11 +98,13 @@ global.sett_map=ds_map_create();
   sett_desc_to_last("Volume for everything.");
  
  //Misc. (Other):
- global.sett_misc=2;
+ global.sett_misc=3;
  sett_define_value("Tooltip position",SETT_TYPE.toggle,SETT_GROUP.misc,"Cursor","Fixed");
   sett_desc_to_last("Whether the tooltips will be drawn next to the cursor or in a fixed place.");
- sett_define_value("Reset to Defaults",SETT_TYPE.toggle,SETT_GROUP.misc,"0","1");
+ sett_define_value("Reset to Defaults",SETT_TYPE.execute_string,SETT_GROUP.misc,"");
   sett_desc_to_last("Revert all settings back to their original values.");
+ sett_define_value("Reset Display", SETT_TYPE.execute_string, SETT_GROUP.misc, "sett_reset_display();");
+  sett_desc_to_last("");
  
 //DEFAULTS:
 sett_set_defaults();
@@ -110,11 +113,14 @@ ini_open("Settings.ini");
 
 if (!ini_section_exists("SETTINGS")) {
   
-  ini_write_string("SETTINGS","Settings",sett_write());
+  ini_write_string("SETTINGS", "Settings", sett_write());
+  
   }
-  else {
-    sett_read(ini_read_string("SETTINGS","Settings",""));
-    }
+else {
+
+  sett_read(ini_read_string("SETTINGS", "Settings", ""));
+  
+  }
     
 ini_close();
 

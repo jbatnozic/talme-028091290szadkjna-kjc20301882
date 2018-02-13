@@ -89,7 +89,7 @@ if (pnc_int(id)) {
 if (game_paused()) exit;
 
 if pnc_cursor_in_mask(4,0)
-  pnc_set_tooltip(id,"Tom#&lt;"+key_int()+": Speak&gt;");
+  pnc_set_tooltip(id, "Tom#&lt;"+key_int()+": Speak&gt;");
 </string>
           </argument>
         </arguments>
