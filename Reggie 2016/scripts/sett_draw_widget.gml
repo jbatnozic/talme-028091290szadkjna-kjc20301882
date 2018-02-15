@@ -6,7 +6,7 @@ switch (argument[1]) begin
  case SETT_TYPE.selection:
    draw_sprite(spr_window_settings_selection,0,argument[3],argument[4]);
    
-   if gui_draw_rectangle_clickable(argument[3],argument[4],55,13,true)=true {
+   if gui_draw_rectangle_clickable(argument[3],argument[4],112,26,true)=true {
    
     //***
     v=sett_get_value(argument[0]);
@@ -27,7 +27,7 @@ switch (argument[1]) begin
    
     }
     
-   if gui_draw_rectangle_clickable(argument[3]+71,argument[4],55,13,true)=true {
+   if gui_draw_rectangle_clickable(argument[3]+142,argument[4],112,26,true)=true {
     
     //***
     v=sett_get_value(argument[0]);
@@ -69,7 +69,7 @@ switch (argument[1]) begin
  case SETT_TYPE.percent_scale:
    
    a=sett_get_value(argument[0]);
-   a=gui_draw_scale_clickable(argument[3],argument[4],argument[3]+127,argument[4]+13,spr_window_settings_scale,a,global.sett_grid[#6,argument[2]],5);
+   a=gui_draw_scale_clickable(argument[3],argument[4],argument[3]+254,argument[4]+26,spr_window_settings_scale,a,global.sett_grid[#6,argument[2]],5);
    sett_set_value(argument[0],a);
  
   break;

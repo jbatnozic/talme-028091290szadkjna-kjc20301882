@@ -54,7 +54,8 @@ inv_item_define("Fuel",INV_TYPE.ammo,0,0,1000,-1,0,"Ammo for Flamethrower",spr_i
 //Consumable:
 inv_item_define("Stimpack",INV_TYPE.consumable,0,1,100,-1,0,"A healing chem.",spr_item_consumable_default);
 inv_item_define("Relaxer",INV_TYPE.consumable,0,1,100,-1,0,"Relaxer increases accuracy while slightly reducing the chance for a heart attack. The generic brand’s side effect is that it makes the player move slower (both in sprint and regular movement, including jumping and dodging) and slows stamina regen. ",spr_item_consumable_default);
-inv_item_define("Jitter",INV_TYPE.consumable,0,1,100,-1,0,"Jitter increases movement speed, acceleration, and reload speed. The generic brand’s side effect is that it makes the player more inaccurate, as well as an even more increased chance (than typical) for a heart attack.",spr_item_consumable_default);
+var s = "Jitter increases movement speed, acceleration, and reload speed. The generic brand’s side effect is that it makes the player more inaccurate, as well as an even more increased chance (than typical) for a heart attack. ";
+inv_item_define("Jitter",INV_TYPE.consumable,0,1,100,-1,0, s+s+s+s+s/*"Jitter increases movement speed, acceleration, and reload speed. The generic brand’s side effect is that it makes the player more inaccurate, as well as an even more increased chance (than typical) for a heart attack."*/ ,spr_item_consumable_default);
 inv_item_define("CTW",INV_TYPE.consumable,0,1,100,-1,0,"Increases carry weight, stamina regen, jump distance, and increased resistance to being knocked away by larger Primals. The generic brand slows stops health natural health regen (in other words, it won’t round up to the nearest 10th) until the drug’s effects wear off completely.",spr_item_consumable_default);
 
 //Bulk:

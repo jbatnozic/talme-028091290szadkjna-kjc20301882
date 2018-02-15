@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>MAXWIDTH=200;
-FONT=f_windows;
+FNT=fnt_get(FONT.window);
 SEP=12;
 PAD=8;
 
@@ -137,7 +137,7 @@ if (_complex==false) {
   }
 else {
 
-  TPP_text_print(dx+PAD,dy+PAD,_text,_colour,1,FONT,fa_bottom,-1);
+  TPP_text_print(dx+PAD,dy+PAD,_text,_colour,1,FNT,fa_bottom,-1);
 
   }
   

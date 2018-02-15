@@ -317,7 +317,7 @@ spr=min(mode,1);
 draw_sprite(sprite_index,spr,xx,yy);
 
 //Font setup:
-draw_set_font(f_windows);
+fnt_draw_set(FONT.window);
 draw_set_alpha(1);
 draw_set_valign(fa_top);
 draw_set_halign(fa_left);

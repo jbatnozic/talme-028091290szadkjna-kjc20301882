@@ -85,9 +85,43 @@ image_speed=0;
 
 instance_create(0,0,obj_camera);
 
+//Hand position:
+_handX = x;
+_handY = y;
+
 //Camera positioning
-_camx = x-view_wview[0]/2;
-_camy = y-view_hview[0]/2;
+_camx = x - view_wview[0]/2;
+_camy = y - view_hview[0]/2;
+
+//Shoulder positions - X:
+arr_fore_h[0,0] = 20; arr_fore_h[0,1] = 19;
+arr_fore_h[1,0] = 20; arr_fore_h[1,1] = 18;
+arr_fore_h[2,0] = 22; arr_fore_h[2,1] = 17;
+arr_fore_h[3,0] = 20; arr_fore_h[3,1] = 17;
+arr_fore_h[4,0] = 21; arr_fore_h[4,1] = 18;
+arr_fore_h[5,0] = 17; arr_fore_h[5,1] = 16;
+arr_fore_h[6,0] = 15; arr_fore_h[6,1] = 16;
+arr_fore_h[7,0] = 19; arr_fore_h[7,1] = 16;
+
+//Shoulder positions - Y:
+arr_back_h[0,0] = 23; arr_back_h[0,1] = 19;
+arr_back_h[1,0] = 20; arr_back_h[1,1] = 18;
+arr_back_h[2,0] = 17; arr_back_h[2,1] = 16;
+arr_back_h[3,0] = 19; arr_back_h[3,1] = 17;
+arr_back_h[4,0] = 21; arr_back_h[4,1] = 18;
+arr_back_h[5,0] = 23; arr_back_h[5,1] = 17;
+arr_back_h[6,0] = 25; arr_back_h[6,1] = 16;
+arr_back_h[7,0] = 24; arr_back_h[7,1] = 16;
+
+// Shoulder positions - Other:
+sh_fx = 0; sh_fy = 0;
+sh_bx = 0; sh_by = 0;
+
+
+
+
+
+
 </string>
           </argument>
         </arguments>
@@ -520,55 +554,6 @@ end else { //Movement in cut-scenes
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Image -- STUB
-
-//Grounded check (Very important!):
-//_grounded=place_meeting_terrain(x,y+8,!keyboard_check(userControls[KEYBOARD.crawl]),y+2)==true
-
-if (_hspeed=0 or _grounded=false)
- _imageState=0
- else
-  _imageState=1;  
- 
-switch (_imageState) begin
- 
- case 0: //Idle
-   image_index=0;
-  break;
-   
- case 1: //Running without weapon
-   image_index+=0.25;
-  break;
-   
- default:
-  break;
- 
-end;
-
-//Facing:
-if _hspeed&lt;&gt;0 {
- _imageXScale=sign(_hspeed);
- }
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
             <string>///Quick items
 
 if !(global.scene_active) begin
@@ -603,6 +588,94 @@ if !(global.scene_active) begin
   }
   
 end;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Image -- STUB
+
+//Grounded check (Very important!):
+//_grounded=place_meeting_terrain(x,y+8,!keyboard_check(userControls[KEYBOARD.crawl]),y+2)==true
+
+var has_item = (global.inventory_quick[global.inventory_active,1] != "ZZZZZ");
+
+//Facing:
+if (has_item) {
+  if (mouse_x - x != 0) _imageXScale = sign(mouse_x - x);
+  }
+else {
+  if (_hspeed != 0) _imageXScale = sign(_hspeed);
+  }
+
+//Image state:
+if (_hspeed == 0 or _grounded == false)
+  _imageState = 0
+else
+  _imageState = 1;
+  
+if (has_item)
+  _imageState += 2;
+ 
+switch (_imageState) begin
+ 
+ case 0: // Idle without item
+   image_index = 0;
+   sprite_index = spr_player_run; // TEMP
+  break;
+   
+ case 1: // Running without item
+   image_index += 0.25;
+   sprite_index = spr_player_run;
+  break;
+  
+ case 2: // Idle with item
+   image_index = 0;
+   sprite_index = spr_player_run_armless; // TEMP
+  break;
+ 
+ case 3: // Running with item
+   image_index += 0.25 * cpptern(_imageXScale == sign(_hspeed), 1, -1);
+   sprite_index = spr_player_run_armless;
+  break;
+   
+ default:
+  break;
+ 
+end;
+
+image_index = (image_index mod image_number);
+
+//Arms:
+var spr = sprite_index;
+
+sh_fy = y - sprite_get_yoffset(spr) + arr_fore_h[image_index,1];
+sh_by = y - sprite_get_yoffset(spr) + arr_back_h[image_index,1];
+
+if (_movementState != 0) { /* Adjust Y for crouching */ }
+
+sh_fx = x - (sprite_get_xoffset(spr) - arr_fore_h[image_index,0]) * _imageXScale;
+sh_bx = x - (sprite_get_xoffset(spr) - arr_back_h[image_index,0]) * _imageXScale;
+
+// TEMP:
+_handX = sh_fx + dcos(point_direction(sh_fx,sh_fy,mouse_x,mouse_y)) * sprite_get_width(spr_temp_arm) * 0.66;
+_handY = sh_fy - dsin(point_direction(sh_fx,sh_fy,mouse_x,mouse_y)) * sprite_get_width(spr_temp_arm) * 0.66;
+
 </string>
           </argument>
         </arguments>
@@ -711,18 +784,30 @@ if (__item &lt;&gt; "") and
             <kind>1</kind>
             <string>///Draw self
 
-//draw_sprite_ext(mask_index,0,x,y,1,1,0,c_white,0.5);
+/*var spr, fxx, fyy, bxx, byy;
 
-draw_sprite_ext(spr_player_run,image_index,x,y,_imageXScale,cpptern(_movementState&lt;&gt;0,0.5,1),0,c_white,1);
+spr = spr_player_run_armless;
 
-/*var s;
+fyy = y - sprite_get_yoffset(spr) + arr_fore_h[image_index,1];
+byy = y - sprite_get_yoffset(spr) + arr_back_h[image_index,1];
 
-s="abc,#def,#ghi,#etc."
-s+="#uop!";
+if (_movementState != 0) { /* Adjust Y for crouching * }
 
-draw_text_ext(mouse_x,mouse_y,s,16,999);*/
- 
-//draw_bbox(0,c_fuchsia);
+fxx = x - (sprite_get_xoffset(spr) - arr_fore_h[image_index,0]) * _imageXScale;
+bxx = x - (sprite_get_xoffset(spr) - arr_back_h[image_index,0]) * _imageXScale;
+
+_handX = fxx + dcos(point_direction(fxx,fyy,mouse_x,mouse_y)) * sprite_get_width(spr_temp_arm) * 0.66;
+_handY = fyy - dsin(point_direction(fxx,fyy,mouse_x,mouse_y)) * sprite_get_width(spr_temp_arm) * 0.66;*/
+
+if (_imageState &gt;= 2)
+  draw_sprite_ext(spr_temp_arm,0,sh_bx,sh_by,1,1,point_direction(sh_bx,sh_by,mouse_x,mouse_y),c_dkgray,1);
+
+draw_sprite_ext(sprite_index,image_index,x,y,_imageXScale,cpptern(_movementState&lt;&gt;0,0.5,1),0,c_white,1);
+
+// STUB -- Draw item
+
+if (_imageState &gt;= 2)
+  draw_sprite_ext(spr_temp_arm,0,sh_fx,sh_fy,1,1,point_direction(sh_fx,sh_fy,mouse_x,mouse_y),c_white,1);
 </string>
           </argument>
         </arguments>
@@ -749,30 +834,6 @@ if !mouse_check_button_pressed(mb_middle) exit;
 //spl_draw_point(mouse_x-view_xview,mouse_y-view_yview);
 
 bubble_text_create(mouse_x,mouse_y,"sample text abCdEfG bla bla bla etc,,. aosj",120,c_white,0,0,0);
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="122">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///STUB
-window_set_fullscreen(!window_get_fullscreen());
 </string>
           </argument>
         </arguments>

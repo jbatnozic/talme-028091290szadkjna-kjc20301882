@@ -130,6 +130,7 @@
         <sprite>sprites\spr_mm_button</sprite>
         <sprite>sprites\spr_window_start_game</sprite>
         <sprite>sprites\spr_window_button_play</sprite>
+        <sprite>sprites\spr_mm_button_2</sprite>
       </sprites>
       <sprites name="Yes No">
         <sprite>sprites\spr_window_yes_no</sprite>
@@ -150,6 +151,7 @@
     </sprites>
     <sprites name="Bodies">
       <sprite>sprites\spr_player_run</sprite>
+      <sprite>sprites\spr_player_run_armless</sprite>
       <sprite>sprites\spr_dead_relative</sprite>
       <sprite>sprites\spr_player_crawl</sprite>
       <sprite>sprites\spr_player_bug</sprite>
@@ -202,6 +204,7 @@
         <sprite>sprites\spr_explosion</sprite>
       </sprites>
     </sprites>
+    <sprite>sprites\spr_temp_arm</sprite>
   </sprites>
   <backgrounds name="background">
     <backgrounds name="Tilesets">
@@ -259,12 +262,19 @@
         <script>scripts\HG_nearest_light_dist.gml</script>
         <script>scripts\TPP_define_local.gml</script>
         <script>scripts\execute_string_delayed.gml</script>
+        <script>scripts\ftlerp.gml</script>
+        <script>scripts\rtlerp.gml</script>
         <scripts name="Armours">
           <script>scripts\armour_get_speed.gml</script>
           <script>scripts\armour_get_streq.gml</script>
           <script>scripts\armour_get_ratio.gml</script>
           <script>scripts\armour_max_dur.gml</script>
         </scripts>
+      </scripts>
+      <scripts name="Fonts">
+        <script>scripts\fnt_initialize.gml</script>
+        <script>scripts\fnt_get.gml</script>
+        <script>scripts\fnt_draw_set.gml</script>
       </scripts>
       <scripts name="Game flow">
         <script>scripts\game_paused.gml</script>
@@ -286,7 +296,9 @@
         <script>scripts\gui_refresh.gml</script>
         <script>scripts\gui_draw_sprite_clickable.gml</script>
         <script>scripts\gui_draw_sprite_hover.gml</script>
+        <script>scripts\gui_draw_sprite_hover_scale.gml</script>
         <script>scripts\gui_draw_sprite_clickable_rel.gml</script>
+        <script>scripts\gui_draw_sprite_clickable_rel_ext.gml</script>
         <script>scripts\gui_draw_sprite_clickable_ext.gml</script>
         <script>scripts\gui_draw_rectangle_clickable.gml</script>
         <script>scripts\gui_draw_scale_clickable.gml</script>
@@ -302,6 +314,7 @@
         <script>scripts\gui_get_mouse_in_hud.gml</script>
         <script>scripts\draw_background_parallax.gml</script>
         <script>scripts\draw_background_parallax_lim.gml</script>
+        <script>scripts\gui_get_view_position.gml</script>
       </scripts>
       <scripts name="Point n Click">
         <script>scripts\pnc_initialize.gml</script>
@@ -999,11 +1012,10 @@
     </shaders>
   </shaders>
   <fonts name="fonts">
-    <font>fonts\f_windows</font>
-    <font>fonts\f_windows_small</font>
-    <font>fonts\f_textbox_regular</font>
-    <font>fonts\f_textbox_bold</font>
-    <font>fonts\f_textbox_italic</font>
+    <font>fonts\f_exo2med_16</font>
+    <font>fonts\f_palatino_26</font>
+    <font>fonts\f_palatino_26_bold</font>
+    <font>fonts\f_palatino_26_italic</font>
   </fonts>
   <objects name="objects">
     <object>objects\placeholderObj</object>

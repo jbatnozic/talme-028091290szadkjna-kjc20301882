@@ -39,11 +39,19 @@ NSP_initialize();
 
 sett_initialize();
 
+//ptc_initialize();
+//sett_set_value("GUI Scale", "100%"); // in case I screw up...
+
 // Restore graphics settings:
-sett_reset_display();
+if (global.just_started_running) {
+  sett_reset_display();
+  global.just_started_running = false;
+  }
+  
 gui_set_scale( real(string_digits(sett_get_value("GUI Scale")))/100 );
 
 display_set_gui_maximise(gui_get_scale(), gui_get_scale(), 0, 0);
+
 window_set_fullscreen(sett_get_value("Fullscreen")=="On");
 
 // Other:
@@ -84,6 +92,75 @@ application_surface_draw_enable(true);
   display_set_gui_maximise(gui_get_scale(), gui_get_scale(), 0, 0);
     
   }
+  
+/*ptc_create_particles(mouse_x,mouse_y,16,16,PTC_TYPE.fire,3,0,-1);
+part_system_update(global.ptc_system_back);
+part_system_update(global.ptc_system_fore);*/
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>
+var xx, yy, sh = sprite_get_height(spr_mm_button);
+
+var tlerp = (sett_get_value("Interpolation") == "On");
+
+if (!(instance_exists(obj_gui_load_game) or instance_exists(obj_gui_settings))) {
+
+  var a = gui_get_view_position();
+  
+  xx = a[0] + 20;
+  yy = a[3] - (sh*3 + 60);
+  
+  ftlerp();
+  
+  if (gui_draw_sprite_clickable(spr_mm_button, 0, xx, yy, true)) {
+    instance_create(0,0,obj_gui_load_game);
+    }
+    
+  if (gui_draw_sprite_clickable(spr_mm_button, 1, xx, yy + sh + 20, true)) {
+    instance_create(0,0,obj_gui_settings);
+    }
+    
+  if (gui_draw_sprite_clickable(spr_mm_button, 2, xx, yy + 2*sh + 40, true)) {
+    game_end();
+    }
+    
+  rtlerp(tlerp);
+  
+  }
+else {
+  
+  draw_set_colour(c_black);
+  draw_set_alpha(0.75);
+  draw_rectangle(0,0,gui_width(),gui_height(),false);
+  draw_set_alpha(1);
+
+  }
+    
+/*draw_set_colour(c_red);
+draw_set_alpha(1);
+
+draw_line(a[0],a[1],a[2],a[3]);
+draw_line(a[0],a[3],a[2],a[1]);*/
 </string>
           </argument>
         </arguments>
@@ -115,6 +192,33 @@ draw_set_halign(fa_left);
 draw_set_colour(c_black);
 
 draw_text(x,y,"MAIN MENU:#Press 1 to play");*/
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="49">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// TEMP
+
+sett_free();
+NSP_free(true);
+room_goto_next();
 </string>
           </argument>
         </arguments>

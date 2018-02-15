@@ -7,6 +7,9 @@
    AI:
    ++_prefTolerance --> Error margin for preferred distance.
    
+   FONT:
+   -Erika Ormig
+   
    OTHER:
    ++Save / Load actions MUST be in the Draw GUI event (because of the order of events).
    ++Shops' inventories do not increase when The Player sells something, but they
@@ -36,6 +39,7 @@
     
 >>To do:
   
+Dialogs should pause the game or something
   Capitalize setting names
   Free entire current room in roomGoto ABS_END
   Window size setting
@@ -43,6 +47,7 @@
   Setting to turn splat surfaces on/off
   Sound (sfx system)
   Fix 'dirs' in obj_gui_load_game
+  Forced interpolation when downscaling the UI
   
   -Polish:
    Rewrite screen_shake

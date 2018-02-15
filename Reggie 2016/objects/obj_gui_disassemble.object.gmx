@@ -164,7 +164,7 @@ if update_list=true {
             <kind>1</kind>
             <string>var spr,val,name,counter;
 
-draw_set_font(f_windows);
+fnt_draw_set(FONT.window);
 
 //Set up GUI x and y:
 xx=gui_width()/2-sprite_get_width(sprite_index)/2;

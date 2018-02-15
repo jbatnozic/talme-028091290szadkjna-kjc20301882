@@ -120,6 +120,7 @@ userControls[KEYBOARD.pause]=vk_escape;
 
 //Game Properties:
 game_set_properties();
+fnt_initialize();
 
 //**********//
 // DYNAMIC: //

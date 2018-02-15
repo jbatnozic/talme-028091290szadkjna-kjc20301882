@@ -10,8 +10,11 @@ argument1 - (Integer) How smooth the rotation will be (about 80 is optimal).
 Returns nothing.
 */
 
- x=(global.player_obj_id).x; //STUB
- y=(global.player_obj_id).y-10; 
+ //x=(global.player_obj_id).x; //STUB
+ //y=(global.player_obj_id).y-10; 
+ 
+ x = (global.player_obj_id)._handX;
+ y = (global.player_obj_id)._handY;
 
 var n,d,f;
 

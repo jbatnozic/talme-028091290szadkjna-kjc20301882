@@ -71,7 +71,7 @@ global.sett_map=ds_map_create();
  
  //Graphics:
  global.sett_graphics=10;
- sett_define_value("GUI Scale",SETT_TYPE.selection,SETT_GROUP.graphics,"100%","125%","150%","175%","200%");
+ sett_define_value("GUI Scale",SETT_TYPE.selection,SETT_GROUP.graphics,"50%","75%","100%","125%","150%");
   sett_desc_to_last("Determines size of the GUI elements.");
  sett_define_value("Fullscreen",SETT_TYPE.toggle,SETT_GROUP.graphics,"Off","On");
   sett_desc_to_last("Toggle whether the game will run in fullscreen or windowed mode.");

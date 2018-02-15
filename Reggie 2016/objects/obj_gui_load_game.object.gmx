@@ -32,6 +32,8 @@ selected="";
 xx=0;
 yy=0;
 
+sprite_scale = 2;
+
 newgame="Start new game...";
 
 //Gather directory names:
@@ -172,14 +174,15 @@ if keyboard_check_pressed(userControls[KEYBOARD.pause])=true
           <argument>
             <kind>1</kind>
             <string>var str,spr,i,counter,check;
-draw_set_font(f_windows);
+
+fnt_draw_set(FONT.window);
 
 //Set up GUI x and y:
-xx=gui_width()/2-sprite_get_width(sprite_index)/2;
-yy=gui_height()/2-sprite_get_height(sprite_index)/2;
+xx=gui_width()/2-sprite_get_width(sprite_index)*sprite_scale/2;
+yy=gui_height()/2-sprite_get_height(sprite_index)*sprite_scale/2;
 
 //Draw own sprite:
-draw_sprite(spr_window_start_game,0,xx,yy);
+draw_sprite_ext(spr_window_start_game,0,xx,yy,sprite_scale,sprite_scale,0,c_white,1);
 
 //COMBINATION LIST:
 draw_set_alpha(1);
@@ -195,26 +198,26 @@ for (i=scroll; i&lt;min(scroll+9,ds_list_size(dirs)); i+=1) {
 
  //Clickable text boxes:
  spr=tern(dirs[|i],selected,1,0);
- if gui_draw_sprite_clickable(spr_window_name_box,spr,xx+29,yy+i*20+63,1)=true {
+ if gui_draw_sprite_clickable_ext(spr_window_name_box,spr,xx+58,yy+i*40+126,1,2,2,1)=true {
   selected=dirs[|i]
   }
 
  //Combination names:
  draw_set_color(c_black);
- draw_text(xx+32,yy+65+20*i,dirs[|i]);
+ draw_text(xx+64,yy+130+40*i,dirs[|i]);
 
 end;
 //LOOP END;
 
 //Filter title:
 draw_set_color(c_black);
-draw_text(xx+14,yy+42,"Choose a save file:");
+draw_text(xx+28,yy+84,"Choose a save file:");
 
 //FILE DETAILS BEGIN:
 
 if (selected&lt;&gt;"") {
 
- if gui_draw_sprite_clickable(spr_window_button_play,0,xx+249,yy+249,true)=true {
+ if gui_draw_sprite_clickable_ext(spr_window_button_play,0,xx+498,yy+498,true,2,2,1)=true {
   
   switch (room) begin
   
@@ -258,15 +261,17 @@ if (selected&lt;&gt;"") {
 //FILE DETAILS END;
 
 //Scroll buttons:
-if gui_draw_sprite_clickable(spr_window_button_scroll,0,xx+212,yy+63,true)=true {
+if gui_draw_sprite_clickable(spr_window_button_scroll,0,xx+424,yy+126,true)=true {
  if scroll&gt;0 scroll-=1;
  }
-if gui_draw_sprite_clickable(spr_window_button_scroll,1,xx+212,yy+243,true)=true {
+if gui_draw_sprite_clickable(spr_window_button_scroll,1,xx+424,yy+486,true)=true {
  if scroll&lt;ds_list_size(dirs)-10 scroll+=1;
  }
+ 
+// STUB - Scroll bar
 
 //Close button:
-if gui_draw_sprite_clickable_rel(spr_window_close,0,xx+305,yy+270)
+if gui_draw_sprite_clickable_rel(spr_window_close,0,xx+610,yy+540)
   instance_destroy();
 </string>
           </argument>

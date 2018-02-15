@@ -51,7 +51,7 @@
     <option_android_interpolate>-1</option_android_interpolate>
     <option_android_licensing_enable>0</option_android_licensing_enable>
     <option_android_licensing_key></option_android_licensing_key>
-    <option_android_lint>true</option_android_lint>
+    <option_android_lint>-1</option_android_lint>
     <option_android_major_version>1</option_android_major_version>
     <option_android_min_sdk_version>9</option_android_min_sdk_version>
     <option_android_minor_version>0</option_android_minor_version>
@@ -127,7 +127,7 @@
     <option_androidfire_large_icon_png>Configs\Default\amazonfire\icons\large_icon.png</option_androidfire_large_icon_png>
     <option_androidfire_licensing_enable>false</option_androidfire_licensing_enable>
     <option_androidfire_licensing_key></option_androidfire_licensing_key>
-    <option_androidfire_lint>true</option_androidfire_lint>
+    <option_androidfire_lint>0</option_androidfire_lint>
     <option_androidfire_major_version>1</option_androidfire_major_version>
     <option_androidfire_min_sdk_version>9</option_androidfire_min_sdk_version>
     <option_androidfire_minor_version>0</option_androidfire_minor_version>
@@ -196,7 +196,7 @@
     <option_androidtv_large_icon_png>Configs\Default\androidtv\icons\large_icon.png</option_androidtv_large_icon_png>
     <option_androidtv_licensing_enable>0</option_androidtv_licensing_enable>
     <option_androidtv_licensing_key></option_androidtv_licensing_key>
-    <option_androidtv_lint>true</option_androidtv_lint>
+    <option_androidtv_lint>-1</option_androidtv_lint>
     <option_androidtv_major_version>1</option_androidtv_major_version>
     <option_androidtv_minor_version>0</option_androidtv_minor_version>
     <option_androidtv_moga>0</option_androidtv_moga>
@@ -228,7 +228,7 @@
     <option_facebook_app_display_name></option_facebook_app_display_name>
     <option_facebook_appid></option_facebook_appid>
     <option_facebook_enable>0</option_facebook_enable>
-    <option_fast_collision_compatibility>false</option_fast_collision_compatibility>
+    <option_fast_collision_compatibility>False</option_fast_collision_compatibility>
     <option_freeze>false</option_freeze>
     <option_frequency>0</option_frequency>
     <option_frontimage>nil</option_frontimage>
@@ -536,11 +536,11 @@
     <option_win8_store_logo>Configs\Default\Windows8\logos\logo50.png</option_win8_store_logo>
     <option_win8_texture_page>1024</option_win8_texture_page>
     <option_win8_wide_logo>Configs\Default\Windows8\logos\logo310.png</option_win8_wide_logo>
-    <option_winUAP_allowfullscreen>false</option_winUAP_allowfullscreen>
+    <option_winUAP_allowfullscreen>0</option_winUAP_allowfullscreen>
     <option_winUAP_build_version>0</option_winUAP_build_version>
     <option_winUAP_certificate_location>WinUWPRunner_TemporaryKey.pfx</option_winUAP_certificate_location>
     <option_winUAP_display_name>Reggie</option_winUAP_display_name>
-    <option_winUAP_fullscreen>false</option_winUAP_fullscreen>
+    <option_winUAP_fullscreen>0</option_winUAP_fullscreen>
     <option_winUAP_internet_capable>0</option_winUAP_internet_capable>
     <option_winUAP_interpolate>-1</option_winUAP_interpolate>
     <option_winUAP_landscape_allowed>-1</option_winUAP_landscape_allowed>

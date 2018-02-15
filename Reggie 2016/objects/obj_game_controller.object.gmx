@@ -64,6 +64,8 @@ window_set_min_height(180*2);
 window_set_min_width(320*2);
 
 //Other:
+hud_scale = 2;
+
 _mouseHudPos=0;
 _hudOffset=1.5;
 _heartFrame=0;
@@ -764,51 +766,51 @@ if (0) {
 //-------------------------------------------------------------------------------------------------------------
 
 //Set up HUD X and Y:
-xx=gui_width()/2-sprite_get_width(spr_hud_2)/2;
-yy=gui_height()-sprite_get_height(spr_hud_2);
- yy+=sprite_get_height(spr_hud_2)*(_hudOffset);
+xx=gui_width()/2-sprite_get_width(spr_hud_2)*hud_scale/2;
+yy=gui_height()-sprite_get_height(spr_hud_2)*hud_scale;
+ yy+=sprite_get_height(spr_hud_2)*hud_scale*(_hudOffset);
 
 //Draw HUD sprite:
-draw_sprite(spr_hud_2,0,xx,yy);
+draw_sprite_ext(spr_hud_2,0,xx,yy,hud_scale,hud_scale,0,c_white,1);
 
 //Stamina and Health:
 std=((global.player_obj_id)._stamina/PLAYER.topStamina);
-gui_draw_bar(spr_hud_stamina_2,0,xx+193,yy+31,std,true);
+gui_draw_bar(spr_hud_stamina_2,0,xx+386,yy+62,std,true);
 
 hpd=((global.player_obj_id)._health/PLAYER.topHealth);
-gui_draw_bar(spr_hud_health_2,0,xx+125,yy+31,hpd,false);
+gui_draw_bar(spr_hud_health_2,0,xx+250,yy+62,hpd,false);
 
 ard=((global.player_obj_id)._armour/PLAYER.topHealth);
-gui_draw_bar(spr_hud_armour,0,xx+125,yy+31,ard,false);
+gui_draw_bar(spr_hud_armour,0,xx+250,yy+62,ard,false);
 
 //-------------------------------------------------------------------------------------------------------------
 
 //Set up Heart X and Y:
-xx=gui_width()/2-0.75*sprite_get_width(spr_heart)/2;
-yy=gui_height()-0.75*sprite_get_height(spr_heart)-10;
- yy+=sprite_get_height(spr_hud_2)*(_hudOffset);
+xx=gui_width()/2-0.75*sprite_get_width(spr_heart)*hud_scale/2;
+yy=gui_height()-0.75*sprite_get_height(spr_heart)*hud_scale-10;
+ yy+=sprite_get_height(spr_hud_2)*(_hudOffset)*hud_scale;
 
 //Draw Heart:
-draw_sprite_ext(spr_heart,_heartFrame,xx,yy,0.75,0.75,1,c_white,1);
+draw_sprite_ext(spr_heart,_heartFrame,xx,yy,0.75*hud_scale,0.75*hud_scale,1,c_white,1);
 
 //heart_debug_draw(32,32);
 
 //-------------------------------------------------------------------------------------------------------------
 
 //Set up Battery X and Y:
-xx=gui_width()/2+sprite_get_width(spr_hud_2)/2+4;
-yy=gui_height()-29;
- yy+=sprite_get_height(spr_hud_2)*(_hudOffset);
+xx=gui_width()/2+sprite_get_width(spr_hud_2)*hud_scale/2+8;
+yy=gui_height()-58;
+ yy+=sprite_get_height(spr_hud_2)*hud_scale*(_hudOffset);
 
-draw_sprite(spr_hud_battery,(global.player_obj_id)._defib,xx,yy);
+draw_sprite_ext(spr_hud_battery,(global.player_obj_id)._defib,xx,yy,hud_scale,hud_scale,0,c_white,1);
 
 //-------------------------------------------------------------------------------------------------------------
 
 //Set up quick items' X and Y:
 //xx=-sprite_get_width(spr_item_default)*(_hudOffset);
 //yy=gui_height()-42+sprite_get_height(spr_item_default)*(_hudOffset);
-xx=-34*(_hudOffset);
-yy=gui_height()-42+34*(_hudOffset);
+xx=-34*(_hudOffset)*hud_scale;
+yy=gui_height()-84+34*(_hudOffset)*hud_scale;
 
 //Draw quick items:
 counter=0;
@@ -817,23 +819,23 @@ repeat (5) begin
  if global.inventory_quick[counter,1]="ZZZZZ" spr=spr_item_default
   else spr=real(inv_item_get_static_value(global.inventory_quick[counter,1],7));
  
- draw_sprite(spr,0,xx+4+(counter-1)*42,yy);
+ draw_sprite_ext(spr,0,xx+8+(counter-1)*84,yy,hud_scale,hud_scale,0,c_white,1);
 
 end;
 
 draw_set_color(c_white);
 draw_set_alpha(0.3);
-draw_rectangle(xx+4+(global.inventory_active-1)*42,
+draw_rectangle(xx+8+(global.inventory_active-1)*84,
                yy,
-               xx+42+(global.inventory_active-1)*42,
-               yy+38,
+               xx+84+(global.inventory_active-1)*84,
+               yy+76,
                false);
 draw_set_alpha(1);
 
 //-------------------------------------------------------------------------------------------------------------
 
 //Draw Equip info:
-draw_set_font(f_windows);
+fnt_draw_set(FONT.window);
 draw_set_color(c_black);
 draw_set_valign(fa_top);
 draw_set_halign(fa_left);
@@ -927,18 +929,18 @@ if instance_exists(weaponHoldingPar) {
 //-------------------------------------------------------------------------------------------------------------
 
 //Set up top left display X and Y:
-if gui_get_mouse_in_hud()=1 {
- if _infoY&lt;0 _infoY+=4;
+if (gui_get_mouse_in_hud()==1) {
+ if _infoY&lt;0 _infoY+=8;
  }
- else if _infoY&gt;-32 _infoY-=4;
+ else if _infoY&gt;-64 _infoY-=8;
  
-xx=-sprite_get_height(spr_hud_info)*(_hudOffset);
-yy=_infoY-sprite_get_height(spr_hud_info)*(_hudOffset);
+xx=-sprite_get_height(spr_hud_info)*hud_scale*(_hudOffset);
+yy=_infoY-sprite_get_height(spr_hud_info)*hud_scale*(_hudOffset);
 
 alp=clamp(_infoA/50,sett_get_value("Info Box Opacity")/100,1);
  
-draw_sprite(spr_hud_info,0,xx,yy);
-draw_sprite_ext(spr_hud_info,1,xx,yy,1,1,0,c_white,alp);
+draw_sprite_ext(spr_hud_info,0,xx,yy,hud_scale,hud_scale,0,c_white,1);
+draw_sprite_ext(spr_hud_info,1,xx,yy,hud_scale,hud_scale,0,c_white,alp);
  
 //Draw messages:
 draw_set_halign(fa_left);
@@ -948,62 +950,62 @@ for (i=8; i&gt;=1; i-=1) begin
 
  draw_set_colour(_infoMsg[9-i+_infoScroll,1]);
  draw_set_alpha(_infoA/50);
- draw_text(xx+18,yy+32+(i-1)*12,_infoMsg[9-i+_infoScroll,0]);
+ draw_text(xx+36,yy+64+(i-1)*24,_infoMsg[9-i+_infoScroll,0]);
 
 end;
 
 draw_set_alpha(1);
 
 //Draw buttons:
-if _infoY&gt;-32 {
+if _infoY&gt;-64 {
 
- if gui_draw_sprite_clickable(spr_hud_info_buttons,0,xx+2,yy+32,true)=true
+ if gui_draw_sprite_clickable_ext(spr_hud_info_buttons,0,xx+4,yy+64,true,hud_scale,hud_scale,1)=true
  or mouse_wheel_up()=true {
   _infoScroll=clamp(_infoScroll+1,0,56);
   _infoA=GUI.max_alp;
   }
   
- if gui_draw_sprite_clickable(spr_hud_info_buttons,1,xx+2,yy+53,true)=true
+ if gui_draw_sprite_clickable_ext(spr_hud_info_buttons,1,xx+4,yy+106,true,hud_scale,hud_scale,1)=true
  or mouse_wheel_down()=true {
   _infoScroll=clamp(_infoScroll-1,0,56);
   _infoA=GUI.max_alp;
   }
 
- if gui_draw_sprite_clickable(spr_hud_info_buttons,2,xx+2,yy+74,true)=true {
+ if gui_draw_sprite_clickable_ext(spr_hud_info_buttons,2,xx+4,yy+148,true,hud_scale,hud_scale,1)=true {
   _infoScroll=0;
   _infoA=GUI.max_alp;
   }
 
   
- if gui_draw_sprite_clickable(spr_hud_info_big_buttons,0,xx+3,yy+3,true)=true {
+ if gui_draw_sprite_clickable_ext(spr_hud_info_big_buttons,0,xx+6,yy+6,true,hud_scale,hud_scale,1,"Pause Menu")=true {
   //Pause menu
   instance_create(x,y,obj_gui_pause);
   }
   
- if gui_draw_sprite_clickable(spr_hud_info_big_buttons,1,xx+32,yy+3,true)=true {
+ if gui_draw_sprite_clickable_ext(spr_hud_info_big_buttons,1,xx+64,yy+6,true,hud_scale,hud_scale,1)=true {
   //Save
   //gui_show_message("Can't save right now.",c_maroon,true);
   //game_save_checkpoint();
   //gui_show_message_ext("Game saved (Slot "+string(global.game_slot)+").",c_black);
   }
   
- if gui_draw_sprite_clickable(spr_hud_info_big_buttons,2,xx+57,yy+3,true)=true {
+ if gui_draw_sprite_clickable_ext(spr_hud_info_big_buttons,2,xx+114,yy+6,true,hud_scale,hud_scale,1)=true {
   //Load
   //gui_show_message("Can't load right now.",c_maroon,true);
   //game_load_checkpoint(get_integer("Input slot to load:",1));
   }
   
- if gui_draw_sprite_clickable(spr_hud_info_big_buttons,3,xx+86,yy+3,true)=true {
+ if gui_draw_sprite_clickable_ext(spr_hud_info_big_buttons,3,xx+172,yy+6,true,hud_scale,hud_scale,1,"Open Inventory")=true {
   //Inventory
   instance_create(x,y,obj_gui_inventory);
   }
   
- if gui_draw_sprite_clickable(spr_hud_info_big_buttons,4,xx+111,yy+3,true)=true {
+ if gui_draw_sprite_clickable_ext(spr_hud_info_big_buttons,4,xx+222,yy+6,true,hud_scale,hud_scale,1,"Open Journal")=true {
   //Journal
   instance_create(x,y,obj_gui_journal);
   }
   
- if gui_draw_sprite_clickable(spr_hud_info_big_buttons,5,xx+136,yy+3,true)=true {
+ if gui_draw_sprite_clickable_ext(spr_hud_info_big_buttons,5,xx+272,yy+6,true,hud_scale,hud_scale,1,"Open Crafting")=true {
   //Crafting
   instance_create(x,y,obj_gui_crafting);
   }

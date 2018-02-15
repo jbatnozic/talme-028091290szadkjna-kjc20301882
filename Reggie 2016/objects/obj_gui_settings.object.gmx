@@ -30,6 +30,8 @@ scroll=0;
 selected=0;
 mode=0;
 max_rows=0;
+
+sprite_scale = 2;
 </string>
           </argument>
         </arguments>
@@ -113,114 +115,116 @@ if keyboard_check_pressed(userControls[KEYBOARD.pause])=true
             <kind>1</kind>
             <string>var i,a,xx,yy,list_array,str;
 
+var tlerp = (sett_get_value("Interpolation") == "On");
+
 //Set up GUI x and y:
-xx=gui_width()/2-sprite_get_width(sprite_index)/2;
-yy=gui_height()/2-sprite_get_height(sprite_index)/2;
+xx=gui_width()/2-sprite_scale*sprite_get_width(sprite_index)/2;
+yy=gui_height()/2-sprite_scale*sprite_get_height(sprite_index)/2;
 
 //Draw own sprite:
-draw_sprite(spr_window_settings,0,xx,yy);
+draw_sprite_ext(spr_window_settings, 0, xx, yy, sprite_scale, sprite_scale, 0, c_white, 1);
 
 //Tabs:
 switch (mode) begin
 
  case 0: //Controls
-   if gui_draw_rectangle_clickable(xx+76,yy+35,69,18,true)=true {
+   if gui_draw_rectangle_clickable(xx+152,yy+70,138,36,true)=true {
     mode=1;
     scroll=0;
     }
-   if gui_draw_rectangle_clickable(xx+147,yy+35,69,18,true)=true {
+   if gui_draw_rectangle_clickable(xx+294,yy+70,138,36,true)=true {
     mode=2;    
     scroll=0;
     }
-   if gui_draw_rectangle_clickable(xx+218,yy+35,69,18,true)=true {
+   if gui_draw_rectangle_clickable(xx+436,yy+70,138,36,true)=true {
     mode=3;
     scroll=0;
     }
-   if gui_draw_rectangle_clickable(xx+289,yy+35,69,18,true)=true {
+   if gui_draw_rectangle_clickable(xx+578,yy+70,138,36,true)=true {
     mode=4;
     scroll=0;
     }
-   draw_sprite(spr_window_settings_tab,0,xx+5,yy+35);
+   draw_sprite_ext(spr_window_settings_tab, 0 ,xx+10, yy+70, sprite_scale, sprite_scale, 0, c_white, 1);
   break;
 
  case 1: //Gameplay
-   if gui_draw_rectangle_clickable(xx+5,yy+35,69,18,true)=true {
+   if gui_draw_rectangle_clickable(xx+10,yy+70,138,36,true)=true {
     mode=0;
     scroll=0;
     }
-   if gui_draw_rectangle_clickable(xx+147,yy+35,69,18,true)=true {
-    mode=2;
+   if gui_draw_rectangle_clickable(xx+294,yy+70,138,36,true)=true {
+    mode=2;    
     scroll=0;
     }
-   if gui_draw_rectangle_clickable(xx+218,yy+35,69,18,true)=true {
+   if gui_draw_rectangle_clickable(xx+436,yy+70,138,36,true)=true {
     mode=3;
     scroll=0;
     }
-   if gui_draw_rectangle_clickable(xx+289,yy+35,69,18,true)=true {
+   if gui_draw_rectangle_clickable(xx+578,yy+70,138,36,true)=true {
     mode=4;
     scroll=0;
     }
-    draw_sprite(spr_window_settings_tab,1,xx+76,yy+35);
+    draw_sprite_ext(spr_window_settings_tab, 1, xx+150, yy+70, sprite_scale, sprite_scale, 0, c_white, 1);
   break;
   
  case 2: //Audio
-   if gui_draw_rectangle_clickable(xx+5,yy+35,69,18,true)=true {
+   if gui_draw_rectangle_clickable(xx+10,yy+70,138,36,true)=true {
     mode=0;
     scroll=0;
     }
-   if gui_draw_rectangle_clickable(xx+76,yy+35,69,18,true)=true {
+   if gui_draw_rectangle_clickable(xx+152,yy+70,138,36,true)=true {
     mode=1;
     scroll=0;
     }
-   if gui_draw_rectangle_clickable(xx+218,yy+35,69,18,true)=true {
+   if gui_draw_rectangle_clickable(xx+436,yy+70,138,36,true)=true {
     mode=3;
     scroll=0;
     }
-   if gui_draw_rectangle_clickable(xx+289,yy+35,69,18,true)=true {
+   if gui_draw_rectangle_clickable(xx+578,yy+70,138,36,true)=true {
     mode=4;
     scroll=0;
     }
-   draw_sprite(spr_window_settings_tab,2,xx+147,yy+35);
+   draw_sprite_ext(spr_window_settings_tab, 2, xx+292, yy+70, sprite_scale, sprite_scale, 0, c_white, 1);
   break;
   
  case 3: //Video
-   if gui_draw_rectangle_clickable(xx+5,yy+35,69,18,true)=true {
+   if gui_draw_rectangle_clickable(xx+10,yy+70,138,36,true)=true {
     mode=0;
     scroll=0;
     }
-   if gui_draw_rectangle_clickable(xx+76,yy+35,69,18,true)=true {
+   if gui_draw_rectangle_clickable(xx+152,yy+70,138,36,true)=true {
     mode=1;
     scroll=0;
     }
-   if gui_draw_rectangle_clickable(xx+147,yy+35,69,18,true)=true {
-    mode=2;
+   if gui_draw_rectangle_clickable(xx+294,yy+70,138,36,true)=true {
+    mode=2;    
     scroll=0;
     }
-   if gui_draw_rectangle_clickable(xx+289,yy+35,69,18,true)=true {
+   if gui_draw_rectangle_clickable(xx+578,yy+70,138,36,true)=true {
     mode=4;
     scroll=0;
     }
-   draw_sprite(spr_window_settings_tab,3,xx+218,yy+35);
+   draw_sprite_ext(spr_window_settings_tab, 3, xx+434, yy+70, sprite_scale, sprite_scale, 0, c_white, 1);
   break;
   
  case 4: //Other
-   if gui_draw_rectangle_clickable(xx+5,yy+35,69,18,true)=true {
+   if gui_draw_rectangle_clickable(xx+10,yy+70,138,36,true)=true {
     mode=0;
     scroll=0;
     }
-   if gui_draw_rectangle_clickable(xx+76,yy+35,69,18,true)=true {
+   if gui_draw_rectangle_clickable(xx+152,yy+70,138,36,true)=true {
     mode=1;
     scroll=0;
     }
-   if gui_draw_rectangle_clickable(xx+147,yy+35,69,18,true)=true {
-    mode=2;
+   if gui_draw_rectangle_clickable(xx+294,yy+70,138,36,true)=true {
+    mode=2;    
     scroll=0;
     }
-   if gui_draw_rectangle_clickable(xx+218,yy+35,69,18,true)=true {
+   if gui_draw_rectangle_clickable(xx+436,yy+70,138,36,true)=true {
     mode=3;
     scroll=0;
     }
-   draw_sprite(spr_window_settings_tab,4,xx+289,yy+35);
+   draw_sprite_ext(spr_window_settings_tab, 4, xx+576, yy+70, sprite_scale, sprite_scale, 0, c_white, 1);
   break;
   
  default:
@@ -256,61 +260,65 @@ switch (mode) begin
 
 end;
 
-if gui_draw_sprite_clickable(spr_window_button_scroll,0,xx+344,yy+60,true)
+if gui_draw_sprite_clickable(spr_window_button_scroll,0,xx+688,yy+120,true)
 or mouse_wheel_up() {
  if scroll&gt;0 scroll-=1;
  }
  
-if gui_draw_sprite_clickable(spr_window_button_scroll,1,xx+344,yy+240,true)
+if gui_draw_sprite_clickable(spr_window_button_scroll,1,xx+688,yy+480,true)
 or mouse_wheel_down() {
  if scroll&lt;max_rows-10 scroll+=1;
  }
 
-scroll=gui_draw_scroll_bar(xx+344,yy+80,xx+354,yy+238,max_rows,10,scroll,placeholderSpr);
+scroll=gui_draw_scroll_bar(xx+688,yy+160,xx+708,yy+476,max_rows,10,scroll,placeholderSpr);
 
 //List draw:
 list_array=sett_list_group(mode,scroll);
 
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
-draw_set_font(f_windows);
+fnt_draw_set(FONT.window);
 
 for (i=0; i&lt;=9; i+=1) begin
 
  if list_array[i]&lt;&gt;-1 {
+ 
+  ftlerp();
   
-  if gui_draw_sprite_hover(spr_window_settings_field,0,xx+8,yy+60+i*20)=true {
+  if (gui_draw_sprite_hover_scale(spr_window_settings_field,0,xx+16,yy+120+i*40,sprite_scale,sprite_scale)) {
   
    str=sett_fetch_desc(list_array[i]);
    draw_set_colour(c_black);
-   draw_text_ext(xx+10,yy+267,str,15,345);
+   draw_text_ext(xx+20,yy+534,str,30,690);
    
    if mode==0 {
     a=keyboard_get_input();
     str='#To change a key binding press and hold the new key then press "Change".#Currently pressed button: '+a[1];
     draw_set_colour(c_dkgray);
-    draw_text_ext(xx+10,yy+288,str,13,345);
+    draw_text_ext(xx+20,yy+576,str,16,690);
     }
     
    }
   
-  draw_set_colour(c_black);  
-  draw_text(xx+12,yy+62+i*20,global.sett_grid[#0,list_array[i]]);
+  draw_set_colour(c_black);
+  draw_text(xx+24,yy+124+i*40,global.sett_grid[#0,list_array[i]]);
   
   if (global.sett_grid[#1,list_array[i]] != SETT_TYPE.execute_string) {
   
     if (mode != 0)
-      draw_text(xx+142,yy+61+i*20,force_string(sett_get_value(global.sett_grid[#0,list_array[i]])))
+      draw_text(xx+284,yy+122+i*40,force_string(sett_get_value(global.sett_grid[#0,list_array[i]])))
     else 
-      draw_text(xx+142,yy+61+i*20,key_to_string(sett_get_value(global.sett_grid[#0,list_array[i]])));
+      draw_text(xx+284,yy+122+i*40,key_to_string(sett_get_value(global.sett_grid[#0,list_array[i]])));
     
     }
+    
+  rtlerp(tlerp);
     
   sett_draw_widget( global.sett_grid[#0,list_array[i]]
                   , global.sett_grid[#1,list_array[i]]
                   , list_array[i]
-                  , xx+211
-                  , yy+63+i*20
+                  , xx+422
+                  , yy+126+i*40
                   , global.sett_grid[#5,list_array[i]]
                   ) ;
   
@@ -322,7 +330,7 @@ end;
 
 
 //Close button:
-if gui_draw_sprite_clickable_rel(spr_window_close,0,xx+246,yy+351)=true
+if gui_draw_sprite_clickable_rel(spr_window_close,0,xx+492,yy+702)=true
  instance_destroy();
 </string>
           </argument>
