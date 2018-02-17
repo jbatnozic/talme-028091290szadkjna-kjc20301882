@@ -101,7 +101,7 @@
     <instance objName="platformParObj" x="1472" y="352" name="inst_EA6E073A" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="platformParObj" x="1504" y="352" name="inst_48F9BA06" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_hg_earth_block" x="16" y="128" name="inst_C3FCAC49" locked="0" code="" scaleX="1" scaleY="6" colour="4294967295" rotation="0"/>
-    <instance objName="obj_scenery" x="96" y="0" name="inst_445711E7" locked="0" code="//*** AMBIENT SETUP: ***&#xA;var _red,_green,_blue,_alpha,_bloom,col;&#xA;&#xA;_red=155;&#xA;_green=155;&#xA;_blue=255;&#xA;_alpha=0.75;&#xA;&#xA;_bloom=1;&#xA;  &#xA;col=make_colour_rgb(_red,_green,_blue);&#xA;HG_world_lighting_set_ambient(-1,_alpha,col);&#xA;&#xA;global.ambient_alpha=_alpha;&#xA;global.ambient_colour=col;&#xA;global.ambient_bloom=_bloom;&#xA;&#xA;//*** BACKGROUND SETUP: ***&#xA;_backgrounds[0,0]=bg_2;&#xA;_backgrounds[0,1]=0.75;&#xA;&#xA;_backgrounds[1,0]=bg_1;&#xA;_backgrounds[1,1]=0.5;&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_scenery" x="416" y="480" name="inst_445711E7" locked="0" code="//*** AMBIENT SETUP: ***&#xA;var _red,_green,_blue,_alpha,_bloom,col;&#xA;&#xA;_red=155;&#xA;_green=155;&#xA;_blue=255;&#xA;_alpha=0.25;//0.75;&#xA;&#xA;_bloom=1;&#xA;  &#xA;col=make_colour_rgb(_red,_green,_blue);&#xA;HG_world_lighting_set_ambient(-1,_alpha,col);&#xA;&#xA;global.ambient_alpha=_alpha;&#xA;global.ambient_colour=col;&#xA;global.ambient_bloom=_bloom;&#xA;&#xA;//*** BACKGROUND SETUP: ***&#xA;_backgrounds[0,0]=bg_2;&#xA;_backgrounds[0,1]=0.75;&#xA;&#xA;_backgrounds[1,0]=bg_1;&#xA;_backgrounds[1,1]=0.5;&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_player" x="96" y="176" name="inst_45EBB1E4" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_hg_earth_block" x="720" y="256" name="inst_93A13564" locked="0" code="" scaleX="1" scaleY="2" colour="4294967295" rotation="0"/>
     <instance objName="obj_hg_earth_block" x="688" y="288" name="inst_37FA4411" locked="0" code="" scaleX="1" scaleY="2" colour="4294967295" rotation="0"/>
@@ -156,6 +156,8 @@
     <instance objName="obj_hg_earth_block" x="368" y="336" name="inst_E0DEA258" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_pfd_controller" x="128" y="0" name="inst_32E010EE" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_enemy_turta" x="1408" y="304" name="inst_E0DA0A90" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_pickup_item" x="368" y="272" name="inst_09A97709" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_pickup_item" x="432" y="304" name="inst_9E16EA2C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles>
     <tile bgName="bg_tileset_s_1" x="448" y="320" w="32" h="32" xo="106" yo="1" id="10000724" name="inst_09F138A4" depth="5" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>

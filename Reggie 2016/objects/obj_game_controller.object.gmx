@@ -104,12 +104,12 @@ sett_update_settings();
             <kind>1</kind>
             <string>///Interact
 
-if (keyboard_check_pressed(userControls[KEYBOARD.interact]) and
+/*if (keyboard_check_pressed(userControls[KEYBOARD.interact]) and
     global.pnc_target_id&gt;=0) {
 
   global.pnc_interact_id=global.pnc_target_id;
   
-  }
+  }*/
 </string>
           </argument>
         </arguments>

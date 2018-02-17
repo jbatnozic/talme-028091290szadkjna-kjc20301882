@@ -1,4 +1,4 @@
-///weapon_initialise()
+///weapon_initialize()
 /*
 THIS SCRIPT SETS UP SOME BASIC VARIABLES FOR THE WEAPON'S BACKGROUND WORKINGS.
 
@@ -16,9 +16,25 @@ b_readytime=1
 b_jam=0.5
 b_dur=100
  
-//WEAPON SETUP:
-x_offset=0;
-y_offset=0;  
+//POSITION AND OFFSETS:
+shoulder_x = 0;
+shoulder_y = 0;
+
+x_offset = 0;
+y_offset = 0;
+
+fore_hand_xoff = 0;
+fore_hand_yoff = 0;
+back_hand_xoff = 0;
+back_hand_yoff = 0;
+
+fore_hand_x = 0;
+fore_hand_y = 0;
+back_hand_x = 0;
+back_hand_y = 0;
+
+bullet_xoff = 0;
+bullet_yoff = 0;
 
 //AMMUNITION:
 ammo_available=0;
@@ -43,6 +59,7 @@ refiring=0;
 unload_counter=0;
 reload_lock=false;
 special_action=false;
+old_yscale = 0;
 
 //LOAD VARIABLES FROM ITEM:
 patron=global.inventory_active;

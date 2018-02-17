@@ -128,7 +128,7 @@ if (!(instance_exists(obj_gui_load_game) or instance_exists(obj_gui_settings))) 
   var a = gui_get_view_position();
   
   xx = a[0] + 20;
-  yy = a[3] - (sh*3 + 60);
+  yy = a[3] - (sh*4 + 80);
   
   ftlerp();
   
@@ -141,6 +141,10 @@ if (!(instance_exists(obj_gui_load_game) or instance_exists(obj_gui_settings))) 
     }
     
   if (gui_draw_sprite_clickable(spr_mm_button, 2, xx, yy + 2*sh + 40, true)) {
+  
+    }
+    
+  if (gui_draw_sprite_clickable(spr_mm_button, 2, xx, yy + 3*sh + 60, true)) {
     game_end();
     }
     
@@ -192,6 +196,30 @@ draw_set_halign(fa_left);
 draw_set_colour(c_black);
 
 draw_text(x,y,"MAIN MENU:#Press 1 to play");*/
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="50">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// TEMP
+show_message( real( "   576  " ) );
 </string>
           </argument>
         </arguments>

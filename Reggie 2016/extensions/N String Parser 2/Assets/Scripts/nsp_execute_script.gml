@@ -41,6 +41,9 @@ switch (argument0) begin
   room_goto_next();
   return 0;
   
+ case "keyboard_check":
+  return keyboard_check(argument1[0]);
+  
  case "ds_list_add":
   ds_list_add(argument1[0],argument1[1]);
   return 0;

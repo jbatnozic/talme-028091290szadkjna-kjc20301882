@@ -1,4 +1,4 @@
-///weapon_set_sprite(Index, ReadyStart, ReadyEnd, FireStart, FireEnd, Reloading, X offset, Y offset)
+///weapon_set_sprite(Index, ReadyStart, ReadyEnd, FireStart, FireEnd, Reloading)
 /*
 THIS SCRIPT SETS THE SPRITE PARAMETERS FOR THE WEAPON.
 
@@ -14,12 +14,6 @@ argument3 - (Integer) The first frame of the shooting animation (as in gatling g
                       same value as this one.
 argument4 - (Integer) The last frame of the shooting animation (if any).
 argument5 - (Integer) Frame of the sprite which is displayed when the weapon is reloading.
-argument6 - (Integer) X offset - The distance (in pixels, in the weapon's sprite) between
-                      the X coordinate of the sprite origin and the X coordinate of the
-                      end of the barrel.
-argument7 - (Integer) Y offset - The distance (in pixels, in the weapon's sprite) between
-                      the Y coordinate of the sprite origin and the Y coordinate of the
-                      end of the barrel.
 
 Returns nothing.
 */
@@ -30,5 +24,3 @@ index_re=argument2;
 index_ss=argument3;
 index_se=argument4;
 index_rl=argument5;
-x_offset=argument6;
-y_offset=argument7;

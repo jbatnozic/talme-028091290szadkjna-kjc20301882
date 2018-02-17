@@ -82,12 +82,14 @@ if keyboard_check(userControls[KEYBOARD.reload])=true {
       
      if refiring=0 {
       //Create the projectile
-      var a,xx,yy,son;
+      var a,b,xx,yy,son;
       
       if mouse_x>x a=1 else a=-1;
       
-      xx=x+x_rotated(x_offset,y_offset*a,image_angle);
-      yy=y+y_rotated(x_offset,y_offset*a,image_angle);
+      b = xy_rotated(bullet_xoff, bullet_yoff * a, image_angle);
+      
+      xx = x + b[0];
+      yy = y + b[1];
       
       repeat (bl_number[ammo_current]) {
       
@@ -108,7 +110,7 @@ if keyboard_check(userControls[KEYBOARD.reload])=true {
        
        weapon_projectile_init(son,object_index,ammo_current,GROUP.friendly);
       
-      }
+       }
        
       if b_automatic[mode_current]=0 mouse_clear(userControls[MOUSE.shoot]);
       

@@ -63,6 +63,7 @@ _armourMod=1; // Armour speed modifier
 _defib=3;     // Defibrillator charges
 _group=GROUP.friendly;
 _isInHarmful = 0;
+_weaponYOffset = -16;
 
 //Buff system:
 buf_instance_init();
@@ -93,7 +94,16 @@ _handY = y;
 _camx = x - view_wview[0]/2;
 _camy = y - view_hview[0]/2;
 
-//Shoulder positions - X:
+//Shoulder positions - Fore - X / Y:
+arr_fore_h[0,0] = 20; arr_fore_h[0,1] = 17;
+arr_fore_h[1,0] = 20; arr_fore_h[1,1] = 17;
+arr_fore_h[2,0] = 22; arr_fore_h[2,1] = 17;
+arr_fore_h[3,0] = 20; arr_fore_h[3,1] = 17;
+arr_fore_h[4,0] = 21; arr_fore_h[4,1] = 17;
+arr_fore_h[5,0] = 19; arr_fore_h[5,1] = 17;
+arr_fore_h[6,0] = 17; arr_fore_h[6,1] = 17;
+arr_fore_h[7,0] = 19; arr_fore_h[7,1] = 17;
+/*
 arr_fore_h[0,0] = 20; arr_fore_h[0,1] = 19;
 arr_fore_h[1,0] = 20; arr_fore_h[1,1] = 18;
 arr_fore_h[2,0] = 22; arr_fore_h[2,1] = 17;
@@ -102,8 +112,17 @@ arr_fore_h[4,0] = 21; arr_fore_h[4,1] = 18;
 arr_fore_h[5,0] = 17; arr_fore_h[5,1] = 16;
 arr_fore_h[6,0] = 15; arr_fore_h[6,1] = 16;
 arr_fore_h[7,0] = 19; arr_fore_h[7,1] = 16;
-
-//Shoulder positions - Y:
+*/
+//Shoulder positions - Back - X / Y:
+arr_back_h[0,0] = 23; arr_back_h[0,1] = 17;
+arr_back_h[1,0] = 23; arr_back_h[1,1] = 17;
+arr_back_h[2,0] = 23; arr_back_h[2,1] = 17;
+arr_back_h[3,0] = 23; arr_back_h[3,1] = 17;
+arr_back_h[4,0] = 23; arr_back_h[4,1] = 17;
+arr_back_h[5,0] = 23; arr_back_h[5,1] = 17;
+arr_back_h[6,0] = 23; arr_back_h[6,1] = 17;
+arr_back_h[7,0] = 23; arr_back_h[7,1] = 17;
+/*
 arr_back_h[0,0] = 23; arr_back_h[0,1] = 19;
 arr_back_h[1,0] = 20; arr_back_h[1,1] = 18;
 arr_back_h[2,0] = 17; arr_back_h[2,1] = 16;
@@ -112,6 +131,7 @@ arr_back_h[4,0] = 21; arr_back_h[4,1] = 18;
 arr_back_h[5,0] = 23; arr_back_h[5,1] = 17;
 arr_back_h[6,0] = 25; arr_back_h[6,1] = 16;
 arr_back_h[7,0] = 24; arr_back_h[7,1] = 16;
+*/
 
 // Shoulder positions - Other:
 sh_fx = 0; sh_fy = 0;
@@ -635,8 +655,29 @@ if (has_item)
 switch (_imageState) begin
  
  case 0: // Idle without item
-   image_index = 0;
-   sprite_index = spr_player_run; // TEMP
+ 
+   if (sprite_index == spr_player_run ||
+       sprite_index == spr_player_run_armless)
+     sprite_index = spr_player_stand;
+ 
+   if (sprite_index == spr_player_stand) {
+   
+     image_index = 0;
+     if (random(200) &lt; 4) 
+       sprite_index = choose(spr_player_breathe,
+                             spr_player_breathe,
+                             spr_player_look_back);
+                             
+     }
+   else {
+   
+     image_index += 0.05;
+     if (floor(image_index * 100) &gt;= floor(image_number * 100)) {
+       sprite_index = spr_player_stand;
+       image_index = 0;
+       } 
+   
+     }
   break;
    
  case 1: // Running without item
@@ -659,7 +700,12 @@ switch (_imageState) begin
  
 end;
 
-image_index = (image_index mod image_number);
+if (_grounded)
+  image_index = (image_index mod image_number);
+else {
+  sprite_index = spr_player_run;
+  image_index = 5;
+  }
 
 //Arms:
 var spr = sprite_index;
@@ -784,30 +830,44 @@ if (__item &lt;&gt; "") and
             <kind>1</kind>
             <string>///Draw self
 
-/*var spr, fxx, fyy, bxx, byy;
+if (instance_exists(weaponHoldingPar)) {
 
-spr = spr_player_run_armless;
+  var weapon = weaponHoldingPar.id;
 
-fyy = y - sprite_get_yoffset(spr) + arr_fore_h[image_index,1];
-byy = y - sprite_get_yoffset(spr) + arr_back_h[image_index,1];
-
-if (_movementState != 0) { /* Adjust Y for crouching * }
-
-fxx = x - (sprite_get_xoffset(spr) - arr_fore_h[image_index,0]) * _imageXScale;
-bxx = x - (sprite_get_xoffset(spr) - arr_back_h[image_index,0]) * _imageXScale;
-
-_handX = fxx + dcos(point_direction(fxx,fyy,mouse_x,mouse_y)) * sprite_get_width(spr_temp_arm) * 0.66;
-_handY = fyy - dsin(point_direction(fxx,fyy,mouse_x,mouse_y)) * sprite_get_width(spr_temp_arm) * 0.66;*/
-
-if (_imageState &gt;= 2)
-  draw_sprite_ext(spr_temp_arm,0,sh_bx,sh_by,1,1,point_direction(sh_bx,sh_by,mouse_x,mouse_y),c_dkgray,1);
+  var xx = weapon.back_hand_x,
+      yy = weapon.back_hand_y;
+  
+  draw_arm(sh_bx, sh_by, xx, yy,
+           sprite_get_width(spr_reggie_upperarm) - 6,
+           sprite_get_width(spr_reggie_forearm) - 4,
+           spr_reggie_upperarm, spr_reggie_forearm, _imageXScale, c_gray);
+            
+  }
 
 draw_sprite_ext(sprite_index,image_index,x,y,_imageXScale,cpptern(_movementState&lt;&gt;0,0.5,1),0,c_white,1);
 
+if (instance_exists(weaponHoldingPar)) {
+
+  var weapon = weaponHoldingPar.id;
+  
+  draw_sprite_ext(weapon.sprite_index,weapon.image_index,
+                  weapon.x,weapon.y,1,weapon.image_yscale,
+                  weapon.image_angle,c_white,1);
+
+  var xx = weapon.fore_hand_x,
+      yy = weapon.fore_hand_y;
+
+  draw_arm(sh_fx, sh_fy, xx, yy,
+           sprite_get_width(spr_reggie_upperarm) - 6,
+           sprite_get_width(spr_reggie_forearm) - 6,
+           spr_reggie_upperarm, spr_reggie_forearm, _imageXScale, c_white);
+          
+  }
+
 // STUB -- Draw item
 
-if (_imageState &gt;= 2)
-  draw_sprite_ext(spr_temp_arm,0,sh_fx,sh_fy,1,1,point_direction(sh_fx,sh_fy,mouse_x,mouse_y),c_white,1);
+//if (_imageState &gt;= 2)
+//  draw_sprite_ext(spr_temp_arm,0,sh_fx,sh_fy,1,1,point_direction(sh_fx,sh_fy,mouse_x,mouse_y),c_white,1);
 </string>
           </argument>
         </arguments>

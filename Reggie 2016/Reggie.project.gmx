@@ -3,7 +3,59 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="1" name="datafiles"/>
+  <datafiles number="4" name="datafiles">
+    <datafile>
+      <name>Tom.txt</name>
+      <exists>-1</exists>
+      <size>2368</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>Tom.txt</filename>
+    </datafile>
+    <datafile>
+      <name>Hospital_Doctor_1.txt</name>
+      <exists>-1</exists>
+      <size>1893</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>Hospital_Doctor_1.txt</filename>
+    </datafile>
+    <datafile>
+      <name>Hospital_Doctor_2.txt</name>
+      <exists>-1</exists>
+      <size>0</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>Hospital_Doctor_2.txt</filename>
+    </datafile>
+  </datafiles>
   <NewExtensions>
     <extension index="0">extensions\Mercury-2D Worlds and Lighting</extension>
     <extension index="1">extensions\Turbo Print Parser</extension>
@@ -138,6 +190,9 @@
       <sprites name="Channel bar">
         <sprite>sprites\spr_channel_bar</sprite>
       </sprites>
+      <sprites name="Other">
+        <sprite>sprites\spr_tooltip_corner</sprite>
+      </sprites>
     </sprites>
     <sprites name="World props">
       <sprite>sprites\spr_campfire</sprite>
@@ -150,8 +205,15 @@
       <sprite>sprites\spr_gravekeepers_home</sprite>
     </sprites>
     <sprites name="Bodies">
-      <sprite>sprites\spr_player_run</sprite>
-      <sprite>sprites\spr_player_run_armless</sprite>
+      <sprites name="Reggie">
+        <sprite>sprites\spr_player_run_armless</sprite>
+        <sprite>sprites\spr_player_run</sprite>
+        <sprite>sprites\spr_player_stand</sprite>
+        <sprite>sprites\spr_player_breathe</sprite>
+        <sprite>sprites\spr_player_look_back</sprite>
+        <sprite>sprites\spr_reggie_upperarm</sprite>
+        <sprite>sprites\spr_reggie_forearm</sprite>
+      </sprites>
       <sprite>sprites\spr_dead_relative</sprite>
       <sprite>sprites\spr_player_crawl</sprite>
       <sprite>sprites\spr_player_bug</sprite>
@@ -178,6 +240,8 @@
       <sprite>sprites\spr_flame</sprite>
       <sprite>sprites\spr_sonic_projectile</sprite>
       <sprite>sprites\spr_turta_bomb</sprite>
+      <sprite>sprites\spr_machinegun</sprite>
+      <sprite>sprites\spr_muzzleflash_1</sprite>
     </sprites>
     <sprites name="Terrain">
       <sprite>sprites\spr_brick_wall</sprite>
@@ -203,6 +267,10 @@
         <sprite>sprites\spr_sonic_boom</sprite>
         <sprite>sprites\spr_explosion</sprite>
       </sprites>
+      <sprite>sprites\spr_boxes</sprite>
+      <sprite>sprites\spr_med_box</sprite>
+      <sprite>sprites\spr_ammo_box</sprite>
+      <sprite>sprites\spr_weapon_box</sprite>
     </sprites>
     <sprite>sprites\spr_temp_arm</sprite>
   </sprites>
@@ -262,6 +330,9 @@
         <script>scripts\HG_nearest_light_dist.gml</script>
         <script>scripts\TPP_define_local.gml</script>
         <script>scripts\execute_string_delayed.gml</script>
+        <script>scripts\x_rotated.gml</script>
+        <script>scripts\y_rotated.gml</script>
+        <script>scripts\xy_rotated.gml</script>
         <script>scripts\ftlerp.gml</script>
         <script>scripts\rtlerp.gml</script>
         <scripts name="Armours">
@@ -270,6 +341,8 @@
           <script>scripts\armour_get_ratio.gml</script>
           <script>scripts\armour_max_dur.gml</script>
         </scripts>
+        <script>scripts\string_crop.gml</script>
+        <script>scripts\draw_arm.gml</script>
       </scripts>
       <scripts name="Fonts">
         <script>scripts\fnt_initialize.gml</script>
@@ -322,7 +395,8 @@
         <script>scripts\pnc_set_tooltip.gml</script>
         <script>scripts\pnc_draw_tooltip.gml</script>
         <script>scripts\pnc_cursor_in_mask.gml</script>
-        <script>scripts\pnc_int.gml</script>
+        <script>scripts\pnc_is_target.gml</script>
+        <script>scripts\pnc_kbchk.gml</script>
       </scripts>
       <scripts name="Inventory">
         <script>scripts\InventoryNotes.gml</script>
@@ -499,6 +573,7 @@
         <scripts name="General">
           <script>scripts\txt_begin.gml</script>
           <script>scripts\txt_add.gml</script>
+          <script>scripts\txt_add_array.gml</script>
           <script>scripts\txt_path_to_last.gml</script>
           <script>scripts\txt_interface_open.gml</script>
           <script>scripts\txt_clear.gml</script>
@@ -507,6 +582,7 @@
           <script>scripts\txt_obj_name_2.gml</script>
           <script>scripts\txt_obj_sprite_1.gml</script>
           <script>scripts\txt_obj_sprite_2.gml</script>
+          <script>scripts\txt_load_from_file.gml</script>
         </scripts>
         <scripts name="Background">
           <script>scripts\txt_map_set.gml</script>
@@ -562,8 +638,6 @@
       <script>scripts\object_damage.gml</script>
       <script>scripts\object_knockback.gml</script>
       <script>scripts\object_move_to.gml</script>
-      <script>scripts\x_rotated.gml</script>
-      <script>scripts\y_rotated.gml</script>
       <script>scripts\set_mask.gml</script>
       <script>scripts\create_projectile_bullet.gml</script>
       <script>scripts\create_projectile_rocket.gml</script>
@@ -634,7 +708,7 @@
         </scripts>
       </scripts>
       <scripts name="Weapons _Player_">
-        <script>scripts\weapon_initialise.gml</script>
+        <script>scripts\weapon_initialize.gml</script>
         <script>scripts\weapon_projectile_init.gml</script>
         <script>scripts\weapon_set_basics.gml</script>
         <script>scripts\weapon_set_sprite.gml</script>
@@ -648,7 +722,9 @@
         <script>scripts\weapon_amt_name.gml</script>
         <script>scripts\weapon_max_ammo.gml</script>
         <script>scripts\projectile_get_object.gml</script>
+        <script>scripts\weapon_set_offset.gml</script>
       </scripts>
+      <script>scripts\create_pickup.gml</script>
     </scripts>
     <scripts name="Mercury Engine v1_1_3">
       <script>scripts\HG_README.gml</script>
@@ -881,77 +957,6 @@
         </scripts>
       </scripts>
     </scripts>
-    <scripts name="N String Parser v2_5_0">
-      <script>scripts\NSP_Documentation.gml</script>
-      <script>scripts\NSP_initialize.gml</script>
-      <script>scripts\NSP_free.gml</script>
-      <script>scripts\NSP_execute_string.gml</script>
-      <script>scripts\NSP_evaluate.gml</script>
-      <script>scripts\NSP_notify.gml</script>
-      <script>scripts\NSP_save.gml</script>
-      <script>scripts\NSP_execute_saved.gml</script>
-      <script>scripts\NSP_evaluate_saved.gml</script>
-      <script>scripts\NSP_free_saved.gml</script>
-      <scripts name="Main">
-        <script>scripts\nsp_execute_master.gml</script>
-        <script>scripts\nsp_execute_block.gml</script>
-        <script>scripts\nsp_execute_line.gml</script>
-        <script>scripts\nsp_execute_single.gml</script>
-        <script>scripts\nsp_execute_script.gml</script>
-      </scripts>
-      <scripts name="Utility">
-        <script>scripts\nsp_get_constant.gml</script>
-        <script>scripts\nsp_convert_to_list.gml</script>
-        <script>scripts\nsp_list_parameters.gml</script>
-        <script>scripts\nsp_statement_positions.gml</script>
-        <script>scripts\nsp_list_remove.gml</script>
-        <script>scripts\nsp_build_grid.gml</script>
-        <script>scripts\nsp_grid_shift.gml</script>
-        <script>scripts\nsp_list_to_string.gml</script>
-      </scripts>
-      <scripts name="Evaluator">
-        <script>scripts\nsp_evaluate_list.gml</script>
-        <script>scripts\nsp_evaluate_single.gml</script>
-        <script>scripts\nsp_evaluate_long.gml</script>
-        <script>scripts\nsp_evaluate_special_word.gml</script>
-      </scripts>
-      <scripts name="Variable parser">
-        <script>scripts\nsp_variable_set.gml</script>
-        <script>scripts\nsp_variable_get.gml</script>
-        <script>scripts\nsp_variable_global_set.gml</script>
-        <script>scripts\nsp_variable_global_get.gml</script>
-        <scripts name="DSM">
-          <script>scripts\nsp_dsm_set.gml</script>
-          <script>scripts\nsp_dsm_get.gml</script>
-        </scripts>
-      </scripts>
-      <scripts name="Identifier">
-        <script>scripts\nsp_is_special_word.gml</script>
-        <script>scripts\nsp_is_string.gml</script>
-        <script>scripts\nsp_is_number.gml</script>
-        <script>scripts\nsp_is_script.gml</script>
-        <script>scripts\nsp_is_asset.gml</script>
-        <script>scripts\nsp_is_variable.gml</script>
-        <script>scripts\nsp_is_dsm.gml</script>
-        <scripts name="Misc">
-          <script>scripts\nsp_gm_nom.gml</script>
-          <script>scripts\nsp_src_token.gml</script>
-          <script>scripts\nsp_token_is_valid.gml</script>
-        </scripts>
-      </scripts>
-      <scripts name="Calculator">
-        <script>scripts\nsp_arithmetic_calculate.gml</script>
-        <script>scripts\nsp_comparison_calculate.gml</script>
-        <script>scripts\nsp_combination_calculate.gml</script>
-        <script>scripts\nsp_is_equal.gml</script>
-      </scripts>
-      <scripts name="String format">
-        <script>scripts\nsp_string_crop.gml</script>
-        <script>scripts\nsp_string_crop_ext.gml</script>
-        <script>scripts\nsp_string_find_last.gml</script>
-        <script>scripts\nsp_string_force.gml</script>
-      </scripts>
-    </scripts>
     <scripts name="Turbo Print Parser v1_0_2">
       <script>scripts\TPP_Documentation.gml</script>
       <script>scripts\TPP_initialize.gml</script>
@@ -990,6 +995,97 @@
           <script>scripts\tpp_link_colour.gml</script>
           <script>scripts\tpp_add_line_to_grid.gml</script>
         </scripts>
+      </scripts>
+    </scripts>
+    <scripts name="N String Parser v2_6">
+      <script>scripts\NSP_Documentation.gml</script>
+      <script>scripts\NSP_initialize.gml</script>
+      <script>scripts\NSP_free.gml</script>
+      <script>scripts\NSP_execute_string.gml</script>
+      <script>scripts\NSP_evaluate.gml</script>
+      <script>scripts\NSP_notify.gml</script>
+      <script>scripts\NSP_save.gml</script>
+      <script>scripts\NSP_check_saved.gml</script>
+      <script>scripts\NSP_execute_saved.gml</script>
+      <script>scripts\NSP_evaluate_saved.gml</script>
+      <script>scripts\NSP_free_saved.gml</script>
+      <scripts name="Main">
+        <script>scripts\nsp_execute_master.gml</script>
+        <script>scripts\nsp_execute_block.gml</script>
+        <script>scripts\nsp_execute_line.gml</script>
+        <script>scripts\nsp_execute_single.gml</script>
+        <script>scripts\nsp_execute_script.gml</script>
+      </scripts>
+      <scripts name="Utility">
+        <scripts name="List Conversion">
+          <script>scripts\nsp_convert_to_list.gml</script>
+          <script>scripts\nsp_tokenize.gml</script>
+          <script>scripts\nsp_get_token_type.gml</script>
+          <script>scripts\nsp_list_set_types.gml</script>
+          <script>scripts\nsp_list_tidy_and_verify.gml</script>
+        </scripts>
+        <script>scripts\nsp_get_constant.gml</script>
+        <script>scripts\nsp_statement_positions.gml</script>
+        <script>scripts\nsp_list_remove.gml</script>
+        <script>scripts\nsp_build_grid.gml</script>
+        <script>scripts\nsp_grid_shift.gml</script>
+        <script>scripts\nsp_list_to_string.gml</script>
+        <script>scripts\nsp_type_is_a_value.gml</script>
+        <script>scripts\nsp_type_name.gml</script>
+      </scripts>
+      <scripts name="Evaluator">
+        <script>scripts\nsp_evaluate_list.gml</script>
+        <script>scripts\nsp_evaluate_single.gml</script>
+        <script>scripts\nsp_evaluate_long.gml</script>
+        <script>scripts\nsp_evaluate_special_word.gml</script>
+      </scripts>
+      <scripts name="Setters and Getters">
+        <script>scripts\nsp_variable_set_br.gml</script>
+        <script>scripts\nsp_variable_get_br.gml</script>
+        <script>scripts\nsp_variable_global_set_br.gml</script>
+        <script>scripts\nsp_variable_global_get_br.gml</script>
+        <scripts name="New">
+          <script>scripts\nsp_variable_set_new.gml</script>
+          <script>scripts\nsp_variable_get_new.gml</script>
+          <script>scripts\nsp_variable_global_set_new.gml</script>
+          <script>scripts\nsp_variable_global_get_new.gml</script>
+        </scripts>
+        <scripts name="Legacy">
+          <script>scripts\nsp_variable_set.gml</script>
+          <script>scripts\nsp_variable_get.gml</script>
+          <script>scripts\nsp_variable_global_set.gml</script>
+          <script>scripts\nsp_variable_global_get.gml</script>
+        </scripts>
+        <scripts name="DSM">
+          <script>scripts\nsp_dsm_set.gml</script>
+          <script>scripts\nsp_dsm_get.gml</script>
+        </scripts>
+      </scripts>
+      <scripts name="Identifier">
+        <script>scripts\nsp_is_special_word.gml</script>
+        <script>scripts\nsp_is_string.gml</script>
+        <script>scripts\nsp_is_number.gml</script>
+        <script>scripts\nsp_is_script.gml</script>
+        <script>scripts\nsp_is_asset.gml</script>
+        <script>scripts\nsp_is_variable.gml</script>
+        <script>scripts\nsp_is_dsm.gml</script>
+        <scripts name="Misc">
+          <script>scripts\nsp_gm_nom.gml</script>
+          <script>scripts\nsp_src_token.gml</script>
+          <script>scripts\nsp_token_is_valid.gml</script>
+        </scripts>
+      </scripts>
+      <scripts name="Calculator">
+        <script>scripts\nsp_arithmetic_calculate.gml</script>
+        <script>scripts\nsp_comparison_calculate.gml</script>
+        <script>scripts\nsp_combination_calculate.gml</script>
+        <script>scripts\nsp_is_equal.gml</script>
+      </scripts>
+      <scripts name="String Format">
+        <script>scripts\nsp_string_crop.gml</script>
+        <script>scripts\nsp_string_crop_ext.gml</script>
+        <script>scripts\nsp_string_find_last.gml</script>
+        <script>scripts\nsp_string_force.gml</script>
       </scripts>
     </scripts>
     <scripts name="Documentation">
@@ -1084,6 +1180,7 @@
         <object>objects\weaponHoldingPar</object>
         <object>objects\fireDecoParObj</object>
         <object>objects\propResettableParObj</object>
+        <object>objects\pickupParObj</object>
       </objects>
       <objects name="World props">
         <object>objects\obj_campfire</object>
@@ -1165,14 +1262,15 @@
           <object>objects\obj_ceme_raskal</object>
         </objects>
       </objects>
+      <object>objects\obj_pickup_item</object>
     </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\room_initialize</room>
     <room>rooms\room_menu</room>
     <room>rooms\room_demo</room>
-    <room>rooms\room_hospital</room>
     <room>rooms\room_cemetary</room>
+    <room>rooms\room_hospital</room>
     <room>rooms\room_forest_precapture</room>
     <room>rooms\room_HQ_mission_brief</room>
   </rooms>

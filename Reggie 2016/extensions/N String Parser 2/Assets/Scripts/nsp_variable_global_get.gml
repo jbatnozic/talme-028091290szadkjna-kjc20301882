@@ -1,6 +1,6 @@
 ///nsp_variable_global_get(Name)
 /*
-Underlying NSP script. Can be changed by user (read NSP Documentation for more info).
+Underlying NSP script..
 */
 var nspToken=global.nspToken;
 var work_str;

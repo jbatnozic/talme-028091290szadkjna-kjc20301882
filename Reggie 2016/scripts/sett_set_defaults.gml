@@ -25,6 +25,7 @@ sett_set_value("Open Settings",ord("Y"));
 
 sett_set_value("OTHER:",-1); 
 sett_set_value("Interact",ord("E"));
+sett_set_value("Pick Up",ord("E"));
 sett_set_value("Defibrillate",vk_space);
 sett_set_value("Pause Game",vk_escape);
 sett_set_value("Refresh display",ord("V"));

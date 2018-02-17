@@ -4,11 +4,13 @@
       respective window objects.
    -- The only "globalvar" left is for userControls.
 
+   INTERACTIONS:
+   -- pnc_reset in Begin Step (by obj_game_controller)
+   -- pnc_set_tooltip in Step (by any object)
+   -- pnc_is_target in End Step (by any object)
+   
    AI:
    ++_prefTolerance --> Error margin for preferred distance.
-   
-   FONT:
-   -Erika Ormig
    
    OTHER:
    ++Save / Load actions MUST be in the Draw GUI event (because of the order of events).
@@ -39,7 +41,9 @@
     
 >>To do:
   
-Dialogs should pause the game or something
+  Reggie's legs when close to the ground but not quite on the groud
+  Fix guns stuff
+  Dialogs should pause the game or something
   Capitalize setting names
   Free entire current room in roomGoto ABS_END
   Window size setting

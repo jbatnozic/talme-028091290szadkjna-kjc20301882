@@ -41,7 +41,8 @@ enum KEYBOARD {
     openJou = 20,
     openCra = 21,
     openSet = 22,
-    pause=23
+    pause = 23,
+    pickUp = 24
     
 };
 
@@ -117,6 +118,8 @@ userControls[KEYBOARD.openCra]=ord("C");
 userControls[KEYBOARD.openJou]=ord("J");
 
 userControls[KEYBOARD.pause]=vk_escape;
+
+userControls[KEYBOARD.pickUp] = ord("E");
 
 //Game Properties:
 game_set_properties();

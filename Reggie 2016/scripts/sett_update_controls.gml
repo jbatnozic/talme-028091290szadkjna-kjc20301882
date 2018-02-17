@@ -24,3 +24,4 @@ userControls[KEYBOARD.openJou]=sett_get_value("Open Journal");
 userControls[KEYBOARD.interact]=sett_get_value("Interact");
 userControls[KEYBOARD.defibrillate]=sett_get_value("Defibrillate");
 userControls[KEYBOARD.refresh]=sett_get_value("Refresh display");
+userControls[KEYBOARD.pickUp]=sett_get_value("Pick Up");

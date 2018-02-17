@@ -52,7 +52,7 @@ switch (argument1) begin
   
  //Variable (SL):
  case NSP_TYPE._variablesl:
-   rv=nsp_variable_get(id,work_str);
+   rv=nsp_variable_get_br(id,work_str);
    if nsp_is_equal(rv,nspToken[NSP_TOK.abort]) {
     NSP_notify("SCRIPT: nsp_evaluate_single. ERROR: Cannot get the variable ("+work_str+").");
     return nspToken[NSP_TOK.abort];
@@ -64,7 +64,7 @@ switch (argument1) begin
   
  //Variable (GL):
  case NSP_TYPE._variablegl:
-   rv=nsp_variable_global_get(work_str);
+   rv=nsp_variable_global_get_br(work_str);
    if nsp_is_equal(rv,nspToken[NSP_TOK.abort]) {
     NSP_notify("SCRIPT: nsp_evaluate_single. ERROR: Cannot get the variable ("+work_str+").");
     return nspToken[NSP_TOK.abort];

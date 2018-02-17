@@ -53,7 +53,7 @@ a=0;
 
 if (_dialogue==1) {
 
-  var s;
+  /*var s;
   
   s[0]="[Raskal shouts\] Uncle, I saw a comrade in the corridor and I need to go over "+
        "some things with him. I’ll remain within earshot in the event any malpractice "+
@@ -72,17 +72,18 @@ if (_dialogue==1) {
        "charges, I will make sure she's not allowed to treat even a common cold.";
   s[7]="See to it then.";
   s[8]="Ugh, don't do a damn thing until I'm ready to decide.  Please don't keep your friend "+
-       "waiting for my sake Raskal...";
+       "waiting for my sake Raskal...";**/
   
   txt_begin();
   
-    txt_add(s[0],0,"txt_obj_name_2('Doctor');","[Continue\]");
+    /*txt_add(s[0],0,"txt_obj_name_2('Doctor');","[Continue\]");
      txt_add(s[1],0,0,s[2]);
       txt_add(s[3],0,0,s[4]);
        txt_add(s[5],"txt_obj_name_2('Raskal');",0,"[Continue\]");
         txt_add(s[6],"txt_obj_name_2('Doctor');",0,"[Continue\]");
-         txt_add(s[7],"txt_obj_name_2('Raskal');","obj_hospital_doctor.a+=1;",s[8]+"{End}");
-        
+         txt_add(s[7],"txt_obj_name_2('Raskal');","obj_hospital_doctor.a+=1;",s[8]+"{End}");*/
+         
+    txt_load_from_file("Hospital_Doctor_1.txt");      
        
   txt_interface_open(spr_portrait_template,"Reggie",spr_portrait_template,"Raskal",x,y-38);
 

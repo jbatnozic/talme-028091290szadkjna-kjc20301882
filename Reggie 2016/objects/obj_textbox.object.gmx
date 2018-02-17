@@ -272,13 +272,17 @@ if update_box=true {
   
   //Check for condition:
   do_show=false;
-  if string_pos("{Cdt}",text_choice)&gt;0 {
+  if string_pos("{Cdt}",text_choice)&gt;0 { // TEMP - string_pos -&gt; var
   
    text_cond=string_copy(text_choice,1,string_pos("{Cdt}",text_choice)-1);
    text_choice=string_delete(text_choice,1,string_pos("{Cdt}",text_choice)+4);
   
-   if NSP_evaluate(text_cond)=true
+   //show_message("Evaluating condition: " + text_cond);
+   
+   if (NSP_evaluate(text_cond))
     do_show=true;
+    
+   //show_message(do_show);
    
    }
    else do_show=true;
@@ -476,7 +480,11 @@ if (letters&gt;=letters_max) {
  }
  
 //Draw text:
+var tlerp = (sett_get_value("Interpolation") == "On");
+
+ftlerp();
 TPP_text_print_ext_part(xx+170,yy+18,text_grid,fa_left,fa_top,first+1,last,letters);
+rtlerp(tlerp);
 
 //Scroll:
 if gui_draw_sprite_clickable(spr_window_button_scroll,0,xx+1090,yy+18,true)=true {
