@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>obj_scenery._altHeight=y+32;
+            <string>obj_aux_controller._altHeight = y + 32;
 instance_destroy();
 </string>
           </argument>

@@ -25,7 +25,12 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>light=HG_light_create_static(-1,x,y,spr_light_diffuse,c_orange,1.25,0,1);
+            <string>/// Initialize
+
+light = HG_light_create_static(-1,x,y,spr_light_diffuse,c_orange,1.25,0,1);
+// ^ If changing, also change Recovery in Step event
+
+res_instance_init();
 </string>
           </argument>
         </arguments>
@@ -48,7 +53,11 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>HG_light_destroy(-1,light,HG_LTYPE.static);
+            <string>/// Release resources
+
+HG_light_destroy(-1,light,HG_LTYPE.static);
+
+res_instance_free();
 </string>
           </argument>
         </arguments>
@@ -71,8 +80,41 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if game_paused()=false
- ptc_create_particles(x,y,32,32,PTC_TYPE.fire,4,0,1);
+            <string>/// Recovery / Step
+
+if (res_instance_get_flag() == RES_FLAG.do_recover) {
+
+  light = HG_light_create_static(-1,x,y,spr_light_diffuse,c_orange,1.25,0,1);
+  
+  res_instance_init();
+
+  }
+
+if (!game_paused())
+ ptc_create_particles(x,y,32,32,PTC_TYPE.fire,4,PTC_DISTR.uniform,PTC_SYS.back_8);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="10">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Dummy
 </string>
           </argument>
         </arguments>

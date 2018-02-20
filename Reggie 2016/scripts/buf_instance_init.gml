@@ -7,8 +7,6 @@ No arguments.
 Returns nothing.
 */
 
-ds_list_add(global.buff_user_list, id);
-
 local_buff_grid = ds_grid_create(2,0);
 local_buff_counter = 0;
 

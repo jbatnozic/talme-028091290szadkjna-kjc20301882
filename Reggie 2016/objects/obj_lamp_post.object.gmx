@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>propResettableParObj</parentName>
+  <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -25,8 +25,10 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>light=HG_light_create_static(-1,x,y-80,spr_light_torch,c_white,2.0,270,1);
-skipdel=false;
+            <string>light = HG_light_create_static(-1,x,y-80,spr_light_torch,c_white,2.0,270,1);
+// ^ If changing, also change the Recovery in Step event
+
+res_instance_init();
 </string>
           </argument>
         </arguments>
@@ -49,8 +51,63 @@ skipdel=false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (skipdel=false)
- HG_light_destroy(-1,light,HG_LTYPE.static);
+            <string>/// Release resources
+
+HG_light_destroy(-1, light, HG_LTYPE.static);
+
+res_instance_free();
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (res_instance_get_flag() == RES_FLAG.do_recover) {
+
+  light = HG_light_create_static(-1,x,y-80,spr_light_torch,c_white,2.0,270,1);
+
+  res_instance_init();
+  
+  }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="10">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Dummy
 </string>
           </argument>
         </arguments>

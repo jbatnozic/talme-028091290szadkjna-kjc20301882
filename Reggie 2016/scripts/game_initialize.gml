@@ -70,7 +70,9 @@ enum ABSEND {
  doNothing=0,
  returnToMenu,
  roomGoto,
- endGame
+ endGame,
+ saveChkpt,
+ loadChkpt
 
  };
 
@@ -81,7 +83,7 @@ global.scene_camera_x=0;
 global.scene_camera_y=0;
 
 //Game Save/Load state string:
-global.sl_string="";
+global.svld_string = "";
      
 //Misc.
 global.abs_end_action=0;
@@ -129,33 +131,44 @@ fnt_initialize();
 // DYNAMIC: //
 //**********//
 
-if (argument0 == true) exit;
+if (argument0 == false) {
 
-crafting_initialise();
-journal_initialise();
-repair_initialise();
-sett_initialize();
-terr_initialize();
-buf_initialise();
-inv_initialise();
-txt_initialize();
-ptc_initialize();
-pnc_initialize();
-
-spl_initialize();
-
-barter_initialise();
-heart_initialise();
-sev_initialise();
-
-if (argument1 == true)
-  sev_set_new_game();
-
-NSP_initialize();
-TPP_initialize();
-TPP_define_defaults();
-TPP_define_local();
-
-//Blur shader setup:
-global.sha_gauss_sigma = shader_get_uniform(sh_gauss,"sigma");
-global.sha_gauss_blurSize = shader_get_uniform(sh_gauss,"blurSize");
+  crafting_initialise();
+  journal_initialise();
+  repair_initialise();
+  sett_initialize();
+  terr_initialize();
+  buf_initialise();
+  inv_initialise();
+  txt_initialize();
+  ptc_initialize();
+  pnc_initialize();
+  
+  spl_initialize();
+  
+  barter_initialise();
+  heart_initialise();
+  sev_initialise();
+  
+  if (argument1 == true)
+    sev_set_new_game();
+  
+  NSP_initialize();
+  TPP_initialize();
+  TPP_define_defaults();
+  TPP_define_local();
+  
+  res_initialize();
+  
+  //Blur shader setup:
+  global.sha_gauss_sigma = shader_get_uniform(sh_gauss,"sigma");
+  global.sha_gauss_blurSize = shader_get_uniform(sh_gauss,"blurSize");
+  
+  }
+  
+//***********//
+// FINALIZE: //
+//***********//
+global.game_init_flag = true;
+  
+  

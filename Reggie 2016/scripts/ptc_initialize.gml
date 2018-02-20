@@ -2,23 +2,55 @@
 /*
 
 */
-var a;
+var a, i;
 
-//System:
-global.ptc_system_back=part_system_create();
-part_system_depth(global.ptc_system_back,10);
+//Systems:
+i = 0;
 
-global.ptc_system_fore=part_system_create();
-part_system_depth(global.ptc_system_fore,-10);
+global.PTC_SYSTEM[i++] = part_system_create();
+part_system_depth(i-1, +75);
 
-part_system_automatic_update(global.ptc_system_back,false);
-part_system_automatic_update(global.ptc_system_fore,false);
+global.PTC_SYSTEM[i++] = part_system_create();
+part_system_depth(i-1, +25);
+
+global.PTC_SYSTEM[i++] = part_system_create();
+part_system_depth(i-1, +8);
+
+global.PTC_SYSTEM[i++] = part_system_create();
+part_system_depth(i-1, -8);
+
+global.PTC_SYSTEM[i++] = part_system_create();
+part_system_depth(i-1, -25);
+
+global.PTC_SYSTEM[i++] = part_system_create();
+part_system_depth(i-1, -75);
+
+global.PTC_SYSTEM_COUNT = i;
+
+for (i = i - 1; i >= 0; i -= 1) {
+  part_system_automatic_update(i, false);
+  part_system_draw_order(i, false);
+  }
+  
+enum PTC_SYS {
+
+  back_75,
+  back_25,
+  back_8,
+  
+  fore_8,
+  fore_25,
+  fore_75
+
+  }
 
 //Particle types:
 enum PTC_TYPE {
- fire,
- bleed
- }
+
+  fire,
+  bleed
+  
+  }
 
  //Definitions (STUB):
  
@@ -43,8 +75,18 @@ enum PTC_TYPE {
 
 //Effect types:
 enum PTC_EFF {
- acid,
- bleed,
- fire,
- poison
- }
+
+  acid,
+  bleed,
+  fire,
+  poison
+  
+  }
+  
+enum PTC_DISTR {
+
+  uniform = 0,
+  gauss = 1,
+  gauss_inv = -1
+
+  }

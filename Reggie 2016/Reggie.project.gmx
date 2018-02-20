@@ -303,8 +303,9 @@
     <script>scripts\__NOTES_SURGEON.gml</script>
     <scripts name="Global">
       <script>scripts\game_initialize.gml</script>
+      <script>scripts\game_cleanup.gml</script>
       <script>scripts\game_set_properties.gml</script>
-      <script>scripts\game_free.gml</script>
+      <script>scripts\game_is_initialized.gml</script>
       <scripts name="Misc">
         <script>scripts\tern.gml</script>
         <script>scripts\cpptern.gml</script>
@@ -335,14 +336,25 @@
         <script>scripts\xy_rotated.gml</script>
         <script>scripts\ftlerp.gml</script>
         <script>scripts\rtlerp.gml</script>
+        <script>scripts\string_crop.gml</script>
+        <script>scripts\draw_arm.gml</script>
         <scripts name="Armours">
           <script>scripts\armour_get_speed.gml</script>
           <script>scripts\armour_get_streq.gml</script>
           <script>scripts\armour_get_ratio.gml</script>
           <script>scripts\armour_max_dur.gml</script>
         </scripts>
-        <script>scripts\string_crop.gml</script>
-        <script>scripts\draw_arm.gml</script>
+      </scripts>
+      <scripts name="Resource Management">
+        <script>scripts\res_initialize.gml</script>
+        <script>scripts\res_free.gml</script>
+        <script>scripts\res_instance_init.gml</script>
+        <script>scripts\res_instance_free.gml</script>
+        <script>scripts\res_cleanup_all.gml</script>
+        <script>scripts\res_backup_all.gml</script>
+        <script>scripts\res_instance_get_flag.gml</script>
+        <script>scripts\res_instance_set_flag.gml</script>
+        <script>scripts\res_clear_all_flags.gml</script>
       </scripts>
       <scripts name="Fonts">
         <script>scripts\fnt_initialize.gml</script>
@@ -515,12 +527,14 @@
         <script>scripts\buf_end_effect.gml</script>
         <script>scripts\buf_calculate_modifiers.gml</script>
         <script>scripts\buf_instance_has_buff.gml</script>
+        <script>scripts\buf_instance_backup.gml</script>
         <script>scripts\buf_instance_recover.gml</script>
       </scripts>
       <scripts name="Particles">
         <script>scripts\ParticlesNotes.gml</script>
         <script>scripts\ptc_initialize.gml</script>
         <script>scripts\ptc_free.gml</script>
+        <script>scripts\ptc_update.gml</script>
         <script>scripts\ptc_create_particles.gml</script>
         <script>scripts\STUB_ptc_create_efect.gml</script>
       </scripts>
@@ -624,8 +638,9 @@
         <script>scripts\cha_draw_channel_bar.gml</script>
       </scripts>
       <scripts name="Saving / Loading">
-        <script>scripts\game_save_checkpoint.gml</script>
-        <script>scripts\game_load_checkpoint.gml</script>
+        <script>scripts\game_checkpoint_save.gml</script>
+        <script>scripts\game_checkpoint_load.gml</script>
+        <script>scripts\game_checkpoint_del.gml</script>
         <script>scripts\game_save_systems.gml</script>
         <script>scripts\game_load_systems.gml</script>
         <scripts name="Masters">
@@ -997,7 +1012,7 @@
         </scripts>
       </scripts>
     </scripts>
-    <scripts name="N String Parser v2_6">
+    <scripts name="N String Parser v2_6_1">
       <script>scripts\NSP_Documentation.gml</script>
       <script>scripts\NSP_initialize.gml</script>
       <script>scripts\NSP_free.gml</script>
@@ -1089,8 +1104,9 @@
       </scripts>
     </scripts>
     <scripts name="Documentation">
-      <script>scripts\WEAPON_Guide.gml</script>
-      <script>scripts\REPAIR_Guide.gml</script>
+      <script>scripts\__WEAPON_Guide.gml</script>
+      <script>scripts\__REPAIR_Guide.gml</script>
+      <script>scripts\__DEPTHS.gml</script>
     </scripts>
   </scripts>
   <shaders name="shaders">
@@ -1120,7 +1136,7 @@
         <object>objects\obj_game_controller</object>
         <object>objects\obj_hg_controller</object>
         <object>objects\obj_pfd_controller</object>
-        <object>objects\obj_scenery</object>
+        <object>objects\obj_aux_controller</object>
         <object>objects\obj_camera</object>
         <object>objects\obj_heart_attack</object>
         <object>objects\obj_initializer</object>
@@ -1171,6 +1187,7 @@
     </objects>
     <objects name="Gameplay">
       <object>objects\obj_player</object>
+      <object>objects\obj_resettable_template</object>
       <objects name="Parents / Static">
         <object>objects\staticParObj</object>
         <object>objects\ladderObj</object>
@@ -1179,7 +1196,6 @@
         <object>objects\deactivateParObj</object>
         <object>objects\weaponHoldingPar</object>
         <object>objects\fireDecoParObj</object>
-        <object>objects\propResettableParObj</object>
         <object>objects\pickupParObj</object>
       </objects>
       <objects name="World props">
@@ -1263,6 +1279,7 @@
         </objects>
       </objects>
       <object>objects\obj_pickup_item</object>
+      <object>objects\obj_await_tester</object>
     </objects>
   </objects>
   <rooms name="rooms">

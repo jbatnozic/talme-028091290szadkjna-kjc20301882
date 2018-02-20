@@ -1,9 +1,9 @@
-///buf_free(free locals)
+///buf_free()
 /*
 
 */
 
-if (argument0 == true) {
+/*if (argument0 == true) {
 
   var i, size = ds_list_size(global.buff_user_list);
 
@@ -18,9 +18,8 @@ if (argument0 == true) {
   
     }
 
-  }
+  }*/
 
 ds_grid_destroy(global.buff_grid);
-ds_list_destroy(global.buff_user_list);
 
 

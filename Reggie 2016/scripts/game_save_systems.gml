@@ -1,9 +1,9 @@
-///game_save_systems(Name)
+///game_save_systems(FileName)
 /*
 
 */
 
-ini_open(argument0+"_save_ini.ini");
+ini_open(argument0);
 
 //Inventory:
 ini_write_string("INVENTORY","ITEMS",inv_write());

@@ -7,7 +7,6 @@ No arguments.
 Returns nothing.
 */
 
-global.buff_user_list = ds_list_create();
 global.buff_grid = ds_grid_create(17, 0);
 global.buff_speed = 6; // Putting a higher number here will result in better
                        // performance but less accuracy. At 6 the system's window

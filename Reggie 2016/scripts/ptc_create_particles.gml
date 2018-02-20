@@ -1,19 +1,16 @@
-///ptc_create_particles(x,y,w,h,type,n,distribution,system depth)
+///ptc_create_particles(x, y, w, h, type, n, [PTC_DISTR enum] distro, [PTC_SYS enum] system)
 /*
 
 */
-var type,xx,yy,system,dist;
+var type, xx, yy, system, dist;
 
-type=argument4;
+type = argument4;
 
-if argument7=1
- system=global.ptc_system_back
- else if argument7=-1
-  system=global.ptc_system_fore;
-
+system = global.PTC_SYSTEM[argument7];
+  
 switch (argument6) begin
 
- case 0: //Random dispersion
+ case PTC_DISTR.uniform: //Random dispersion
   repeat (argument5) {
 
    xx=argument0+choose(0.5,-0.5)*random(argument2);
@@ -24,7 +21,7 @@ switch (argument6) begin
    }
   exit;
  
- case 1: //Gaussian dispersion
+ case PTC_DISTR.gauss: //Gaussian dispersion
   repeat (argument5) {
   
    dist=bias_0();
@@ -37,7 +34,7 @@ switch (argument6) begin
    }
   exit;
  
- case -1: //Inverse-Gaussian dispersion
+ case PTC_DISTR.gauss_inv: //Inverse-Gaussian dispersion
   repeat (argument5) {
   
    dist=bias_1();

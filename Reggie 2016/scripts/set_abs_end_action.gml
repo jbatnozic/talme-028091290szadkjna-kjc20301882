@@ -3,4 +3,4 @@
 
 */
 
-global.abs_end_action=argument0;
+global.abs_end_action = argument0;

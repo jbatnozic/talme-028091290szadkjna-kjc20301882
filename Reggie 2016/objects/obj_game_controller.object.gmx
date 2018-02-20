@@ -40,8 +40,8 @@ bloomOvrIntensity=0;
 bloomOvrRadius=0;
 
 application_surface_draw_enable(false);
-auxSurf=surface_create(surface_get_width(application_surface),
-                       surface_get_height(application_surface));
+auxSurf = surface_create(surface_get_width(application_surface),
+                         surface_get_height(application_surface));
 
 //Info:
 _infoY=-32;
@@ -102,77 +102,19 @@ sett_update_settings();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Interact
+            <string>///Particles Step
 
-/*if (keyboard_check_pressed(userControls[KEYBOARD.interact]) and
-    global.pnc_target_id&gt;=0) {
+if (!_dc) {
 
-  global.pnc_interact_id=global.pnc_target_id;
-  
-  }*/
+ ptc_update();
+ 
+ }
 </string>
           </argument>
         </arguments>
       </action>
     </event>
     <event eventtype="3" enumb="1">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Secondary initialization
-
-if (global.sl_string&lt;&gt;"") {
-
- var name=global.sl_string;
- 
- //Basic initialization:
- game_initialize(0,0);
- 
- //Mercury &amp; Pathfinding:
- if instance_exists(obj_hg_controller)
-  remove(obj_hg_controller);
- instance_create(0,0,obj_hg_controller);
- 
- if instance_exists(obj_pfd_controller)
-  remove(obj_pfd_controller);
- instance_create(0,0,obj_pfd_controller);
- 
- //Systems &amp; resettables: 
- game_load_systems(name);
- 
- with (propResettableParObj) {
- 
-  instance_create(x,y,object_index);  
-  skipdel=true;
-  instance_destroy();  
- 
-  }
-
- gui_show_message("Game loaded.",c_black,true);
- 
- }
- 
- 
- 
- 
- 
-</string>
-          </argument>
-        </arguments>
-      </action>
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -208,34 +150,6 @@ or instance_exists(obj_gui_pause)=true
  _dc=true
  else
   _dc=false;
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Particles Step
-
-if (_dc=false) {
-
- part_system_update(global.ptc_system_back);
- part_system_update(global.ptc_system_fore);
- 
- }
 </string>
           </argument>
         </arguments>
@@ -595,6 +509,41 @@ if (surface_exists(auxSurf) and surface_exists(application_surface)) {
           </argument>
         </arguments>
       </action>
+    </event>
+    <event eventtype="8" enumb="75">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Draw tooltip
+
+if (game_is_initialized())
+  pnc_draw_tooltip(sett_get_value("Tooltip position")=="Fixed");
+
+/*if (!ds_exists(global.sett_map, ds_type_map)) {
+//if (!game_is_initialized()) {
+
+  show_message("sett_map = " + string(global.sett_map));
+  show_message("svld_string = " + global.svld_string);
+  show_message("game_init_flag = " + string(global.game_init_flag));
+
+  }*/
+</string>
+          </argument>
+        </arguments>
+      </action>
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -619,51 +568,35 @@ switch (global.abs_end_action) begin
   break;
   
  case ABSEND.returnToMenu:   
-   game_free();
+   game_cleanup();
    global.abs_end_action = 0;
    room_goto(room_menu); 
   break;
   
  case ABSEND.roomGoto:
-   game_free();   
+   game_cleanup();   
    global.abs_end_action = 0;
    room_goto(_roomGoto);
   break;
   
  case ABSEND.endGame:
-   game_free();
+   game_cleanup();
    game_end();
+  break; 
+  
+ case ABSEND.saveChkpt:
+  global.abs_end_action = 0;
+  game_checkpoint_save();
+  break;
+  
+ case ABSEND.loadChkpt:
+  // Maybe not needed? STUB
   break; 
   
  default:
   break;
 
 end;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="8" enumb="75">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Draw tooltip
-
-pnc_draw_tooltip(sett_get_value("Tooltip position")=="Fixed");
 </string>
           </argument>
         </arguments>
@@ -985,14 +918,15 @@ if _infoY&gt;-64 {
  if gui_draw_sprite_clickable_ext(spr_hud_info_big_buttons,1,xx+64,yy+6,true,hud_scale,hud_scale,1)=true {
   //Save
   //gui_show_message("Can't save right now.",c_maroon,true);
-  //game_save_checkpoint();
+  set_abs_end_action(ABSEND.saveChkpt);
+  //game_checkpoint_save();
   //gui_show_message_ext("Game saved (Slot "+string(global.game_slot)+").",c_black);
   }
   
  if gui_draw_sprite_clickable_ext(spr_hud_info_big_buttons,2,xx+114,yy+6,true,hud_scale,hud_scale,1)=true {
   //Load
   //gui_show_message("Can't load right now.",c_maroon,true);
-  //game_load_checkpoint(get_integer("Input slot to load:",1));
+  game_checkpoint_load();
   }
   
  if gui_draw_sprite_clickable_ext(spr_hud_info_big_buttons,3,xx+172,yy+6,true,hud_scale,hud_scale,1,"Open Inventory")=true {

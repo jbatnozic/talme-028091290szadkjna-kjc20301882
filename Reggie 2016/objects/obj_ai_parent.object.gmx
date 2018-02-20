@@ -323,7 +323,13 @@ if _attackTimerSec&gt;-_attackSpeedSec
             <string>///Update
 
 //Load recovery:
-buf_instance_recover();
+if (res_instance_get_flag() == RES_FLAG.do_recover) {
+
+  buf_instance_recover();
+  
+  res_instance_init();
+
+  }
 
 //Calc General Random:
 if (_randomGenCounter&gt;0) _randomGenCounter-=1

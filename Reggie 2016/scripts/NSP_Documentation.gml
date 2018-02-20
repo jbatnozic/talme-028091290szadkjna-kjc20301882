@@ -1,5 +1,5 @@
 /* N STRING PARSER - DOCUMENTATION:
-   v2.6
+   v2.6.1
    
 By Surgeon_. You can send me a PM on GMC if you have any questions, bug reports and/or suggestions.
 Credit would be nice if you use it.

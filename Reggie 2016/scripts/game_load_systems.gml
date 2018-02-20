@@ -1,12 +1,12 @@
-///game_load_systems(Name)
+///game_load_systems(FileName)
 /*
 
 */
 
-if !file_exists(argument0+"_save_ini.ini")
+if (!file_exists(argument0))
  show_error("File missing! "+argument0,true);
 
-ini_open(argument0+"_save_ini.ini");
+ini_open(argument0);
 
 //Inventory:
 var s=ini_read_string("INVENTORY","ITEMS","");

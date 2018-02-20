@@ -1,9 +1,9 @@
-///game_free()
+///game_cleanup()
 /*
 Releases all memory in use by the game.
 */
 
-//instance_activate_all();
+res_cleanup_all();
 
 //SYSTEMS:
 crafting_free();
@@ -11,11 +11,12 @@ journal_free();
 repair_free();
 sett_free();
 terr_free();
-buf_free(true);
 inv_free();
 txt_free();
 ptc_free();
 sev_free();
+res_free();
+buf_free();
 
 spl_free();
 
@@ -27,14 +28,6 @@ TPP_free();
   //barter_free(); -- probs not needed
   global.barter_string="";
   
-//BODIES:
-//instance_activate_all();
-
-/*with (bodyParObj) {
- buf_instance_recover();
- buf_instance_free();
- }*/
-  
 //OTHER:
 
  //Pathfinding:
@@ -43,6 +36,12 @@ TPP_free();
  with (obj_tracker) {
   instance_destroy();
   }  
+  
+ with (obj_game_controller) {
+ 
+  if (surface_exists(auxSurf)) surface_free(auxSurf);
+ 
+  }
   
 //CHECK REMAINING DATA STRUCTURES:
 var s, t;
@@ -61,7 +60,10 @@ if (true) {
  
   }
  
- 
- 
- 
- 
+//FINALIZE:
+global.game_init_flag = false;
+
+
+
+
+

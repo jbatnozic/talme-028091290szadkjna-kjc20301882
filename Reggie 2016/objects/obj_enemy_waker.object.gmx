@@ -29,6 +29,8 @@
 
 set_behavior_values_waker();
 
+res_instance_init();
+
 _group=GROUP.enemy;
 
 _isCommander=false;
@@ -96,6 +98,7 @@ _attackMode=0;
             <kind>1</kind>
             <string>///Free memory
 buf_instance_free();
+res_instance_free();
 </string>
           </argument>
         </arguments>

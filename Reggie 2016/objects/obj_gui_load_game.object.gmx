@@ -248,8 +248,8 @@ if (selected&lt;&gt;"") {
     break;
     
    default: // PEP - Doesn't release 'dirs'
-     game_free();
-     game_load_checkpoint(selected);
+     game_cleanup();
+     //game_load_checkpoint(selected); STUB
     break;
     
    end;

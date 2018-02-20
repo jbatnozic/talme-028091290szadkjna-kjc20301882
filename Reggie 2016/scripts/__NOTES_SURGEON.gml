@@ -13,7 +13,7 @@
    ++_prefTolerance --> Error margin for preferred distance.
    
    OTHER:
-   ++Save / Load actions MUST be in the Draw GUI event (because of the order of events).
+   ++Any actions in the Draw GUI End event must be surrounded with if (game_is_initialized()) {...}
    ++Shops' inventories do not increase when The Player sells something, but they
      do decrease when The Player buys something.
      
@@ -21,6 +21,8 @@
    1. obj_initializer
    2. obj_hg_controller
    3. obj_game_controller
+   4. obj_aux_controller
+   5. obj_camera_foot
      
    OBJECT DEPTHS: [Objects with higher depths go first]
    -150 Finite state machines

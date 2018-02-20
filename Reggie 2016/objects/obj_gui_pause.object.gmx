@@ -90,7 +90,7 @@ draw_sprite_ext(spr_window_pause,0,xx,yy,sprite_scale,sprite_scale,0,c_white,1);
 if (gui_draw_sprite_clickable_ext(spr_window_button_pause,0,xx+18,yy+142,true,sprite_scale,sprite_scale,1)) {
  var n;
  n=get_string("Name your save file:","Reggie");
- game_save_checkpoint(n);
+ //game_save_checkpoint(n); STUB
  }
 
 //Load:

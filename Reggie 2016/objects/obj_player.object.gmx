@@ -3,7 +3,7 @@
   <spriteName>spr_player_run</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>-1</depth>
+  <depth>0</depth>
   <persistent>0</persistent>
   <parentName>bodyParObj</parentName>
   <maskName>playerDefaultMaskSpr</maskName>
@@ -70,6 +70,9 @@ buf_instance_init();
 _bufSave="";
 _bufWeightCounter=0;
 _invWeight=0;
+
+//Resource management:
+res_instance_init();
 
 //Image data:
 _eyesY=20;
@@ -147,6 +150,32 @@ sh_bx = 0; sh_by = 0;
         </arguments>
       </action>
     </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>
+buf_instance_free();
+
+res_instance_free();
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
@@ -203,7 +232,15 @@ sh_bx = 0; sh_by = 0;
 if !(global.scene_active) begin
 
  //*** LOAD RECOVERY: ***
- buf_instance_recover();
+ if (res_instance_get_flag() == RES_FLAG.do_recover) {
+ 
+  buf_instance_recover();
+  
+  res_instance_init();
+    
+  //show_message("Player recovered resources");
+ 
+  }
  
  //*** INVENTORY WEIGHT: ***
  if (_bufWeightCounter=0) {
@@ -806,6 +843,33 @@ if (__item &lt;&gt; "") and
  inv_add_item(__item,__amount);
   
 //inventory_additems(g_playerInventory, __item,__amount);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="10">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Back up resources
+
+buf_instance_backup();
+
+//show_message("Player backed up resources");
 </string>
           </argument>
         </arguments>

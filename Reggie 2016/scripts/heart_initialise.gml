@@ -41,7 +41,7 @@ enum HEART {
  jump_strain=10,   // [100] How much to add to the secondary heart attack modifier upon jumping.
  sprint_strain=30, // [100] Strain per second when sprinting.
 
- admin_mod= 0,  // [100] A global modifier for the chance to get a heart attack and it will
+ admin_mod=65,  // [100] A global modifier for the chance to get a heart attack and it will
                 // always be in effect. Default: 65
  
  };

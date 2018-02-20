@@ -25,8 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if game_paused()=false
- ptc_create_particles(x,y,32,32,PTC_TYPE.fire,4,0,1);
+            <string>if (!game_paused())
+ ptc_create_particles(x,y,32,32,PTC_TYPE.fire,4,PTC_DISTR.uniform,PTC_SYS.back_8);
 </string>
           </argument>
         </arguments>

@@ -29,6 +29,8 @@
 
 set_behavior_values_turta();
 
+res_instance_init();
+
 _group=GROUP.enemy;
 
 _isCommander=false;
@@ -113,6 +115,7 @@ _turtleTimer=-_turtleCooldown;
             <kind>1</kind>
             <string>///Free memory
 buf_instance_free();
+res_instance_free();
 </string>
           </argument>
         </arguments>
@@ -390,6 +393,31 @@ if _hspeed&lt;&gt;0 {
         <whoName>self</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
+      </action>
+    </event>
+    <event eventtype="7" enumb="10">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Create restore point
+
+buf_instance_backup();
+</string>
+          </argument>
+        </arguments>
       </action>
     </event>
     <event eventtype="8" enumb="0">

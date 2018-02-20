@@ -10,5 +10,10 @@ for (i=0; i<array_length_1d(global.ptc_type); i+=1) begin
 
 end;
 
-part_system_destroy(global.ptc_system_back);
-part_system_destroy(global.ptc_system_fore);
+for (i = 0; i < global.PTC_SYSTEM_COUNT; i += 1) {
+
+  part_system_destroy(global.PTC_SYSTEM[i]);
+
+  }
+  
+global.PTC_SYSTEM_COUNT = 0;
