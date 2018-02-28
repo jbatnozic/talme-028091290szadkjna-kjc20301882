@@ -238,15 +238,15 @@ if !(global.scene_active) begin
   
   res_instance_init();
     
-  //show_message("Player recovered resources");
+  show_message("Player recovered resources");
  
   }
  
  //*** INVENTORY WEIGHT: ***
- if (_bufWeightCounter=0) {
+ if (_bufWeightCounter == 0) {
  
-  _invWeight=inv_calc_weight();
-  _bufWeightCounter=60;
+  _invWeight = rinv_weight(-1);
+  _bufWeightCounter = 60;
   
   }
  
@@ -266,7 +266,8 @@ if !(global.scene_active) begin
  //*** ARMOUR: ***
  _stamReq=1;
  _armourMod=1;
- if _armour&lt;=0 {
+ 
+ /*if _armour&lt;=0 {
   _armour=0;
   global.inventory_armour[4]=_armour;
   inv_remove_armour();
@@ -275,7 +276,7 @@ if !(global.scene_active) begin
    global.inventory_armour[4]=_armour/armour_get_ratio(global.inventory_armour[1]);
    _stamReq*=armour_get_streq(global.inventory_armour[1]);
    _armourMod*=armour_get_speed(global.inventory_armour[1]);
-   }
+   }*/
  
  //*** HEALTH: ***  
  player_regenerate();
@@ -613,38 +614,56 @@ end else { //Movement in cut-scenes
             <kind>1</kind>
             <string>///Quick items
 
-if !(global.scene_active) begin
+if (!global.scene_active) {
 
- //EQUIPPING:
- var __oldActive;
+  //EQUIPPING:
 
- //First the script checks whether the currently active item has changes since the last step:
- __oldActive=global.inventory_active;
-
- if keyboard_check_pressed(userControls[KEYBOARD.hotSwap1]) global.inventory_active=1
-  else if keyboard_check_pressed(userControls[KEYBOARD.hotSwap2]) global.inventory_active=2
-   else if keyboard_check_pressed(userControls[KEYBOARD.hotSwap3]) global.inventory_active=3
-    else if keyboard_check_pressed(userControls[KEYBOARD.hotSwap4]) global.inventory_active=4
-     else if keyboard_check_pressed(userControls[KEYBOARD.hotSwap5]) global.inventory_active=5;
+  //First the script checks whether the currently active item has changes since the last step:
+  var old_active = global.rinv_active_slot;
+  
+  var a = global.rinv_active_slot;
+  
+  if keyboard_check_pressed(userControls[KEYBOARD.hotSwap1])      a = 0;
+  else if keyboard_check_pressed(userControls[KEYBOARD.hotSwap2]) a = 1;
+  else if keyboard_check_pressed(userControls[KEYBOARD.hotSwap3]) a = 2;
+  else if keyboard_check_pressed(userControls[KEYBOARD.hotSwap4]) a = 3;
+  else if keyboard_check_pressed(userControls[KEYBOARD.hotSwap5]) a = 4;
     
- if mouse_wheel_up() and gui_get_mouse_in_hud()&lt;&gt;1 global.inventory_active-=1
-  else if mouse_wheel_down() and gui_get_mouse_in_hud()&lt;&gt;1 global.inventory_active+=1;
+  if (mouse_wheel_up() and gui_get_mouse_in_hud() != 1) a -= 1
+  else if (mouse_wheel_down() and gui_get_mouse_in_hud() != 1) a += 1;
  
- if global.inventory_active&gt;5 global.inventory_active=1
-  else if global.inventory_active&lt;1 global.inventory_active=5;
+  if (a &gt; 4) a = 0;
+  else if (a &lt; 0) a = 4;
 
- //Action:
- if __oldActive&lt;&gt;global.inventory_active 
-  player_update_hands();
+  global.rinv_active_slot = a; 
  
- //USING:
- if mouse_check_button_pressed(userControls[MOUSE.shoot])=true and
-    global.inventory_quick[global.inventory_active,1]&lt;&gt;"ZZZZZ" and
-    real(inv_item_get_static_value(global.inventory_quick[global.inventory_active,1],4))=-1 {
-  inv_use_item(-global.inventory_active);
+  //Action:
+  if (old_active != global.rinv_active_slot)
+    player_update_hands();
+ 
+  //USING:
+  if (mouse_check_button_pressed(userControls[MOUSE.shoot])) {
+  
+    if (!rinv_item_is_null(-1, global.rinv_active_slot)) {
+    
+      var static_id = rinv_local_to_static(-1, global.rinv_active_slot);
+    
+      //rinv_use_item(global.inventory_active);
+    
+      }
+   
+    }
+  
   }
   
-end;
+  
+  
+  
+  
+  
+  
+  
+  
 </string>
           </argument>
         </arguments>
@@ -670,7 +689,21 @@ end;
 //Grounded check (Very important!):
 //_grounded=place_meeting_terrain(x,y+8,!keyboard_check(userControls[KEYBOARD.crawl]),y+2)==true
 
-var has_item = (global.inventory_quick[global.inventory_active,1] != "ZZZZZ");
+//var has_item = (global.inventory_quick[global.inventory_active,1] != "ZZZZZ");
+                
+if (rinv_item_is_null(-1, global.rinv_active_slot)) {
+  has_item = false;
+  }
+else {
+
+  var static_id = rinv_local_to_static(-1, global.rinv_active_slot);
+  
+  if (rinv_item_get_static_value(static_id, RINV_STATIC.objwe) != -1)
+    has_item = true;
+  else
+    has_item = false;
+
+  }
 
 //Facing:
 if (has_item) {
@@ -869,7 +902,7 @@ if (__item &lt;&gt; "") and
 
 buf_instance_backup();
 
-//show_message("Player backed up resources");
+show_message("Player backed up resources");
 </string>
           </argument>
         </arguments>

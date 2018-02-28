@@ -10,7 +10,7 @@ size = ds_list_size(list);
 
 for (i = 0; i < size; i += 1) {
 
-  instance_activate_object(list[|i]);
+  //instance_activate_object(list[|i]);
 
   with (list[|i]) {
   

@@ -89,11 +89,11 @@ if item_list[10]=0 and scroll&gt;0
   
 //Maximum durability update:
 if update_maxdur=true {
- if selected&gt;0
+ /*if selected&gt;0
   maxdur=weapon_max_dur(global.inventory_current[selected,1])
   else
    maxdur=weapon_max_dur(global.inventory_quick[-selected,1]);
- update_maxdur=false;
+ update_maxdur=false;*/
  }
 
 //Repair item list update:

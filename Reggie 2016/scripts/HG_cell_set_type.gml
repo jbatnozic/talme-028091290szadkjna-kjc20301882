@@ -9,7 +9,10 @@ var i,cw,ch,grid,list,oldtype;
  if argument0=-1
   argument0=global.HG_DEFAULT_WORLD;
 
-list=global.HG_TYPE_MAP[?argument3];
+if (is_string(argument3))
+  list=global.HG_TYPE_MAP[?argument3];
+else
+  list=argument3;
 
 //INDEX:
 grid=argument0[?"index"];

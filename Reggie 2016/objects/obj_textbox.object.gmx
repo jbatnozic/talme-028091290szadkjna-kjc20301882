@@ -78,11 +78,6 @@ text_width=910;
 text_sep=36;
 text_max_rows=10;
 
-//GUI scale:
-//gui_scale=gui_get_scale();
-//gui_set_scale(gui_scale/2);
-//gui_refresh();
-
 //Scene:
 game_start_scene(true);
 camera_target_x=0;
@@ -114,9 +109,7 @@ cov=0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//gui_set_scale(gui_scale);
-//gui_refresh();
-
+            <string>
 TPP_text_free(text_grid);
 txt_clear();
 game_end_scene();
@@ -551,24 +544,7 @@ if (veil&gt;0) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Set GUI scale
-/*var scale,pause;
-
-scale=gui_get_scale();
-pause=game_paused();
-
-if (scale&lt;&gt;gui_scale/2 and pause==false) {
-
-  gui_set_scale(gui_scale/2);
-  gui_refresh();
-
-  }
-else if (scale==gui_scale/2 and pause==true) {
-
-  gui_set_scale(gui_scale);
-  gui_refresh();
-
-  }*/
+            <string>/// Dummy
 
 </string>
           </argument>

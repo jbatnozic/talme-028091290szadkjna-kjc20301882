@@ -69,6 +69,7 @@
       <sprite>sprites\staticMaskSpr</sprite>
       <sprite>sprites\slopeMaskSpr</sprite>
       <sprite>sprites\platformMaskSpr</sprite>
+      <sprite>sprites\platformLargeMaskSpr</sprite>
       <sprite>sprites\playerDefaultMaskSpr</sprite>
       <sprite>sprites\playerRollMaskSpr</sprite>
       <sprite>sprites\aiDefaultMask</sprite>
@@ -203,6 +204,7 @@
       <sprite>sprites\spr_hospital_bed</sprite>
       <sprite>sprites\obj_window</sprite>
       <sprite>sprites\spr_gravekeepers_home</sprite>
+      <sprite>sprites\spr_platform_wood</sprite>
     </sprites>
     <sprites name="Bodies">
       <sprites name="Reggie">
@@ -300,7 +302,7 @@
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
-    <script>scripts\__NOTES_SURGEON.gml</script>
+    <script>scripts\__NOTES_JOVAN.gml</script>
     <scripts name="Global">
       <script>scripts\game_initialize.gml</script>
       <script>scripts\game_cleanup.gml</script>
@@ -345,6 +347,10 @@
           <script>scripts\armour_max_dur.gml</script>
         </scripts>
       </scripts>
+      <scripts name="Pspec">
+        <script>scripts\pspec_rinv_initialize.gml</script>
+        <script>scripts\pspec_rinv_free.gml</script>
+      </scripts>
       <scripts name="Resource Management">
         <script>scripts\res_initialize.gml</script>
         <script>scripts\res_free.gml</script>
@@ -373,12 +379,12 @@
         <script>scripts\TerrainNotes.gml</script>
         <script>scripts\terr_initialize.gml</script>
         <script>scripts\terr_free.gml</script>
+        <script>scripts\terr_create_type.gml</script>
         <script>scripts\terr_write.gml</script>
         <script>scripts\terr_read.gml</script>
       </scripts>
       <scripts name="Interface / GUI">
-        <script>scripts\InterfaceNotes.gml</script>
-        <script>scripts\gui_refresh.gml</script>
+        <script>scripts\refresh_draw_surfaces.gml</script>
         <script>scripts\gui_draw_sprite_clickable.gml</script>
         <script>scripts\gui_draw_sprite_hover.gml</script>
         <script>scripts\gui_draw_sprite_hover_scale.gml</script>
@@ -409,6 +415,60 @@
         <script>scripts\pnc_cursor_in_mask.gml</script>
         <script>scripts\pnc_is_target.gml</script>
         <script>scripts\pnc_kbchk.gml</script>
+      </scripts>
+      <scripts name="New Inventory">
+        <script>scripts\rinv_initialize.gml</script>
+        <script>scripts\rinv_free.gml</script>
+        <scripts name="Definitions">
+          <script>scripts\rinv_define_item.gml</script>
+          <script>scripts\rinv_item_desc_to_last.gml</script>
+          <script>scripts\rinv_item_desc.gml</script>
+          <script>scripts\rinv_item_get_static_value.gml</script>
+          <script>scripts\rinv_item_get_static_id.gml</script>
+        </scripts>
+        <scripts name="Instantiations">
+          <scripts name="Management">
+            <script>scripts\rinv_create.gml</script>
+            <script>scripts\rinv_destroy.gml</script>
+            <script>scripts\rinv_set_default.gml</script>
+            <script>scripts\rinv_get_default.gml</script>
+            <script>scripts\rinv_reserve_slots.gml</script>
+          </scripts>
+          <scripts name="Items">
+            <script>scripts\rinv_add_simple.gml</script>
+            <script>scripts\rinv_add_complex.gml</script>
+            <script>scripts\rinv_add_complex_arr.gml</script>
+            <script>scripts\rinv_count_item.gml</script>
+            <script>scripts\rinv_remove_simple.gml</script>
+            <script>scripts\rinv_remove_by_id_STUB.gml</script>
+            <script>scripts\rinv_item_is_null.gml</script>
+            <script>scripts\rinv_local_to_static.gml</script>
+            <script>scripts\rinv_item_get_dynamic_value.gml</script>
+            <script>scripts\rinv_item_set_dynamic_value.gml</script>
+            <script>scripts\rinv_item_get_amount.gml</script>
+          </scripts>
+          <scripts name="Utility">
+            <script>scripts\rinv_list_items.gml</script>
+            <script>scripts\rinv_weight.gml</script>
+            <script>scripts\rinv_add_empty_slot.gml</script>
+            <script>scripts\rinv_swap_items.gml</script>
+            <script>scripts\STUB_rinv_recalc_weight.gml</script>
+            <script>scripts\STUB_rinv_refresh.gml</script>
+            <script>scripts\rinv_sort_name.gml</script>
+            <script>scripts\STUB_rinv_sort_weight.gml</script>
+            <script>scripts\STUB_rinv_write.gml</script>
+            <script>scripts\STUB_rinv_read.gml</script>
+            <script>scripts\rinv_lowest_null_slot.gml</script>
+            <script>scripts\rinv_count_slots.gml</script>
+          </scripts>
+        </scripts>
+        <scripts name="Underlying">
+          <script>scripts\_rinv_array_to_string.gml</script>
+          <script>scripts\_rinv_string_to_array.gml</script>
+          <script>scripts\_rinv_remap.gml</script>
+          <script>scripts\_rinv_clear_slot.gml</script>
+          <script>scripts\_rinv_collapse_STUB.gml</script>
+        </scripts>
       </scripts>
       <scripts name="Inventory">
         <script>scripts\InventoryNotes.gml</script>
@@ -662,6 +722,7 @@
       <script>scripts\lob_angle_e.gml</script>
       <script>scripts\lob_parameters_e.gml</script>
       <script>scripts\draw_bbox.gml</script>
+      <script>scripts\create_pickup.gml</script>
       <scripts name="Player">
         <script>scripts\player_damage.gml</script>
         <script>scripts\player_defibrillate.gml</script>
@@ -722,24 +783,36 @@
           <script>scripts\bh_ceme_raskal.gml</script>
         </scripts>
       </scripts>
-      <scripts name="Weapons _Player_">
-        <script>scripts\weapon_initialize.gml</script>
-        <script>scripts\weapon_projectile_init.gml</script>
-        <script>scripts\weapon_set_basics.gml</script>
-        <script>scripts\weapon_set_sprite.gml</script>
-        <script>scripts\weapon_set_sounds.gml</script>
-        <script>scripts\weapon_add_firing_mode.gml</script>
-        <script>scripts\weapon_add_ammo_type.gml</script>
-        <script>scripts\weapon_set_position.gml</script>
-        <script>scripts\weapon_execute.gml</script>
-        <script>scripts\weapon_update.gml</script>
-        <script>scripts\weapon_max_dur.gml</script>
-        <script>scripts\weapon_amt_name.gml</script>
-        <script>scripts\weapon_max_ammo.gml</script>
-        <script>scripts\projectile_get_object.gml</script>
-        <script>scripts\weapon_set_offset.gml</script>
+      <scripts name="Weapons">
+        <scripts name="System">
+          <script>scripts\wpn_sys_initialize.gml</script>
+          <script>scripts\wpn_sys_free.gml</script>
+          <scripts name="Inspection">
+            <script>scripts\wpn_sys_get_amt_name.gml</script>
+            <script>scripts\wpn_sys_get_max_ammo.gml</script>
+            <script>scripts\wpn_sys_get_max_dur.gml</script>
+          </scripts>
+        </scripts>
+        <scripts name="Local">
+          <scripts name="Setup">
+            <script>scripts\weapon_create.gml</script>
+            <script>scripts\weapon_initialize.gml</script>
+            <script>scripts\weapon_set_basics.gml</script>
+            <script>scripts\weapon_set_sprite.gml</script>
+            <script>scripts\weapon_set_offset.gml</script>
+            <script>scripts\weapon_set_sounds.gml</script>
+            <script>scripts\weapon_add_firing_mode.gml</script>
+            <script>scripts\weapon_add_ammo_type.gml</script>
+          </scripts>
+          <scripts name="Execution">
+            <script>scripts\weapon_set_position.gml</script>
+            <script>scripts\weapon_execute.gml</script>
+            <script>scripts\weapon_update_patron.gml</script>
+            <script>scripts\weapon_projectile_init.gml</script>
+            <script>scripts\projectile_get_object.gml</script>
+          </scripts>
+        </scripts>
       </scripts>
-      <script>scripts\create_pickup.gml</script>
     </scripts>
     <scripts name="Mercury Engine v1_1_3">
       <script>scripts\HG_README.gml</script>
@@ -1154,10 +1227,12 @@
         <object>objects\obj_load_fade</object>
         <object>objects\obj_bubble_text</object>
       </objects>
+      <object>objects\obj_activation_tester</object>
     </objects>
     <objects name="Interface">
       <objects name="Windows">
         <object>objects\obj_gui_inventory</object>
+        <object>objects\obj_gui_inventory_old</object>
         <object>objects\obj_gui_crafting</object>
         <object>objects\obj_gui_barter</object>
         <object>objects\obj_gui_repair</object>
@@ -1207,6 +1282,7 @@
         <object>objects\obj_wall_lamp</object>
         <object>objects\obj_hospital_door</object>
         <object>objects\obj_hospital_bed</object>
+        <object>objects\obj_platform_wood</object>
       </objects>
       <objects name="Terrain objects">
         <object>objects\obj_hg_black_area</object>

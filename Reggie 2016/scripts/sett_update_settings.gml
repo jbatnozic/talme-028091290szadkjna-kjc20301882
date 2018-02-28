@@ -18,7 +18,7 @@ window_set_fullscreen(sett_get_value("Fullscreen") == "On");
 
 spl_toggle(sett_get_value("Dynamic Decals") == "On");
 
-execute_string_delayed("gui_refresh();", 1);
+execute_string_delayed("refresh_draw_surfaces();", 1, false);
 
 //Sound:
  

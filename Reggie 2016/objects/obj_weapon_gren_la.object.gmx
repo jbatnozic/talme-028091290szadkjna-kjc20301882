@@ -70,7 +70,7 @@ if !game_paused() begin
 
  weapon_set_position(25,80);
  weapon_execute((global.player_obj_id).mod_rel,(global.player_obj_id).mod_acc);
- weapon_update();
+ weapon_update_patron();
  
 end;
 </string>

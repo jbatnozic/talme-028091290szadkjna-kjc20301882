@@ -9,10 +9,11 @@
  
 enum GLOBAL {
 
- precision=12,
- view_width=640,
- view_height=360,
- pfd_size=8,
+ precision = 12,
+ view_width = 640,
+ view_height = 360,
+ pfd_size = 8,
+ deactivation_cycle = 3, // Length, in steps
 
  }
 
@@ -133,18 +134,22 @@ fnt_initialize();
 
 if (argument0 == false) {
 
+  pspec_rinv_initialize();
+
   crafting_initialise();
   journal_initialise();
   repair_initialise();
   sett_initialize();
   terr_initialize();
   buf_initialise();
-  inv_initialise();
+  //inv_initialise();
   txt_initialize();
   ptc_initialize();
   pnc_initialize();
   
   spl_initialize();
+  
+  wpn_sys_initialize();
   
   barter_initialise();
   heart_initialise();
@@ -163,6 +168,9 @@ if (argument0 == false) {
   //Blur shader setup:
   global.sha_gauss_sigma = shader_get_uniform(sh_gauss,"sigma");
   global.sha_gauss_blurSize = shader_get_uniform(sh_gauss,"blurSize");
+  
+  //Auxilary draw surface:
+  global.auxilary_surface = -1;
   
   }
   

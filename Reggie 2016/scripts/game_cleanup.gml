@@ -6,12 +6,14 @@ Releases all memory in use by the game.
 res_cleanup_all();
 
 //SYSTEMS:
+pspec_rinv_free();
+
 crafting_free();
 journal_free();
 repair_free();
 sett_free();
 terr_free();
-inv_free();
+//inv_free();
 txt_free();
 ptc_free();
 sev_free();
@@ -19,6 +21,8 @@ res_free();
 buf_free();
 
 spl_free();
+
+wpn_sys_free();
 
 NSP_free(true);
 TPP_free();
@@ -31,17 +35,16 @@ TPP_free();
 //OTHER:
 
  //Pathfinding:
- pfd_free();
+  pfd_free();
  
- with (obj_tracker) {
-  instance_destroy();
-  }  
+  with (obj_tracker) {
+   instance_destroy();
+   }  
   
- with (obj_game_controller) {
- 
-  if (surface_exists(auxSurf)) surface_free(auxSurf);
- 
-  }
+  if (surface_exists(global.auxilary_surface))
+    surface_free(global.auxilary_surface);
+    
+  global.auxilary_surface = -1;
   
 //CHECK REMAINING DATA STRUCTURES:
 var s, t;

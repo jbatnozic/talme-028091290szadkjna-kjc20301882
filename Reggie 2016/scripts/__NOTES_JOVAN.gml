@@ -43,11 +43,11 @@
     
 >>To do:
   
+  Better inventory
   Reggie's legs when close to the ground but not quite on the groud
   Fix guns stuff
   Dialogs should pause the game or something
   Capitalize setting names
-  Free entire current room in roomGoto ABS_END
   Window size setting
   Enemy animations
   Setting to turn splat surfaces on/off
@@ -62,7 +62,6 @@
    ai_force_animation()
 
   -Optimization notes:
-   -activating / deactivating
    -In AI parent objects, exchange some collision functions with simple collisions.
    
   ~Can't repair and similar while in combat (player_is_in_combat())

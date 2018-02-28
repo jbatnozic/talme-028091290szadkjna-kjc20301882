@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>type="BrickWall";
+            <string>type = TERRAIN.BrickWall;
 </string>
           </argument>
         </arguments>
@@ -56,11 +56,13 @@ h=sprite_get_height(sprite_index)*image_yscale;
 ox=x-w/2;
 oy=y-h/2;
 
+var _ttype = terrainType[type];
+
 for (t=oy; t&lt;oy+h; t+=32) begin
 
  for (i=ox; i&lt;ox+w; i+=32) begin
  
-  HG_cell_set_type_dc(i,t,type,true);
+  HG_cell_set_type_dc(i,t,_ttype,true);
  
  end;
 end;

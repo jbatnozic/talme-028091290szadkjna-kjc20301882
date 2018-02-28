@@ -63,7 +63,9 @@
  _eccentricity=1;      // e
  _rangeTolerance=32;   // e, d
  _prefTolerance=0;     // e, d 
+ 
  pfd_instance_init();
+ res_instance_init();
  
 //&lt;BEHAVIOUR&gt; variables:
 _scriptIdle=0; // d
@@ -193,6 +195,7 @@ _skipUpdate=0;
             <kind>1</kind>
             <string>///Free memory
 buf_instance_free();
+res_instance_free();
 </string>
           </argument>
         </arguments>
@@ -303,7 +306,13 @@ _lastAttack+=1;
             <string>///Update
 
 //Load recovery:
-buf_instance_recover();
+if (res_instance_get_flag() == RES_FLAG.do_recover) {
+
+  buf_instance_recover();
+  
+  res_instance_init();
+  
+  }
 
 //Calc General Random:
 if _randomGenCounter&gt;0 _randomGenCounter-=1
@@ -1253,6 +1262,31 @@ if other._grounded=1
         <whoName>self</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
+      </action>
+    </event>
+    <event eventtype="7" enumb="10">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Backup resources
+
+buf_instance_backup();
+</string>
+          </argument>
+        </arguments>
       </action>
     </event>
     <event eventtype="8" enumb="0">

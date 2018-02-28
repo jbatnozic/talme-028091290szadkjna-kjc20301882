@@ -173,6 +173,15 @@ res_instance_free();
           <argument>
             <kind>1</kind>
             <string>///*Attack setup
+if (res_instance_get_flag() == RES_FLAG.do_recover) {
+
+  set_behavior_values_turta();
+
+  buf_instance_recover();
+  
+  res_instance_init();
+
+  }
 
 if _attackMode=1 {}
  else if _aiState=AI_STATE.hunt &amp;&amp; instance_exists(_target) and (_target&gt;0) {
@@ -412,7 +421,9 @@ if _hspeed&lt;&gt;0 {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Create restore point
+            <string>/// Backup resources
+
+show_message("Turta backing up");
 
 buf_instance_backup();
 </string>
