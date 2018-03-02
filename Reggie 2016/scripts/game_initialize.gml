@@ -169,8 +169,9 @@ if (argument0 == false) {
   global.sha_gauss_sigma = shader_get_uniform(sh_gauss,"sigma");
   global.sha_gauss_blurSize = shader_get_uniform(sh_gauss,"blurSize");
   
-  //Auxilary draw surface:
+  //Helper draw surface:
   global.auxilary_surface = -1;
+  global.composit_surface = -1;
   
   }
   

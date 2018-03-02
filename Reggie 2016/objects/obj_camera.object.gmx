@@ -130,8 +130,8 @@ x+=cos(omega)*_shake;
 y-=sin(omega)*_shake;
  
 //Clamp &amp; Round:   
-view_xview[0]=round(clamp(x,0,room_width-view_wview[0]));
-view_yview[0]=round(clamp(y,0,room_height-view_hview[0]));
+view_xview[0] = round( clamp(x, 0, room_width-view_wview[0]));
+view_yview[0] = round( clamp(y, 0, room_height-view_hview[0]));
 
 //Activations / deactivations:
 deactivation_counter = (deactivation_counter + 1) mod GLOBAL.deactivation_cycle;

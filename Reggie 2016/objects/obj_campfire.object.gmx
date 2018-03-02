@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>/// Initialize
 
-light = HG_light_create_static(-1,x,y,spr_light_diffuse,c_orange,1.25,0,1);
+light = HG_light_create_static(-1,x,y,spr_light_diffuse,c_orange,1.75,0,1);
 // ^ If changing, also change Recovery in Step event
 
 res_instance_init();

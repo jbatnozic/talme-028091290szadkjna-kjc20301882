@@ -27,16 +27,22 @@
             <kind>1</kind>
             <string>var w, cs=32;
 
-w=HG_world_create(ceil(room_width/cs),ceil(room_height/cs),cs,0,640,360,"Empty",false);
+w = HG_world_create(ceil(room_width/cs), ceil(room_height/cs),
+                    cs, 0, GLOBAL.view_width, GLOBAL.view_height,
+                    "Empty", false);
 
-  HG_world_make_default(w);
+HG_world_make_default(w);
 
-  HG_world_draw_enable_tiles(-1,0);
+HG_world_draw_enable_tiles(-1,0);
+
+var c=make_colour_rgb(100,100,255);
+
+HG_world_enable_lighting(-1,0.25,c,1,0,1,true,3,0.15,0.85,0);
+
+HG_world_enable_autotiling(-1);
   
-  var c=make_colour_rgb(100,100,255);
-  HG_world_enable_lighting(-1,0.25,c,1/1,0,1,true,3,0.15,0.85,0);
-  
-  HG_world_enable_autotiling(-1);
+uPixelW = shader_get_uniform(sh_equality_ol, "pixelW");
+uPixelH = shader_get_uniform(sh_equality_ol, "pixelH");
 </string>
           </argument>
         </arguments>
@@ -89,9 +95,65 @@ if (sett_get_value("Dynamic Bloom")="On") {
           <argument>
             <kind>1</kind>
             <string>///Render &amp; Draw Lighting
+var auxSurf = global.auxilary_surface;
+var compSurf = global.composit_surface;
 
-HG_world_render_lighting(-1,view_xview,view_yview);
-HG_world_draw_lighting(-1,view_xview,view_yview);
+var tlerp = (sett_get_value("Interpolation") == "On");
+
+if (surface_exists(auxSurf) and surface_exists(application_surface)) {
+ 
+  var texelW = texture_get_texel_width( surface_get_texture(application_surface));
+  var texelH = texture_get_texel_height(surface_get_texture(application_surface));
+  
+  // Create lighting mask:
+  surface_set_target(auxSurf);
+  
+  var sampler_ind = shader_get_sampler_index(sh_equality, "baseSampler");
+  var text = surface_get_texture(compSurf);
+  
+  shader_set(sh_equality_ol);
+  
+    shader_set_uniform_f(uPixelW, texelW);
+    shader_set_uniform_f(uPixelH, texelH);
+  
+    // Pass compSurf sampler to the shader:
+    texture_set_stage(sampler_ind, text);
+    
+    // Draw the other surface:
+    draw_surface(application_surface, 0, 0);
+  
+  shader_reset();
+  
+  surface_reset_target();
+
+  surface_copy(compSurf, 0, 0, auxSurf);
+  
+  }
+  
+HG_world_render_lighting(-1, view_xview, view_yview);
+
+HG_world_draw_lighting_mask(-1,view_xview,view_yview, compSurf);
+
+rtlerp(tlerp);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </string>
           </argument>
         </arguments>

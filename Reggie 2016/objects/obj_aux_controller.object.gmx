@@ -220,14 +220,88 @@ if (res_instance_get_flag() == RES_FLAG.do_recover) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Draw parallax background:
+            <string>/// Draw the sky STUB
+               
+var bg = bg_night_sky_1;               
+
+draw_background_ext(bg, view_xview, view_yview,
+                    GLOBAL.view_width  / background_get_width(bg),
+                    GLOBAL.view_height / background_get_height(bg),
+                    0, c_white, 1);
+                    
+draw_background_parallax(bg_3, 0.5, true, false, _altHeight, 1, 1);
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Make compositing surface
+
+var compSurf = global.composit_surface;
+
+if (!surface_exists(compSurf)) {
+
+  compSurf = surface_create(surface_get_width(application_surface),
+                            surface_get_height(application_surface));
+                            
+  global.composit_surface = compSurf;
+
+  }
+  
+if (surface_get_width(application_surface)  != surface_get_width(compSurf) ||
+    surface_get_height(application_surface) != surface_get_height(compSurf)) {
+   
+  surface_resize(compSurf,
+                 surface_get_width(application_surface),
+                 surface_get_height(application_surface));
+     
+  }
+  
+surface_copy(compSurf, 0, 0, application_surface);
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Draw other packgrounds
 var i;
 
 if (!is_array(amb_backgrounds)) exit;
 
-for (i=0; i&lt;array_length_2d(amb_backgrounds,0); i+=1) begin
+//for (i=0; i&lt;array_length_2d(amb_backgrounds,0); i+=1) {
+for (i = 0; i &lt; 1; i += 1) {
 
- draw_background_parallax(amb_backgrounds[i,0],amb_backgrounds[i,1],true,false,_altHeight,1,1);
+ draw_background_parallax(amb_backgrounds[i,0], amb_backgrounds[i,1], true, false, _altHeight, 1, 1);
  
  }
  

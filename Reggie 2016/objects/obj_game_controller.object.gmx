@@ -54,6 +54,8 @@ end;
 //Window resize:
 _drawX=0;
 _drawY=0;
+_drawW=0;
+_drawH=0;
 _windowW_1=window_get_width();
 _windowW_2=_windowW_1;
 _windowH_1=window_get_height();
@@ -404,94 +406,105 @@ var auxSurf = global.auxilary_surface;
 
 if (!surface_exists(auxSurf)) {
 
- auxSurf = surface_create(surface_get_width(application_surface),
-                          surface_get_height(application_surface));
-                          
- global.auxilary_surface = auxSurf;
-                        
- }
+  auxSurf = surface_create(surface_get_width(application_surface),
+                           surface_get_height(application_surface));
+                           
+  global.auxilary_surface = auxSurf;
+                         
+  }
 
 if (surface_exists(auxSurf) and surface_exists(application_surface)) {
- 
- //Apply blur if needed:
- switch (sign(blurRadius)) begin
-
-  case 0:
-    draw_set_colour(c_black);
-    draw_set_alpha(1);
-    draw_rectangle(0,0,window_get_width(),window_get_height(),false);
-   
-    surface_set_target(auxSurf);
-   
-     draw_surface(application_surface,0,0);
-    
-    surface_reset_target();
-   break;
-
-  case 1:    
-    draw_set_colour(c_black);
-    draw_set_alpha(1);
-    draw_rectangle(0,0,window_get_width(),window_get_height(),false);
-   
-    shader_set(sh_gauss);
-    
-    shader_set_uniform_f(global.sha_gauss_sigma,blurRadius*0.2);
-    shader_set_uniform_f(global.sha_gauss_blurSize,1.0/360);
-
-    surface_set_target(auxSurf);
-   
-     draw_surface(application_surface,0,0);
-    
-    surface_reset_target();
-
-    shader_reset();
-   break;
   
-  default:
-   break;
+  // Apply blur if needed:
+  switch (sign(blurRadius)) begin
   
- end;
-
- //Apply bloom if needed:
- switch (sign(max(bloomIntensity,bloomOvrIntensity))) begin
-
-  case 0:
-    draw_surface(auxSurf,_drawX,_drawY);
-   break;
-   
-  case 1:
-    var uScale, uIntensity, texScreen, texBase;
+   case 0:
+     draw_set_colour(c_black);
+     draw_set_alpha(1);
+     draw_rectangle(0,0,window_get_width(),window_get_height(),false);
     
-    uScale=shader_get_uniform(sh_bloom,"uScale");
-    uIntensity=shader_get_uniform(sh_bloom,"uIntensity");
-    texScreen=surface_get_texture(auxSurf);
-    texPass=surface_get_texture(application_surface); 
+     surface_set_target(auxSurf);
     
-    shader_set(sh_bloom);
+       draw_surface(application_surface,0,0);
+       
+     surface_reset_target();
+    break;
+  
+   case 1:    
+     draw_set_colour(c_black);
+     draw_set_alpha(1);
+     draw_rectangle(0,0,window_get_width(),window_get_height(),false);
     
-     surface_set_target(application_surface);
-      draw_clear_alpha(c_black,0.0);
-      shader_set_uniform_f(uIntensity,1+max(bloomIntensity,bloomOvrIntensity));
-      shader_set_uniform_f(uScale,texture_get_texel_width(texScreen)*max(bloomRadius,bloomOvrRadius),0.0);
-      draw_surface_ext(auxSurf,0,0,1,1,0,c_white,1);
+     shader_set(sh_gauss);
+     
+     shader_set_uniform_f(global.sha_gauss_sigma,blurRadius*0.2);
+     shader_set_uniform_f(global.sha_gauss_blurSize,1.0/360);
+  
+     surface_set_target(auxSurf);
+    
+      draw_surface(application_surface,0,0);
+     
      surface_reset_target();
   
-     draw_set_blend_mode_ext(bm_src_alpha, bm_one);
-      shader_set_uniform_f(uScale,0.0,texture_get_texel_height(texPass)*max(bloomRadius,bloomOvrRadius));
-      draw_surface(application_surface,_drawX,_drawY);
-     draw_set_blend_mode(bm_normal);
-     
-    shader_reset();
-    
-   break;
+     shader_reset();
+    break;
+   
+   default:
+    break;
+   
+  end;
 
-  default:
-   break;
+  // Apply bloom if needed:
+  switch (sign(max(bloomIntensity,bloomOvrIntensity))) begin
   
- end;
+   case 0:
+     
+     draw_surface_ext(auxSurf, _drawX, _drawY,
+                      _drawW / GLOBAL.view_width,
+                      _drawH / GLOBAL.view_height,
+                      0, c_white, 1);
+    break;
+    
+   case 1:
+     var uScale, uIntensity, texScreen, texBase;
+     
+     uScale=shader_get_uniform(sh_bloom,"uScale");
+     uIntensity=shader_get_uniform(sh_bloom,"uIntensity");
+     texScreen=surface_get_texture(auxSurf);
+     texPass=surface_get_texture(application_surface); 
+     
+     shader_set(sh_bloom);
+     
+      surface_set_target(application_surface);
+       draw_clear_alpha(c_black,0.0);
+       shader_set_uniform_f(uIntensity,1+max(bloomIntensity,bloomOvrIntensity));
+       shader_set_uniform_f(uScale,texture_get_texel_width(texScreen)*max(bloomRadius,bloomOvrRadius),0.0);
+       draw_surface_ext(auxSurf,0,0,1,1,0,c_white,1);
+      surface_reset_target();
+   
+      draw_set_blend_mode_ext(bm_src_alpha, bm_one);
+       shader_set_uniform_f(uScale,0.0,texture_get_texel_height(texPass)*max(bloomRadius,bloomOvrRadius));
+       draw_surface(application_surface,_drawX,_drawY);
+      draw_set_blend_mode(bm_normal);
+      
+     shader_reset();
+     
+    break;
+  
+   default:
+    break;
+   
+  end;
+  
+  // Temp:
+  /*if (mouse_check_button(mb_middle)) {
+  
+    draw_surface(global.composit_surface, _drawX, _drawY);
+
+    }*/
  
- }
- else {
+  }
+else {
  
   var s="Not enough Video Memory!",sw=string_width(s);
  

@@ -269,11 +269,11 @@
         <sprite>sprites\spr_sonic_boom</sprite>
         <sprite>sprites\spr_explosion</sprite>
       </sprites>
-      <sprite>sprites\spr_boxes</sprite>
-      <sprite>sprites\spr_med_box</sprite>
-      <sprite>sprites\spr_ammo_box</sprite>
-      <sprite>sprites\spr_weapon_box</sprite>
     </sprites>
+    <sprite>sprites\spr_med_box</sprite>
+    <sprite>sprites\spr_boxes</sprite>
+    <sprite>sprites\spr_ammo_box</sprite>
+    <sprite>sprites\spr_weapon_box</sprite>
     <sprite>sprites\spr_temp_arm</sprite>
   </sprites>
   <backgrounds name="background">
@@ -294,10 +294,13 @@
     <backgrounds name="Backgrounds">
       <background>background\bg_1</background>
       <background>background\bg_2</background>
+      <background>background\bg_3</background>
       <background>background\bg_ceramic_tile</background>
     </backgrounds>
     <backgrounds name="Other">
       <background>background\bg_poster</background>
+      <background>background\bg_night_sky_1</background>
+      <background>background\bg_night_sky_2</background>
     </backgrounds>
   </backgrounds>
   <paths name="paths"/>
@@ -453,7 +456,7 @@
             <script>scripts\rinv_add_empty_slot.gml</script>
             <script>scripts\rinv_swap_items.gml</script>
             <script>scripts\STUB_rinv_recalc_weight.gml</script>
-            <script>scripts\STUB_rinv_refresh.gml</script>
+            <script>scripts\rinv_refresh.gml</script>
             <script>scripts\rinv_sort_name.gml</script>
             <script>scripts\STUB_rinv_sort_weight.gml</script>
             <script>scripts\STUB_rinv_write.gml</script>
@@ -467,7 +470,8 @@
           <script>scripts\_rinv_string_to_array.gml</script>
           <script>scripts\_rinv_remap.gml</script>
           <script>scripts\_rinv_clear_slot.gml</script>
-          <script>scripts\_rinv_collapse_STUB.gml</script>
+          <script>scripts\_rinv_collapse.gml</script>
+          <script>scripts\_rinv_grid_size.gml</script>
         </scripts>
       </scripts>
       <scripts name="Inventory">
@@ -982,6 +986,7 @@
         <script>scripts\HG_world_render_lighting.gml</script>
         <script>scripts\HG_world_render_lighting_fast.gml</script>
         <script>scripts\HG_world_draw_lighting.gml</script>
+        <script>scripts\HG_world_draw_lighting_mask.gml</script>
         <script>scripts\HG_light_set_position.gml</script>
         <script>scripts\HG_light_set_colour.gml</script>
         <script>scripts\HG_light_reset.gml</script>
@@ -1186,6 +1191,8 @@
     <shader type="GLSLES">shaders\sh_gauss.shader</shader>
     <shader type="GLSLES">shaders\sh_rad_blur.shader</shader>
     <shader type="GLSLES">shaders\sh_bloom.shader</shader>
+    <shader type="GLSLES">shaders\sh_equality.shader</shader>
+    <shader type="GLSLES">shaders\sh_equality_ol.shader</shader>
     <shaders name="Mercury HG">
       <shader type="GLSLES">shaders\hg_sha_blur.shader</shader>
       <shader type="GLSLES">shaders\hg_sha_blur_hor.shader</shader>

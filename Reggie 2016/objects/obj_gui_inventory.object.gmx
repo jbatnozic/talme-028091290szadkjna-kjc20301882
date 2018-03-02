@@ -766,9 +766,14 @@ if (gui_draw_sprite_clickable(spr_window_button_msort_2, 0, xx+18, yy+728, true,
       
       event_user(ev_update_desc);
     
+      if (global.rinv_active_slot == selected ||
+          global.rinv_active_slot == selected + 1) {
+        
+        player_update_hands();
+      
+        }
+      
       }
-  
-    // ... player_update_hands();
       
     }
   else {
@@ -813,6 +818,13 @@ if (gui_draw_sprite_clickable(spr_window_button_msort_2, 1, xx+344, yy+728, true
       
       event_user(ev_update_desc);
     
+      if (global.rinv_active_slot == selected ||
+          global.rinv_active_slot == selected - 1) {
+        
+         player_update_hands();
+      
+        }
+      
       }
       
     // ... player_update_hands();
@@ -933,7 +945,7 @@ if (gui_draw_sprite_clickable_rel(spr_window_close, 0, xx+596, yy+848))
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>inv_refresh();
+            <string>rinv_refresh(-1, true);
 </string>
           </argument>
         </arguments>

@@ -66,7 +66,7 @@ enum PTC_TYPE {
   part_type_alpha3(a,0,1,0);
   part_type_blend(a,1);
   
-  part_type_life(a,30,60);
+  part_type_life(a,30,45);
   //part_type_death(SMOKE);
   
   global.ptc_type[PTC_TYPE.fire]=a;

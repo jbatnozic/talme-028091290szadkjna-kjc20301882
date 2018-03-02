@@ -15,11 +15,16 @@ with (obj_game_controller) {
   
   _drawY = (window_get_height() - dH) / 2;
 
+  _drawW = dW;
+  
+  _drawH = dH;
+  
   }
 
 display_set_gui_maximise(gui_get_scale(), gui_get_scale(), 0, 0);
 
-surface_resize(application_surface, dW, dH);
+//surface_resize(application_surface, dW, dH);
+surface_resize(application_surface, GLOBAL.view_width, GLOBAL.view_height);
 
 if (surface_exists(global.auxilary_surface))
   surface_resize(global.auxilary_surface, dW, dH);
