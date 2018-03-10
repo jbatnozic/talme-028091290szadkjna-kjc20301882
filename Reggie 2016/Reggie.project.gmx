@@ -109,6 +109,7 @@
         <sprite>sprites\spr_checkered_square</sprite>
         <sprites name="Item icons">
           <sprite>sprites\spr_item_default</sprite>
+          <sprite>sprites\spr_item_base_new</sprite>
           <sprite>sprites\spr_item_bulk_default</sprite>
           <sprite>sprites\spr_item_weapon_default</sprite>
           <sprite>sprites\spr_item_consumable_default</sprite>
@@ -117,6 +118,8 @@
           <sprite>sprites\spr_item_jar</sprite>
           <sprite>sprites\spr_item_dirt</sprite>
           <sprite>sprites\spr_item_heart</sprite>
+          <sprite>sprites\spr_item_scrap</sprite>
+          <sprite>sprites\sprite159</sprite>
         </sprites>
       </sprites>
       <sprites name="Crafting and Barter">
@@ -238,11 +241,13 @@
       <sprite>sprites\weaponTestSpr</sprite>
       <sprite>sprites\spr_bullet_standard</sprite>
       <sprite>sprites\spr_bullet_long</sprite>
+      <sprite>sprites\bkp</sprite>
       <sprite>sprites\round_bullet</sprite>
       <sprite>sprites\spr_flame</sprite>
       <sprite>sprites\spr_sonic_projectile</sprite>
       <sprite>sprites\spr_turta_bomb</sprite>
       <sprite>sprites\spr_machinegun</sprite>
+      <sprite>sprites\spr_gren_la</sprite>
       <sprite>sprites\spr_muzzleflash_1</sprite>
     </sprites>
     <sprites name="Terrain">
@@ -275,6 +280,8 @@
     <sprite>sprites\spr_ammo_box</sprite>
     <sprite>sprites\spr_weapon_box</sprite>
     <sprite>sprites\spr_temp_arm</sprite>
+    <sprite>sprites\TEMP2</sprite>
+    <sprite>sprites\spr_hit</sprite>
   </sprites>
   <backgrounds name="background">
     <backgrounds name="Tilesets">
@@ -611,14 +618,16 @@
         <script>scripts\sett_set_value.gml</script>
         <script>scripts\sett_get_value.gml</script>
         <script>scripts\sett_set_defaults.gml</script>
-        <script>scripts\sett_write.gml</script>
-        <script>scripts\sett_read.gml</script>
+        <script>scripts\OBS_sett_write.gml</script>
+        <script>scripts\OBS_sett_read.gml</script>
         <script>scripts\sett_list_group.gml</script>
         <script>scripts\sett_draw_widget.gml</script>
         <script>scripts\sett_fetch_desc.gml</script>
         <script>scripts\sett_update_controls.gml</script>
         <script>scripts\sett_update_settings.gml</script>
         <script>scripts\sett_reset_display.gml</script>
+        <script>scripts\sett_ini_write.gml</script>
+        <script>scripts\sett_ini_read.gml</script>
       </scripts>
       <scripts name="Heart">
         <script>scripts\HeartNotes.gml</script>
@@ -1193,6 +1202,7 @@
     <shader type="GLSLES">shaders\sh_bloom.shader</shader>
     <shader type="GLSLES">shaders\sh_equality.shader</shader>
     <shader type="GLSLES">shaders\sh_equality_ol.shader</shader>
+    <shader type="GLSLES">shaders\sh_bright.shader</shader>
     <shaders name="Mercury HG">
       <shader type="GLSLES">shaders\hg_sha_blur.shader</shader>
       <shader type="GLSLES">shaders\hg_sha_blur_hor.shader</shader>
@@ -1226,7 +1236,6 @@
         <object>objects\obj_ha_delayed</object>
         <object>objects\obj_screen_flash</object>
         <object>objects\obj_screen_fade</object>
-        <object>objects\obj_screen_shake</object>
         <object>objects\obj_pickup</object>
         <object>objects\obj_channel_bar</object>
         <object>objects\obj_channel_bar_finished</object>
@@ -1342,6 +1351,7 @@
           <objects name="Old">
             <object>objects\obj_projectile</object>
           </objects>
+          <object>objects\obj_hit</object>
         </objects>
       </objects>
       <objects name="Level specific">
@@ -1361,6 +1371,7 @@
           <object>objects\obj_ceme_raskal</object>
         </objects>
       </objects>
+      <object>objects\obj_flashlight</object>
       <object>objects\obj_pickup_item</object>
       <object>objects\obj_await_tester</object>
     </objects>

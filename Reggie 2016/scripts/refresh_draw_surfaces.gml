@@ -23,12 +23,11 @@ with (obj_game_controller) {
 
 display_set_gui_maximise(gui_get_scale(), gui_get_scale(), 0, 0);
 
-//surface_resize(application_surface, dW, dH);
 surface_resize(application_surface, GLOBAL.view_width, GLOBAL.view_height);
 
-if (surface_exists(global.auxilary_surface))
+/*if (surface_exists(global.auxilary_surface))
   surface_resize(global.auxilary_surface, dW, dH);
 else
-  global.auxilary_surface = surface_create(dW, dH);
+  global.auxilary_surface = surface_create(dW, dH);*/
 
 //window_set_size(dW,dH); <-- To settings STUB

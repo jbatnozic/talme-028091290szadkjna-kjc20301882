@@ -46,6 +46,11 @@ TPP_free();
     
   global.auxilary_surface = -1;
   
+  if (surface_exists(global.composit_surface))
+    surface_free(global.composit_surface);
+    
+  global.composit_surface = -1;
+  
 //CHECK REMAINING DATA STRUCTURES:
 var s, t;
 

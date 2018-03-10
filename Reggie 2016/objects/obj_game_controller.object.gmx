@@ -69,6 +69,7 @@ hud_scale = 2;
 _mouseHudPos=0;
 _hudOffset=1.5;
 _heartFrame=0;
+_debugOverlay=0;
 //display_set_gui_maximise(gui_get_scale(),gui_get_scale(),0,0);
 //_string="HG_world_lighting_set_ambient(-1,0.5,make_colour_rgb(255,255,255));";
 _string = "";
@@ -406,8 +407,7 @@ var auxSurf = global.auxilary_surface;
 
 if (!surface_exists(auxSurf)) {
 
-  auxSurf = surface_create(surface_get_width(application_surface),
-                           surface_get_height(application_surface));
+  auxSurf = surface_create(GLOBAL.view_width, GLOBAL.view_height);
                            
   global.auxilary_surface = auxSurf;
                          
@@ -455,7 +455,7 @@ if (surface_exists(auxSurf) and surface_exists(application_surface)) {
   end;
 
   // Apply bloom if needed:
-  switch (sign(max(bloomIntensity,bloomOvrIntensity))) begin
+  switch (sign(max(bloomIntensity, bloomOvrIntensity))) begin
   
    case 0:
      
@@ -463,6 +463,7 @@ if (surface_exists(auxSurf) and surface_exists(application_surface)) {
                       _drawW / GLOBAL.view_width,
                       _drawH / GLOBAL.view_height,
                       0, c_white, 1);
+                      
     break;
     
    case 1:
@@ -506,7 +507,7 @@ if (surface_exists(auxSurf) and surface_exists(application_surface)) {
   }
 else {
  
-  var s="Not enough Video Memory!",sw=string_width(s);
+  var s = "Surfaces could not be allocated.", sw = string_width(s);
  
   draw_set_colour(c_black);
   draw_rectangle(0,0,_drawX+window_get_width(),_drawY+window_get_height(),false);
@@ -1111,10 +1112,8 @@ if (global.abs_end_action == ABSEND.saveChkpt) {
             <string>///UI resize
 //This is needed because of the manual window resize feature.
 
-if (_windowW_1==_windowW_2 or _windowH_1==_windowH_2) and
-   (!keyboard_check_pressed(userControls[KEYBOARD.refresh])) {}
-   
- else {
+if (_windowW_1 != _windowW_2 or _windowH_1 != _windowH_2 or
+   keyboard_check_pressed(userControls[KEYBOARD.refresh])) {
 
   refresh_draw_surfaces();
   
@@ -1200,7 +1199,9 @@ _string=s;
 
 if game_paused() exit;
 
-show_debug_overlay(true);
+_debugOverlay ^= 1;
+
+show_debug_overlay(_debugOverlay);
 </string>
           </argument>
         </arguments>

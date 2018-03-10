@@ -112,14 +112,18 @@ sett_set_defaults();
 
 ini_open("Settings.ini");
 
-if (!ini_section_exists("SETTINGS")) {
+if (!ini_section_exists("CONTROLS") or 
+    !ini_section_exists("GRAPHICS") or
+    !ini_section_exists("GAMEPLAY") or
+    !ini_section_exists("SOUND") or
+    !ini_section_exists("MISC")) {
   
-  ini_write_string("SETTINGS", "Settings", sett_write());
+  sett_ini_write();
   
   }
 else {
 
-  sett_read(ini_read_string("SETTINGS", "Settings", ""));
+  sett_ini_read();
   
   }
     

@@ -32,10 +32,10 @@ weapon_set_sprite(spr_machinegun, 0, 0, 0, 0, 1);
 weapon_set_offset(20, 1, -8, 3, 0, 0, 13, -3);
 weapon_set_sounds(-1,-1,-1,-1,-1);
 
-weapon_add_firing_mode("FiringMode1",4,1,6,3); // Recoil was 12
-weapon_add_firing_mode("FiringMode2",7,0,6,2);
+weapon_add_firing_mode("FiringMode1",5,1,6,2); // Recoil was 12
+weapon_add_firing_mode("FiringMode2",7,0,6,1);
 
-weapon_add_ammo_type("Bullet",16,spr_bullet_long,5,1,0.1,-1,-1,0.5,0,0,0,spr_muzzleflash_1,1,-1);
+weapon_add_ammo_type("Bullet",38,spr_bullet_long,5,1,0.1,-1,-1,0.5,0,0,0,spr_muzzleflash_1,1,-1);
 
 /*NOTES:
 cv1 = Ammo left
@@ -68,7 +68,7 @@ cv5 = Reloading left
             <string>///Weapon action
 if !game_paused() begin
 
- weapon_set_position(25,80);
+ weapon_set_position(15, 80);
  weapon_execute((global.player_obj_id).mod_rel,(global.player_obj_id).mod_acc);
  weapon_update_patron();
  

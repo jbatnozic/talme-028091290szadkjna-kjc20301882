@@ -49,8 +49,9 @@ item_types[2] = RINV_TYPE.ammo;
 item_types[3] = RINV_TYPE.consumable;
 item_types[4] = RINV_TYPE.weapon;
 item_types[5] = RINV_TYPE.armour;
+item_types[6] = RINV_TYPE.special;
 
-types_cnt = 6;
+types_cnt = 7;
 
 ev_update_list = 0;
 ev_update_desc = 1;
@@ -513,6 +514,9 @@ switch (item_types[type]) begin
   case RINV_TYPE.armour:
     draw_text(xx+24, yy+88, "Showing: Apparel"); break;
 
+  case RINV_TYPE.special:
+    draw_text(xx+24, yy+88, "Showing: Special"); break;
+    
   default:
     break;
 

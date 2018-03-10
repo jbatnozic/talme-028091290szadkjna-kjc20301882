@@ -63,7 +63,7 @@ image_speed=0;
 _attackRange=24;
 _attackSpeed=38;
 _attackLength=5; // Developer var
-_attackDamage=1; //8
+_attackDamage=8; //8
 _attackHKnock=8;
 _attackVKnock=5;
 
@@ -232,6 +232,7 @@ if _aiState=AI_STATE.hunt begin
     if (_target=global.player_obj_id) {
      player_damage(_attackDamage,_attackVKnock,_attackHKnock);
      screen_flash(c_red);
+     screen_shake(10);
      }
      else {
       object_damage(_target,_attackDamage,_attackVKnock,_attackHKnock);
@@ -397,7 +398,7 @@ buf_instance_backup();
             <kind>1</kind>
             <string>///Draw Self
 
-draw_sprite_ext(mask_index,0,x,y,1,1,0,c_white,0.25);
+//draw_sprite_ext(mask_index,0,x,y,1,1,0,c_white,0.25);
 
 draw_sprite_ext(sprite_index,-1,x,y,image_xscale,tern(_moveHeight,1,0.5,1),1,c_white,1);
 
@@ -412,8 +413,8 @@ if (_grounded) {
   else
     image_index=0;
 
-if _attackTimer&gt;=0
- draw_sprite_ext(mask_index,0,x,y,1,1,0,c_yellow,0.5);
+/*if _attackTimer&gt;=0 RED ON ATTACK
+ draw_sprite_ext(mask_index,0,x,y,1,1,0,c_yellow,0.5);*/
 
 draw_set_colour(c_aqua);
 draw_set_halign(fa_center);

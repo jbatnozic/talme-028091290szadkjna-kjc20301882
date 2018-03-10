@@ -63,7 +63,7 @@ sett_update_controls();
 //Write to INI:
 ini_open("Settings.ini");
 
-ini_write_string("SETTINGS","Settings",sett_write());
+sett_ini_write();
 
 ini_close();
 </string>

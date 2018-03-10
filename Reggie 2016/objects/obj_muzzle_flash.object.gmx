@@ -79,6 +79,8 @@ if image_alpha &lt; 0.01{
     instance_destroy(); 
 }
 
+HG_light_draw_quick(-1, x, y, sprite_index, c_white, 1.25, image_angle, 1);
+
 /*if instance_position(x, y, obj_Aura_ShadowCaster_Parent)
 {
 instance_destroy();

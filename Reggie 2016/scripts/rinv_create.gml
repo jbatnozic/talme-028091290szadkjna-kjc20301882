@@ -28,5 +28,6 @@ list[|4 + RINV_TYPE.weapon] = 0;
 list[|4 + RINV_TYPE.consumable] = 0;
 list[|4 + RINV_TYPE.ammo] = 0;
 list[|4 + RINV_TYPE.armour] = 0;
+list[|4 + RINV_TYPE.special] = 0;
 
 return list;

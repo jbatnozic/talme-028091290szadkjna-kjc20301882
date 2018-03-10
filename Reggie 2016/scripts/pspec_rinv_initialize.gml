@@ -30,7 +30,7 @@ rinv_define_item("Bullet", RINV_TYPE.ammo, 0, 0, false, -1, -1, spr_item_ammo_de
 
 rinv_define_item("Jar", RINV_TYPE.bulk, 0, 2, true, -1, -1, spr_item_jar);
 
-rinv_define_item("Heart", RINV_TYPE.bulk, 0, 2, true, -1, -1, spr_item_heart);
+rinv_define_item("Heart", RINV_TYPE.bulk, 0, 2, true, -1, -1, spr_item_base_new);
 
 rinv_define_item("Spare parts", RINV_TYPE.bulk, 0, 1, false, -1, -1, spr_item_bulk_default);
 

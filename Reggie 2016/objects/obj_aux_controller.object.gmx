@@ -250,26 +250,16 @@ draw_background_parallax(bg_3, 0.5, true, false, _altHeight, 1, 1);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Make compositing surface
+            <string>/// Make the compositing surface
 
 var compSurf = global.composit_surface;
 
 if (!surface_exists(compSurf)) {
 
-  compSurf = surface_create(surface_get_width(application_surface),
-                            surface_get_height(application_surface));
+  compSurf = surface_create(GLOBAL.view_width, GLOBAL.view_height);
                             
   global.composit_surface = compSurf;
 
-  }
-  
-if (surface_get_width(application_surface)  != surface_get_width(compSurf) ||
-    surface_get_height(application_surface) != surface_get_height(compSurf)) {
-   
-  surface_resize(compSurf,
-                 surface_get_width(application_surface),
-                 surface_get_height(application_surface));
-     
   }
   
 surface_copy(compSurf, 0, 0, application_surface);
@@ -298,8 +288,7 @@ var i;
 
 if (!is_array(amb_backgrounds)) exit;
 
-//for (i=0; i&lt;array_length_2d(amb_backgrounds,0); i+=1) {
-for (i = 0; i &lt; 1; i += 1) {
+for (i=0; i&lt;array_height_2d(amb_backgrounds); i+=1) {
 
  draw_background_parallax(amb_backgrounds[i,0], amb_backgrounds[i,1], true, false, _altHeight, 1, 1);
  

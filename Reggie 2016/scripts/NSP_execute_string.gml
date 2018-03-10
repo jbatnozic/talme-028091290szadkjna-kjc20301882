@@ -7,12 +7,13 @@ Returns: Argument of "return" statement or undefined
          (see the documentation). 
 
 */
-var nspListStr = ds_list_create(),
-    nspListPar = ds_list_create(),
-    rv, succ;
+var nspListStr, nspListPar, rv, succ;
 
 if (argument0 == "") return undefined;
 
+nspListStr = ds_list_create();
+nspListPar = ds_list_create();
+  
 succ = nsp_convert_to_list(argument0, nspListStr, nspListPar);
 
 if (!succ) {

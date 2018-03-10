@@ -30,6 +30,7 @@ enum RINV_TYPE { // TEMP
   consumable = 3,
   ammo       = 4,
   armour     = 5,
+  special    = 6,
 
   }
 
