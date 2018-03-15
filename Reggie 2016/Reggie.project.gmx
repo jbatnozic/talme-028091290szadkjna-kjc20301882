@@ -3,7 +3,7 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="4" name="datafiles">
+  <datafiles number="5" name="datafiles">
     <datafile>
       <name>Tom.txt</name>
       <exists>-1</exists>
@@ -54,6 +54,23 @@
         </Config>
       </ConfigOptions>
       <filename>Hospital_Doctor_2.txt</filename>
+    </datafile>
+    <datafile>
+      <name>Etheria Dialogue.txt</name>
+      <exists>-1</exists>
+      <size>1500</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>Etheria Dialogue.txt</filename>
     </datafile>
   </datafiles>
   <NewExtensions>
@@ -426,7 +443,7 @@
         <script>scripts\pnc_is_target.gml</script>
         <script>scripts\pnc_kbchk.gml</script>
       </scripts>
-      <scripts name="New Inventory">
+      <scripts name="Inventory">
         <script>scripts\rinv_initialize.gml</script>
         <script>scripts\rinv_free.gml</script>
         <scripts name="Definitions">
@@ -436,6 +453,10 @@
           <script>scripts\rinv_item_get_static_value.gml</script>
           <script>scripts\rinv_item_get_static_id.gml</script>
         </scripts>
+        <scripts name="Macrolike">
+          <script>scripts\RINV_SPR.gml</script>
+          <script>scripts\RINV_OBJ.gml</script>
+        </scripts>
         <scripts name="Instantiations">
           <scripts name="Management">
             <script>scripts\rinv_create.gml</script>
@@ -443,6 +464,8 @@
             <script>scripts\rinv_set_default.gml</script>
             <script>scripts\rinv_get_default.gml</script>
             <script>scripts\rinv_reserve_slots.gml</script>
+            <script>scripts\rinv_write.gml</script>
+            <script>scripts\rinv_read.gml</script>
           </scripts>
           <scripts name="Items">
             <script>scripts\rinv_add_simple.gml</script>
@@ -462,14 +485,13 @@
             <script>scripts\rinv_weight.gml</script>
             <script>scripts\rinv_add_empty_slot.gml</script>
             <script>scripts\rinv_swap_items.gml</script>
-            <script>scripts\STUB_rinv_recalc_weight.gml</script>
+            <script>scripts\rinv_recalc_weight.gml</script>
             <script>scripts\rinv_refresh.gml</script>
             <script>scripts\rinv_sort_name.gml</script>
-            <script>scripts\STUB_rinv_sort_weight.gml</script>
-            <script>scripts\STUB_rinv_write.gml</script>
-            <script>scripts\STUB_rinv_read.gml</script>
+            <script>scripts\rinv_sort_weight.gml</script>
             <script>scripts\rinv_lowest_null_slot.gml</script>
             <script>scripts\rinv_count_slots.gml</script>
+            <script>scripts\rinv_recount_slots.gml</script>
           </scripts>
         </scripts>
         <scripts name="Underlying">
@@ -481,7 +503,7 @@
           <script>scripts\_rinv_grid_size.gml</script>
         </scripts>
       </scripts>
-      <scripts name="Inventory">
+      <scripts name="OBSOLETE Inventory Old">
         <script>scripts\InventoryNotes.gml</script>
         <script>scripts\inv_initialise.gml</script>
         <script>scripts\inv_free.gml</script>
@@ -662,14 +684,16 @@
           <script>scripts\txt_add.gml</script>
           <script>scripts\txt_add_array.gml</script>
           <script>scripts\txt_path_to_last.gml</script>
-          <script>scripts\txt_interface_open.gml</script>
           <script>scripts\txt_clear.gml</script>
+          <script>scripts\txt_load_from_file.gml</script>
+        </scripts>
+        <scripts name="PSpec">
           <script>scripts\txt_obj_exists.gml</script>
           <script>scripts\txt_obj_name_1.gml</script>
           <script>scripts\txt_obj_name_2.gml</script>
           <script>scripts\txt_obj_sprite_1.gml</script>
           <script>scripts\txt_obj_sprite_2.gml</script>
-          <script>scripts\txt_load_from_file.gml</script>
+          <script>scripts\txt_interface_open.gml</script>
         </scripts>
         <scripts name="Background">
           <script>scripts\txt_map_set.gml</script>
@@ -679,6 +703,13 @@
           <script>scripts\txt_property_get.gml</script>
           <script>scripts\txt_choice_get.gml</script>
           <script>scripts\txt_path_get.gml</script>
+        </scripts>
+        <scripts name="Local">
+          <script>scripts\txt_local_init.gml</script>
+          <script>scripts\txt_local_update.gml</script>
+          <script>scripts\txt_local_get_main.gml</script>
+          <script>scripts\txt_local_choices.gml</script>
+          <script>scripts\txt_local_get_choice.gml</script>
         </scripts>
       </scripts>
       <scripts name="Pathfinding">

@@ -29,7 +29,7 @@ for (var i = 0; i < len; i += 1) {
     }
   else {
   
-    show_error("rinv_array_to_string - can't convert this type", true);
+    show_error("rinv_array_to_string - can't convert this type (" + typeof(val) + ")", true);
   
     }
 

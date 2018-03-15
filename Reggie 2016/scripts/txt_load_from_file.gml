@@ -21,8 +21,13 @@ while (!file_text_eof(file)) {
 
   line = file_text_readln(file);
   
-  line = string_crop(string_delete(line, string_length(line) - 1, 2)); // On Windows, \n is CRLF (2 characters) so
-                                                                       // we need to remove 2 from the end
+  if (string_copy(line, string_length(line) - 1, 2) == (chr(13) + chr(10))) { // Remove CRLF if needed
+  
+    line = string_crop(string_delete(line, string_length(line) - 1, 2)); // On Windows, \n is CRLF (2 characters) so
+                                                                        // we need to remove 2 from the end
+    }
+  else
+    line = string_crop(line);
   
   //for (var j = 1; j <= string_length(line); j+= 1)
   //  show_message(ord(string_char_at(line, j)));
@@ -73,6 +78,9 @@ while (!file_text_eof(file)) {
     cnt += 1;
   
     }
+  else if (string_copy(line, 1, 2) == "//") { // COMMENT - OK
+    // Skip
+    }
   else if (string_copy(line, 1, 3) == "END") { // END - OK
   
     if (mode == 0) {
@@ -93,6 +101,8 @@ while (!file_text_eof(file)) {
         branch = real( string_delete(line, 1, comma_pos) );
         
     mode = 1;
+    
+    //show_message("Added path to last -> " + string(stage) + ", " + string(branch));
     
     txt_path_to_last(choice, stage, branch);
     
@@ -118,6 +128,29 @@ while (!file_text_eof(file)) {
     else if (temp == "SCODE") { // SCODE - OK
     
       scode = string_delete(line, 1, 5);
+    
+      }
+    else if (temp == "JMPIF") { // JMPIF - OK
+    
+      var arrow_pos = string_pos("->", line);
+    
+      var cond = string_copy(line, 6, arrow_pos - 6);
+      
+      if (NSP_evaluate(cond)) {
+        
+        line = string_delete(line, 1, arrow_pos + 1);
+      
+        var comma_pos = string_pos(",", line);
+        
+        var stage  = real( string_copy(line, 1, comma_pos - 1) ),
+            branch = real( string_delete(line, 1, comma_pos) );
+        
+        txt_map_set("begin_stage",  stage);
+        txt_map_set("begin_branch", branch);
+        
+        //show_message("JMPIF set begin stage / branch to [" + string(stage) + ", " + string(branch) + "].");
+            
+        }
     
       }
     else { // ERROR - OK

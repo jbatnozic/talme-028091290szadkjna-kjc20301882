@@ -14,25 +14,50 @@ global.rinv_player_inv  = j;
 global.rinv_active_slot = 0;
 
 // ITEM DEFINITIONS:
-rinv_define_item("Stimpack", INV_TYPE.consumable, 0, 1, false, -1, -1, spr_item_consumable_default);
-rinv_define_item("Relaxer",  INV_TYPE.consumable, 0, 1, false, -1, -1, spr_item_consumable_default);
-rinv_define_item("Jitter",   INV_TYPE.consumable, 0, 1, false, -1, -1, spr_item_consumable_default);
-rinv_define_item("CTW",      INV_TYPE.consumable, 0, 1, false, -1, -1, spr_item_consumable_default);
 
+//Temporary items for testing:
+rinv_define_item("Jar",         RINV_TYPE.bulk, 0, 1, false, -1, -1, spr_item_jar);
+rinv_define_item("Dirt",        RINV_TYPE.bulk, 0, 1, false, -1, -1, spr_item_dirt);
+rinv_define_item("Human heart", RINV_TYPE.bulk, 0, 4, false, -1, -1, spr_item_heart);
+
+// Consumables:
+rinv_define_item("Stimpack", RINV_TYPE.consumable, 0, 1, false, -1, -1, spr_item_consumable_default);
+rinv_define_item("Relaxer",  RINV_TYPE.consumable, 0, 1, false, -1, -1, spr_item_consumable_default);
+rinv_define_item("Jitter",   RINV_TYPE.consumable, 0, 1, false, -1, -1, spr_item_consumable_default);
+rinv_define_item("CTW",      RINV_TYPE.consumable, 0, 1, false, -1, -1, spr_item_consumable_default);
+
+// Temp:
 var s = "Jitter increases movement speed, acceleration, and reload speed. The generic brand’s side effect is that it makes the player more inaccurate, as well as an even more increased chance (than typical) for a heart attack. ";
 
-rinv_item_desc("Jitter", s+s+s+s+s);
+rinv_item_desc("Jitter", s + s + s + s + s);
 
-rinv_define_item("Machinegun", RINV_TYPE.weapon, 0, 5, true, obj_weapon_machinegun, -1,spr_item_weapon_default);
-  rinv_item_desc_to_last("An automatic firearm.");  
+//Weapons:
+rinv_define_item("Machinegun",          RINV_TYPE.weapon, 0, 15, true, RINV_OBJ(obj_weapon_machinegun),  -1, spr_item_weapon_default);
+rinv_define_item("M9",                  RINV_TYPE.weapon, 0, 15, true, RINV_OBJ(obj_weapon_m9),          -1, spr_item_weapon_default);
+rinv_define_item("Blunderbuss",         RINV_TYPE.weapon, 0, 15, true, RINV_OBJ(obj_weapon_blunderbuss), -1, spr_item_weapon_default);
+rinv_define_item("Aarnd Family Rifle",  RINV_TYPE.weapon, 0, 15, true, RINV_OBJ(obj_weapon_afr),         -1, spr_item_weapon_default);
+rinv_define_item("Acid Flask Launcher", RINV_TYPE.weapon, 0, 15, true, RINV_OBJ(obj_weapon_afl),         -1, spr_item_weapon_default);
+rinv_define_item("Grenade Launcher",    RINV_TYPE.weapon, 0, 15, true, RINV_OBJ(obj_weapon_gren_la),     -1, spr_item_weapon_default);
+rinv_define_item("Flamethrower",        RINV_TYPE.weapon, 0, 15, true, RINV_OBJ(obj_weapon_flame),       -1, spr_item_weapon_default);
 
-rinv_define_item("Bullet", RINV_TYPE.ammo, 0, 0, false, -1, -1, spr_item_ammo_default);
+rinv_item_desc("Machinegun", "An automatic firearm.");
 
-rinv_define_item("Jar", RINV_TYPE.bulk, 0, 2, true, -1, -1, spr_item_jar);
+//Ammo:
+rinv_define_item("Bullet",           RINV_TYPE.ammo, 0, 0.1, false, -1, -1, spr_item_ammo_default);
+rinv_define_item("9mm Bullets",      RINV_TYPE.ammo, 0, 0.1, false, -1, -1, spr_item_ammo_default);
+rinv_define_item("Blunder Bullets",  RINV_TYPE.ammo, 0, 0.1, false, -1, -1, spr_item_ammo_default);
+rinv_define_item("Alpha Bone",       RINV_TYPE.ammo, 0, 0.1, false, -1, -1, spr_item_ammo_default);
+rinv_define_item("Explosive Rounds", RINV_TYPE.ammo, 0, 0.1, false, -1, -1, spr_item_ammo_default);
+rinv_define_item("AP Rounds",        RINV_TYPE.ammo, 0, 0.1, false, -1, -1, spr_item_ammo_default);
+rinv_define_item("Acid Flask",       RINV_TYPE.ammo, 0, 0.1, false, -1, -1, spr_item_ammo_default);
+rinv_define_item("Grenade",          RINV_TYPE.ammo, 0, 0.1, false, -1, -1, spr_item_ammo_default);
+rinv_define_item("Fuel",             RINV_TYPE.ammo, 0, 0.1, false, -1, -1, spr_item_ammo_default);
 
-rinv_define_item("Heart", RINV_TYPE.bulk, 0, 2, true, -1, -1, spr_item_base_new);
-
+//Bulk:
 rinv_define_item("Spare parts", RINV_TYPE.bulk, 0, 1, false, -1, -1, spr_item_bulk_default);
+
+//Apparel:
+rinv_define_item("Bullet vest", RINV_TYPE.armour, 0, 40, true, -1, -1, spr_item_armour_default);
 
 
 

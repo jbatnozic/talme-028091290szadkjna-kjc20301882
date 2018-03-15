@@ -102,7 +102,7 @@ global.sett_map=ds_map_create();
  global.sett_misc=3;
  sett_define_value("Tooltip position",SETT_TYPE.toggle,SETT_GROUP.misc,"Cursor","Fixed");
   sett_desc_to_last("Whether the tooltips will be drawn next to the cursor or in a fixed place.");
- sett_define_value("Reset to Defaults",SETT_TYPE.execute_string,SETT_GROUP.misc,"");
+ sett_define_value("Reset to Defaults",SETT_TYPE.execute_string,SETT_GROUP.misc, "sett_set_defaults(); sett_update_settings(); sett_update_controls();");
   sett_desc_to_last("Revert all settings back to their original values.");
  sett_define_value("Reset Display", SETT_TYPE.execute_string, SETT_GROUP.misc, "sett_reset_display();");
   sett_desc_to_last("");

@@ -565,11 +565,11 @@ if (selected != -1) {
   str = "Weight: " + string(amnt * wt_singular) + "#"
       + "(" + string(wt_singular) + " per item)";
   
+  draw_set_colour(c_black);
+      
   draw_text(xx + 508, yy + 140, str);
       
-  //Description:
-  draw_set_colour(c_black);
-  
+  //Description:  
   if (desc_text_grid != -1) {
   
     TPP_set_cursor(device_mouse_raw_x(0)/gui_get_scale(),
@@ -876,8 +876,10 @@ if (gui_draw_sprite_clickable(spr_window_button_asort,0,xx+166,yy+728,true,"Sort
   }
   
 //Stack button: - TODO Sort by weight
-if (gui_draw_sprite_clickable(spr_window_button_stack,0,xx+252,yy+728,true,"Stack inventory")) {
+if (gui_draw_sprite_clickable(spr_window_button_stack,0,xx+252,yy+728,true,"Sort by weight")) {
   
+  rinv_sort_weight(-1, false, true);
+
   selected = -1;
   
   desc_scroll = 0;

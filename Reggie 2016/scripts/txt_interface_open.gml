@@ -5,6 +5,7 @@
 var a;
 
 io_clear();
+
 a=instance_create(x,y,obj_textbox);
 
 a.sprite_1=argument[0];

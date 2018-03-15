@@ -31,35 +31,9 @@ if (game_paused()) exit;
 if (pnc_is_target(id) &amp;&amp; pnc_kbchk(KEYBOARD.interact)) {
 
  txt_begin();
-
- /*txt_add("Hello, my name is [fnt:bold:Tom]! What's yours?",0,0,"Reggie.","Fuck you!","Answer 3","Answer 4","Answer 5","Answer 6","Answer 7","Answer 8");
-     txt_add("Great! Do you like bananas?",0,0,"Yes.","Uhh... Not really, no...");
-         txt_add("Awesome!","","","Freak... {End}");
-          txt_path_to_last(1,3,2);
-         txt_add("You think you're better than me, huh?! You think you're *better* than me?","","","Yes! Yes, I do!","Dude, calm down...");
-             txt_add("That's it! I'm gonna tell my dad!","","","Sure, go ahead...","[spr:sword] Oh no, you're not! [Attack\]");
-                 txt_add("Tom runs away, crying...","","","[Walk away\] {End}");
-                 txt_add("You kill Tom...","","","[Walk away\] {End}");
-             txt_add("Okay... My name is Tom! What's yours?","","","Freak... {End}");
-              txt_path_to_last(1,3,2);
-     txt_add("Did your momma teach you to swear like that?","","","Sure she did!","No, my mother was a nice lady...");
-         txt_add("Uhh, uhh...","","","What's the matter, wimp? {End}");
-          txt_path_to_last(1,4,1);
-         txt_add("Yeah, right! [He walks away\]","","","[Walk away\] {End}");
-     txt_add("Test text",0,0,"Back {End}");
-      txt_path_to_last(1,1,1);
-     txt_add("Test text",0,0,"Back {End}");
-      txt_path_to_last(1,1,1);
-     txt_add("Test text",0,0,"Back {End}");
-      txt_path_to_last(1,1,1);
-     txt_add("Test text",0,0,"Back {End}");
-      txt_path_to_last(1,1,1);
-     txt_add("Test text",0,0,"Back {End}");
-      txt_path_to_last(1,1,1);
-     txt_add("Test text",0,0,"Back {End}");
-      txt_path_to_last(1,1,1);*/
       
- txt_load_from_file("Tom.txt");
+ //txt_load_from_file("Tom.txt");
+ txt_load_from_file("Etheria Dialogue.txt");
          
  txt_interface_open(spr_portrait_template,"Reggie",spr_portrait_template,"Tom",x,y);
 

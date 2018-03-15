@@ -9,9 +9,7 @@ var list = argument[0],
     grid = list[|1],
     name = argument[1];
 
-var dv_array;
-
-dv_array[0] = undefined;
+var dv_array = undefined;
 
 for (var i = 2; i < argument_count; i += 1) {
   dv_array[i - 2] = argument[i];

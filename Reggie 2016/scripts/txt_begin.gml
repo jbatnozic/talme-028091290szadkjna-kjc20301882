@@ -12,3 +12,6 @@ txt_map_set("branch",1);
 
 //Other:
 txt_map_set("branches_s1",1);
+
+txt_map_set("begin_stage",  1);
+txt_map_set("begin_branch", 1);

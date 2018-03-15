@@ -28,7 +28,7 @@ grid[#RINV_STATIC.weight,  h] = argument3;
 grid[#RINV_STATIC.complex, h] = argument4;
 grid[#RINV_STATIC.objwe,   h] = argument5;
 grid[#RINV_STATIC.objwd,   h] = argument6;
-grid[#RINV_STATIC.desc,    h] = "";
+grid[#RINV_STATIC.desc,    h] = "No description.";
 grid[#RINV_STATIC.icon,    h] = argument7;
 
 // Map:
