@@ -19,6 +19,8 @@ else {
 
   var wp_obj = rinv_item_get_static_value(argument0, RINV_STATIC.objwe);
   
+  wp_obj -= (RINV_OBJ(wp_obj) - wp_obj);
+  
   var son = weapon_create(0, 0, wp_obj, -1);
 
   var rv = son.b_dur;

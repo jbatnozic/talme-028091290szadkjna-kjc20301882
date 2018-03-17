@@ -39,6 +39,9 @@ rinv_define_item("Aarnd Family Rifle",  RINV_TYPE.weapon, 0, 15, true, RINV_OBJ(
 rinv_define_item("Acid Flask Launcher", RINV_TYPE.weapon, 0, 15, true, RINV_OBJ(obj_weapon_afl),         -1, spr_item_weapon_default);
 rinv_define_item("Grenade Launcher",    RINV_TYPE.weapon, 0, 15, true, RINV_OBJ(obj_weapon_gren_la),     -1, spr_item_weapon_default);
 rinv_define_item("Flamethrower",        RINV_TYPE.weapon, 0, 15, true, RINV_OBJ(obj_weapon_flame),       -1, spr_item_weapon_default);
+rinv_define_item("Revolver",            RINV_TYPE.weapon, 0, 5,  true, RINV_OBJ(obj_weapon_revolver),    -1, spr_item_weapon_default);
+rinv_define_item("Bolt Action Rifle",   RINV_TYPE.weapon, 0, 15, true, RINV_OBJ(obj_weapon_bolt_action), -1, spr_item_weapon_default);
+rinv_define_item("Assault Rifle",       RINV_TYPE.weapon, 0, 15, true, RINV_OBJ(obj_weapon_assault),     -1, spr_item_weapon_default);
 
 rinv_item_desc("Machinegun", "An automatic firearm.");
 

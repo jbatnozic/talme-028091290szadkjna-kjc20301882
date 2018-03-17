@@ -266,6 +266,10 @@
       <sprite>sprites\spr_machinegun</sprite>
       <sprite>sprites\spr_gren_la</sprite>
       <sprite>sprites\spr_muzzleflash_1</sprite>
+      <sprite>sprites\spr_revolver</sprite>
+      <sprite>sprites\spr_sniper</sprite>
+      <sprite>sprites\spr_bolt_action</sprite>
+      <sprite>sprites\spr_adv_rifle</sprite>
     </sprites>
     <sprites name="Terrain">
       <sprite>sprites\spr_brick_wall</sprite>
@@ -453,10 +457,6 @@
           <script>scripts\rinv_item_get_static_value.gml</script>
           <script>scripts\rinv_item_get_static_id.gml</script>
         </scripts>
-        <scripts name="Macrolike">
-          <script>scripts\RINV_SPR.gml</script>
-          <script>scripts\RINV_OBJ.gml</script>
-        </scripts>
         <scripts name="Instantiations">
           <scripts name="Management">
             <script>scripts\rinv_create.gml</script>
@@ -479,6 +479,7 @@
             <script>scripts\rinv_item_get_dynamic_value.gml</script>
             <script>scripts\rinv_item_set_dynamic_value.gml</script>
             <script>scripts\rinv_item_get_amount.gml</script>
+            <script>scripts\rinv_item_set_amount.gml</script>
           </scripts>
           <scripts name="Utility">
             <script>scripts\rinv_list_items.gml</script>
@@ -493,6 +494,11 @@
             <script>scripts\rinv_count_slots.gml</script>
             <script>scripts\rinv_recount_slots.gml</script>
           </scripts>
+        </scripts>
+        <scripts name="Other">
+          <script>scripts\RINV_SPR.gml</script>
+          <script>scripts\RINV_OBJ.gml</script>
+          <script>scripts\rinv_use_item.gml</script>
         </scripts>
         <scripts name="Underlying">
           <script>scripts\_rinv_array_to_string.gml</script>
@@ -1366,12 +1372,17 @@
       <objects name="Weapons">
         <object>objects\obj_weapon_template</object>
         <object>objects\obj_weapon_machinegun</object>
-        <object>objects\obj_weapon_afl</object>
-        <object>objects\obj_weapon_afr</object>
-        <object>objects\obj_weapon_blunderbuss</object>
         <object>objects\obj_weapon_flame</object>
-        <object>objects\obj_weapon_gren_la</object>
-        <object>objects\obj_weapon_m9</object>
+        <object>objects\obj_weapon_revolver</object>
+        <object>objects\obj_weapon_bolt_action</object>
+        <object>objects\obj_weapon_assault</object>
+        <objects name="Old">
+          <object>objects\obj_weapon_afl</object>
+          <object>objects\obj_weapon_afr</object>
+          <object>objects\obj_weapon_blunderbuss</object>
+          <object>objects\obj_weapon_gren_la</object>
+          <object>objects\obj_weapon_m9</object>
+        </objects>
         <objects name="Projectiles">
           <object>objects\obj_projectile_bullet</object>
           <object>objects\obj_projectile_flame</object>

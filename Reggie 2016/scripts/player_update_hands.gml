@@ -15,6 +15,8 @@ if (rinv_item_get_static_value(static_id, RINV_STATIC.type) != RINV_TYPE.weapon)
 
 var obj_id = rinv_item_get_static_value(static_id, RINV_STATIC.objwe);
 
+obj_id -= (RINV_OBJ(obj_id) - obj_id);
+
 weapon_create((global.player_obj_id).x,
               (global.player_obj_id).y - 20,
               obj_id, ras);

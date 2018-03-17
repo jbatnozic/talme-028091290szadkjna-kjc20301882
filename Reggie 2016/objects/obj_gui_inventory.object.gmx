@@ -477,18 +477,23 @@ for (i = 0; i &lt; 5; i += 1) {
 
   }
 
-//ARMOUR: TODO +6 to all Y coords
-/*if global.inventory_armour[1]&lt;&gt;"ZZZZZ" {
- spr=real(inv_item_get_static_value(global.inventory_armour[1],7));
- if gui_draw_sprite_clickable_ext(spr,0,xx+496,yy+780,true,27/19,27/19,1)=true {
-  selected=-6;
-  desc_text="";
-  desc_scroll=0;
-  if (desc_text_grid != -1) { TPP_text_free(desc_text_grid); desc_text_grid = -1; }
-  update_desc=true;
+if (!rinv_item_is_null(-1, 5)) {
+
+  static_id = rinv_local_to_static(-1, 5);
+  
+  spr = rinv_item_get_static_value(static_id, RINV_STATIC.icon);
+
+  if (gui_draw_sprite_clickable_ext(spr,0,xx+496,yy+780,true,27/19,27/19,1)) {
+  
+    selected = 5;
+    desc_scroll = 0;
+    event_user(ev_update_desc);
+    
+    }
+    
+  if (selected = 5) draw_sprite_ext(spr_checkered_square,0,xx+496,yy+780,2,2,0,c_white,1);
+  
   }
- if selected=-6 draw_sprite_ext(spr_checkered_square,0,xx+496,yy+780,2,2,0,c_white,1);
- }*/
  
 //Filter title:
 draw_set_color(c_black);
@@ -642,7 +647,11 @@ if (selected != -1) {
      }
      
     if (gui_draw_sprite_clickable_ext(spr_window_button_action,1,xx+658,yy+738,true,2,2,1)) {
-     //inv_use_item(selected); STUB
+    
+     rinv_use_item(-1, selected);
+     
+     if (rinv_item_is_null(-1, selected)) selected = -1;
+     
      }
     
     }
@@ -1013,6 +1022,11 @@ inv_add_item("Acid Flask Launcher",1);
 inv_add_item("Machinegun",1);*/
 
 rinv_add_simple(-1, "Spare parts", 8);
+rinv_add_complex(-1, "Bullet vest");
+rinv_add_complex(-1, "Revolver", 0, 1, 100, 0, 0);
+
+rinv_add_complex(-1, "Assault Rifle", 0, 1, 100, 0, 0);
+rinv_add_complex(-1, "Bolt Action Rifle", 0, 1, 100, 0, 0);
 </string>
           </argument>
         </arguments>
@@ -1040,8 +1054,8 @@ inv_add_item("Spare parts",5);
 inv_add_item("Acid Flask",50);
 inv_add_item("Bullet",50);*/
 
-rinv_add_complex(-1, "Jar");
-rinv_add_complex(-1, "Heart");
+rinv_add_simple(-1, "Jar", 1);
+rinv_add_simple(-1, "Human heart", 1);
 </string>
           </argument>
         </arguments>
