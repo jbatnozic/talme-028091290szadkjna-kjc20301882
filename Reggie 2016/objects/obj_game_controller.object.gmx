@@ -906,6 +906,27 @@ alp=clamp(_infoA/50,sett_get_value("Info Box Opacity")/100,1);
 draw_sprite_ext(spr_hud_info,0,xx,yy,hud_scale,hud_scale,0,c_white,1);
 draw_sprite_ext(spr_hud_info,1,xx,yy,hud_scale,hud_scale,0,c_white,alp);
  
+// TEMP:
+draw_set_halign(fa_left);
+draw_set_valign(fa_top);
+
+if (player_is_in_combat()) {
+
+  draw_set_colour(c_red);
+
+  draw_text(16, yy + 8 + sprite_get_height(spr_hud_info) * hud_scale,
+            "&gt;&gt; DIAG: In combat!");
+
+  }
+else {
+
+  draw_set_colour(c_green);
+
+  draw_text(16, yy + 8 + sprite_get_height(spr_hud_info) * hud_scale,
+            "&gt;&gt; DIAG: Not in combat.");
+
+  }
+
 //Draw messages:
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);

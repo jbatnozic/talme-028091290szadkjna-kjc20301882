@@ -1,4 +1,4 @@
-///rinv_use_item(Inventory ID, Local ID)
+///pspec_rinv_use_item(Inventory ID, Local ID)
 /*
 THIS SCRIPT IS EXECUTED WHEN AN ITEM IS USED.
 

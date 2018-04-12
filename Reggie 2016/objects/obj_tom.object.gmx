@@ -33,7 +33,7 @@ if (pnc_is_target(id) &amp;&amp; pnc_kbchk(KEYBOARD.interact)) {
  txt_begin();
       
  //txt_load_from_file("Tom.txt");
- txt_load_from_file("Etheria Dialogue.txt");
+ txt_load_from_file("Tom.txt");
          
  txt_interface_open(spr_portrait_template,"Reggie",spr_portrait_template,"Tom",x,y);
 

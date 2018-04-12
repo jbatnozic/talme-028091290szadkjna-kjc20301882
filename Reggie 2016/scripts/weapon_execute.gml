@@ -143,9 +143,12 @@ if keyboard_check(userControls[KEYBOARD.reload])=true {
      }
    
    }
+   else {
    
-   else if preparing>0 {
-    preparing-=1;
+    if (preparing > 0) preparing -= 1;
+    
+    if (refiring > 0) refiring -= 1;
+    
     }
     
   }

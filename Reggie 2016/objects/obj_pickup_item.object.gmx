@@ -28,30 +28,16 @@
             <string>_hspeed = 0;
 _vspeed = 0;
 
-_width  = sprite_get_bbox_right(sprite_index) -
-          sprite_get_bbox_left(sprite_index);
-          
-_height = sprite_get_bbox_bottom(sprite_index) -
-          sprite_get_bbox_top(sprite_index);
+ev_pickup_init = 0;
+
+ttbw = 60 * 7; // Time to be awake
+
+colrec_shrink = false;
 
 _dormant = false;
 
 image_xscale = 1;
 image_yscale = 1;
-
-// Add item stuff:
-_mode = 0; // 0 = simple, 1 = complex
-
-_itemName = "Stimpack";  // TEMP
-_amount   = 1;
-
-_customValue[4] = 0;
-
-// Animation stuff:
-offset_max = 10;
-offset_spd = 0.1;
-offset = irandom(offset_max);
-offsign = 1;
 
 // Shader stuff:
 uAmount = shader_get_uniform(sh_bright, "amount");
@@ -117,6 +103,8 @@ amount_curr = 0;
             <kind>1</kind>
             <string>/// Point n' Click
   
+if (keyboard_check_pressed(vk_alt)) amount_cnt = 0;
+
 if (pnc_is_target(id) || keyboard_check(vk_alt)) {
 
   amount_curr = abs(3 * dsin(360 * amount_cnt / max_cnt));
@@ -129,17 +117,12 @@ if (pnc_is_target(id) &amp;&amp; pnc_kbchk(KEYBOARD.pickUp)) {
   
   if (_mode == 0) {
   
-    inv_add_item(_itemName, _amount);
+    rinv_add_simple(-1, _itemName, _amount);
   
     }
   else {
-  
-    inv_add_set_item(_itemName, _amount,
-                     _customValue[0],
-                     _customValue[1],
-                     _customValue[2],
-                     _customValue[3],
-                     _customValue[4]);
+                     
+    rinv_add_complex_arr(-1, _itemName, _customValue);
   
     }
 
@@ -218,12 +201,20 @@ if (pnc_is_target(id) &amp;&amp; pnc_kbchk(KEYBOARD.pickUp)) {
             <kind>1</kind>
             <string>/// Movement
 
+if (colrec_shrink == true) {
+
+  colrec_w = max(4, colrec_w - 0.025);
+    
+  colrec_shrink = false;
+
+  }
+
 if (!_dormant) {
 
   var moved_x = false, moved_y = false;
 
-  _width  = sprite_get_width(sprite_index) * image_xscale;
-  _height = sprite_get_height(sprite_index) * image_yscale;
+  //_width  = sprite_get_width(sprite_index) * image_xscale;
+  //_height = sprite_get_height(sprite_index) * image_yscale;
   
   var grav = 0.2;
   
@@ -244,13 +235,14 @@ if (!_dormant) {
       if (!place_meeting_solid(x, y + i * sign(_vspeed))) {
       
         y += i * sign(_vspeed);
-        _vspeed = 0;
         moved_y = true;
         break;
       
         }
     
       }
+      
+    _vspeed = 0;
   
     }
     
@@ -268,13 +260,14 @@ if (!_dormant) {
       if (!place_meeting_solid(x + i * sign(_hspeed), y)) {
       
         x += i * sign(_hspeed);
-        _hspeed = 0;
         moved_x = true;
         break;
       
         }
     
       }
+      
+    _hspeed = 0;  
   
     }
     
@@ -283,7 +276,12 @@ if (!_dormant) {
   if (_hspeed &lt;= 0.2) _hspeed = 0;
   
   // Set _dormant:
-  _dormant = !(moved_x || moved_y);
+  //_dormant = !(moved_x || moved_y);
+  _dormant = (_hspeed == 0 &amp;&amp; _vspeed == 0);
+  
+  ttbw = max(0, ttbw - 1);
+  
+  if (ttbw == 0) _dormant = true;;
   
   }
 </string>
@@ -358,6 +356,17 @@ amount_cnt = (amount_cnt + 1) mod max_cnt;
             <kind>1</kind>
             <string>if (!game_paused()) {
 
+  if (ttbw == 0) exit;
+
+  if (rectangle_in_rectangle(x - colrec_w / 2,
+                             y - _height / 2,
+                             x + colrec_w / 2,
+                             y + _height / 2,
+                             other.x - other.colrec_w / 2,
+                             other.y - other._height / 2,
+                             other.x + other.colrec_w / 2,
+                             other.y + other._height / 2) == 0) exit;
+  
   var push_factor = 1;
 
   var s = sign(x - other.x);
@@ -372,12 +381,44 @@ amount_cnt = (amount_cnt + 1) mod max_cnt;
     _hspeed += push_factor * choose(1, -1);
   
     }
-
-  _dormant = false;
     
+  _dormant = false;
+  
+  colrec_shrink = true;
+
   }
 
 
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="10">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Initialization
+
+// NOTE: Use init_inv_id, init_local_id, init_static_id, init_amount
+
+pspec_pickup_init_arr( rinv_item_get_static_value(init_static_id, RINV_STATIC.name)
+                     , init_amount
+                     , rinv_item_get_dynamic_arr(init_inv_id, init_local_id)
+                     ) ;
 </string>
           </argument>
         </arguments>
@@ -404,12 +445,34 @@ amount_cnt = (amount_cnt + 1) mod max_cnt;
 
   shader_set_uniform_f(uAmount, amount_curr);
   
-  if (offset == 0 || offset == offset_max) offsign *= -1;
+  if (!_dormant)
+    image_blend = c_red;
+  else
+    image_blend = c_white;
   
-  offset += offsign * offset_spd;
+  draw_self();
+  //draw_sprite(sprite_index, -1, x, y);
   
-  draw_sprite(sprite_index, -1, x, y);
+  /*draw_set_font(f_arial_12);
+  draw_set_valign(fa_middle);
+  draw_set_colour(c_white);
+  draw_text(x, y, string(ttbw));*/
 
+  /*draw_set_color(c_green);
+  draw_rectangle(x - _width  / 2,
+                 y - _height / 2,
+                 x + _width  / 2,
+                 y + _height / 2,
+                 true);
+  
+  draw_set_color(c_fuchsia);
+  draw_rectangle(x - colrec_w / 2,
+                 y - _height  / 2,
+                 x + colrec_w / 2,
+                 y + _height  / 2,
+                 true);*/
+                 
+  
 shader_reset();
 </string>
           </argument>

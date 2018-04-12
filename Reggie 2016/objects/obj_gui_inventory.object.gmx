@@ -619,11 +619,15 @@ if (selected != -1) {
   if (itt == RINV_TYPE.weapon or itt == RINV_TYPE.armour) {
 
     //If it's weapon or armour:
-    if (gui_draw_sprite_clickable_ext(spr_window_button_action,0,xx+508,yy+738,true,2,2,1)) {
-      /*STUB - Drop*/
+    if (gui_draw_sprite_clickable_ext(spr_window_button_action,0,xx+508,yy+738,true,2,2,1)) { // Drop
+    
+      pspec_drop_item(-1, selected, (global.player_obj_id).x, (global.player_obj_id).y);
+     
+      if (rinv_item_is_null(-1, selected)) selected = -1;
+     
       }
       
-    if (gui_draw_sprite_clickable_ext(spr_window_button_action,2,xx+658,yy+738,true,2,2,1)) {
+    if (gui_draw_sprite_clickable_ext(spr_window_button_action,2,xx+658,yy+738,true,2,2,1)) { // repair
   
       if (itt = RINV_TYPE.weapon) {
         a = instance_create(x,y,obj_gui_repair);
@@ -643,12 +647,16 @@ if (selected != -1) {
   
     //If it's not weapon or armour:
     if (gui_draw_sprite_clickable_ext(spr_window_button_action,0,xx+508,yy+738,true,2,2,1)) {
-     /*STUB - Drop*/
+    
+     pspec_drop_item(-1, selected, (global.player_obj_id).x, (global.player_obj_id).y);
+     
+     if (rinv_item_is_null(-1, selected)) selected = -1;
+      
      }
      
     if (gui_draw_sprite_clickable_ext(spr_window_button_action,1,xx+658,yy+738,true,2,2,1)) {
     
-     rinv_use_item(-1, selected);
+     pspec_rinv_use_item(-1, selected);
      
      if (rinv_item_is_null(-1, selected)) selected = -1;
      

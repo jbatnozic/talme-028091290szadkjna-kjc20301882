@@ -55,23 +55,6 @@
       </ConfigOptions>
       <filename>Hospital_Doctor_2.txt</filename>
     </datafile>
-    <datafile>
-      <name>Etheria Dialogue.txt</name>
-      <exists>-1</exists>
-      <size>1500</size>
-      <exportAction>2</exportAction>
-      <exportDir></exportDir>
-      <overwrite>0</overwrite>
-      <freeData>-1</freeData>
-      <removeEnd>0</removeEnd>
-      <store>0</store>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <filename>Etheria Dialogue.txt</filename>
-    </datafile>
   </datafiles>
   <NewExtensions>
     <extension index="0">extensions\Mercury-2D Worlds and Lighting</extension>
@@ -235,6 +218,7 @@
         <sprite>sprites\spr_player_look_back</sprite>
         <sprite>sprites\spr_reggie_upperarm</sprite>
         <sprite>sprites\spr_reggie_forearm</sprite>
+        <sprite>sprites\spr_player_crouch_armless</sprite>
       </sprites>
       <sprite>sprites\spr_dead_relative</sprite>
       <sprite>sprites\spr_player_crawl</sprite>
@@ -270,6 +254,7 @@
       <sprite>sprites\spr_sniper</sprite>
       <sprite>sprites\spr_bolt_action</sprite>
       <sprite>sprites\spr_adv_rifle</sprite>
+      <sprite>sprites\spr_flamethrower</sprite>
     </sprites>
     <sprites name="Terrain">
       <sprite>sprites\spr_brick_wall</sprite>
@@ -301,7 +286,6 @@
     <sprite>sprites\spr_ammo_box</sprite>
     <sprite>sprites\spr_weapon_box</sprite>
     <sprite>sprites\spr_temp_arm</sprite>
-    <sprite>sprites\TEMP2</sprite>
     <sprite>sprites\spr_hit</sprite>
   </sprites>
   <backgrounds name="background">
@@ -381,6 +365,10 @@
       <scripts name="Pspec">
         <script>scripts\pspec_rinv_initialize.gml</script>
         <script>scripts\pspec_rinv_free.gml</script>
+        <script>scripts\pspec_rinv_use_item.gml</script>
+        <script>scripts\pspec_drop_item.gml</script>
+        <script>scripts\pspec_pickup_init.gml</script>
+        <script>scripts\pspec_pickup_init_arr.gml</script>
       </scripts>
       <scripts name="Resource Management">
         <script>scripts\res_initialize.gml</script>
@@ -477,6 +465,7 @@
             <script>scripts\rinv_item_is_null.gml</script>
             <script>scripts\rinv_local_to_static.gml</script>
             <script>scripts\rinv_item_get_dynamic_value.gml</script>
+            <script>scripts\rinv_item_get_dynamic_arr.gml</script>
             <script>scripts\rinv_item_set_dynamic_value.gml</script>
             <script>scripts\rinv_item_get_amount.gml</script>
             <script>scripts\rinv_item_set_amount.gml</script>
@@ -498,7 +487,6 @@
         <scripts name="Other">
           <script>scripts\RINV_SPR.gml</script>
           <script>scripts\RINV_OBJ.gml</script>
-          <script>scripts\rinv_use_item.gml</script>
         </scripts>
         <scripts name="Underlying">
           <script>scripts\_rinv_array_to_string.gml</script>
@@ -1255,6 +1243,7 @@
     <font>fonts\f_palatino_26</font>
     <font>fonts\f_palatino_26_bold</font>
     <font>fonts\f_palatino_26_italic</font>
+    <font>fonts\f_arial_12</font>
   </fonts>
   <objects name="objects">
     <object>objects\placeholderObj</object>
