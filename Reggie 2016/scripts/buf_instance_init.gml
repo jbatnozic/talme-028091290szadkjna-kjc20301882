@@ -7,8 +7,8 @@ No arguments.
 Returns nothing.
 */
 
-local_buff_grid=ds_grid_create(2,0);
-local_buff_counter=0;
+local_buff_grid = ds_grid_create(2,0);
+local_buff_counter = 0;
 
 //Modifiers:
 mod_speed=1;

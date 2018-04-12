@@ -39,7 +39,7 @@ else if (_state==4) {
   if (txt_obj_exists()==false) {
   
     screen_fade(c_black,181,0);
-    execute_string_delayed("game_change_room(); game_end_scene();",180);
+    execute_string_delayed("game_change_room(); game_end_scene();", 180, true);
   
     }
 

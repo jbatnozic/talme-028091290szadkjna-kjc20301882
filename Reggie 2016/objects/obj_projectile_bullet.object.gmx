@@ -3,7 +3,7 @@
   <spriteName>projectileDefaultSprite</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>1</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -53,12 +53,18 @@ Other:
 
 destroyed=false;
 
+dcounter = 2;
+
 x1=0;
 y1=0;
 x2=0;
 y2=0;
 
+tail_x = x;
+tail_y = y;
 
+hit_x = -1;
+hit_y = -1;
 
 
 
@@ -136,8 +142,8 @@ if exp_radius&gt;0 {
 if game_paused()=false begin
 
  //Direction &amp; speed:
- _direction=point_direction(0,0,_hspeed,_vspeed);
- _speed=sqrt(sqr(_hspeed)+sqr(_vspeed));
+ _direction = point_direction(0,0,_hspeed,_vspeed);
+ _speed = sqrt(sqr(_hspeed)+sqr(_vspeed));
 
  //Sprite:
  image_angle=_direction;
@@ -150,16 +156,37 @@ if game_paused()=false begin
  
  end;
 
- //Movement:  
- x+=_hspeed;
- 
- _vspeed+=arc;
- y+=_vspeed;
- 
- //Destruction:
- if destroyed=true instance_destroy();
+  //Movement:  
+  x+=_hspeed;
   
+  tail_x += _hspeed * 0.65;
+  
+  _vspeed+=arc;
+  
+  y+=_vspeed;
+  
+  tail_y += _vspeed * 0.65;
+ 
+  //Destruction:
+  if (destroyed) {
+  
+    dcounter -= 1;
+  
+    if (dcounter &lt;= 0) instance_destroy();
+       
+    }
+     
 end;
+
+
+
+
+
+
+
+
+
+
 </string>
           </argument>
         </arguments>
@@ -181,7 +208,7 @@ end;
           <argument>
             <kind>1</kind>
             <string>///Terrain collisions
-var t1,t2;
+/*var t1,t2;
 
 t1=_speed*dcos(_direction)/2;
 
@@ -191,10 +218,30 @@ x2=x+t1;
 t2=_speed*dsin(_direction)/2;
 
 y1=y-t2;
-y2=y+t2;
+y2=y+t2;*/
 
-if HG_collision_line(-1,x1,y1,x2,y2,12)=true
- destroyed=true;
+if (!destroyed) {
+
+  var arr = HG_collision_ray(-1, x, y, _direction, 4, _speed);
+  
+  if (!is_undefined(arr[0])) {
+  
+    destroyed = true;
+    
+    hit_x = arr[0];
+    hit_y = arr[1];
+    
+    instance_create(hit_x, hit_y, obj_hit);
+  
+    }
+  
+  }
+
+/*if (HG_collision_line(-1,x1,y1,x2,y2,4)) {
+  
+  destroyed=true;
+  
+  }*/
 </string>
           </argument>
         </arguments>
@@ -228,8 +275,13 @@ if HG_collision_line(-1,x1,y1,x2,y2,12)=true
  end;
  
 //DEFAULT ACTIONS:
-if (other._group&lt;&gt;_group and destroyed=false) {
+if (other._group&lt;&gt;_group and !destroyed) {
 
+  hit_x = (x + other.x) / 2;
+  hit_y = (y + other.y) / 2;
+
+  instance_create(hit_x, hit_y, obj_hit);
+  
  if exp_radius&lt;=0 {
 
   other._health-=damage;
@@ -287,14 +339,32 @@ if (other._group&lt;&gt;_group and destroyed=false) {
             <kind>1</kind>
             <string>///Drawing
 
+var tlerp = (sett_get_value("Interpolation") == "On");
+
 draw_set_blend_mode(bm_add);
 
- draw_sprite_ext(_sprite,-1,x,y,1,1,image_angle,c_white,1); 
+ //draw_sprite_ext(_sprite,-1,x,y,1,1,image_angle,c_white,1); 
+ 
+ var dist = point_distance(x, y, tail_x, tail_y);
+ 
+ ftlerp();
+ draw_sprite_ext(_sprite, -1, (x + tail_x)/2, (y + tail_y)/2,
+                 dist / sprite_get_width(_sprite), 0.2,
+                 image_angle, c_white, 0.75);
+ rtlerp(tlerp);
  
 draw_set_blend_mode(bm_normal);
 
+/*if (hit_x != -1 &amp;&amp; hit_y != -1) {
+
+  draw_set_colour(c_red);
+  
+  draw_circle(hit_x, hit_y, 4, false);
+
+  }*/
+
 //Temp:
-//draw_bbox(image_angle,c_fuchsia);
+//draw_bbox(image_angle, c_green);
 </string>
           </argument>
         </arguments>

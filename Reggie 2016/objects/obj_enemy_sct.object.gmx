@@ -29,6 +29,8 @@
 
 set_behavior_values_sct();
 
+res_instance_init();
+
 _group=GROUP.enemy;
 
 _isCommander=false;
@@ -100,6 +102,7 @@ _isPrimal=true;
             <kind>1</kind>
             <string>///Free memory
 buf_instance_free();
+res_instance_free();
 </string>
           </argument>
         </arguments>
@@ -395,6 +398,31 @@ if _hspeed&lt;&gt;0 {
         <isnot>0</isnot>
       </action>
     </event>
+    <event eventtype="7" enumb="10">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Backup resources
+
+buf_instance_backup();
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="8" enumb="0">
       <action>
         <libid>1</libid>
@@ -415,7 +443,7 @@ if _hspeed&lt;&gt;0 {
             <string>///Draw Self
 
 draw_sprite_ext(mask_index,0,x,y,1,1,0,c_white,0.25);
-draw_sprite_ext(sprite_index,0,x,y,image_xscale,ite(_moveHeight,1,0.5,1),1,c_white,1);
+draw_sprite_ext(sprite_index,0,x,y,image_xscale,tern(_moveHeight,1,0.5,1),1,c_white,1);
 
 if _attackTimer&gt;=0
  draw_sprite_ext(mask_index,0,x,y,1,1,0,c_yellow,0.5);

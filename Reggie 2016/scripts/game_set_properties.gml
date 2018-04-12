@@ -3,14 +3,6 @@
 
 */
 
-enum TEXTBOX {
- main=0,
- code_p=1,
- code_s=2,
- choices=3,
- branches=4,    
- }
-
 enum GUI {
  max_msg=64,   // Maximum number of notification messages at once.
  max_alp=450   // Maximum message alpha (counter).

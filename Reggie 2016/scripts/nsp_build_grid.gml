@@ -1,9 +1,9 @@
-///nsp_build_grid(Start, End)
+///nsp_build_grid(Start, End, StrList, ParList)
 /*
 Underlying NSP script.
 */
-var nspListStr=global.nspListStr,
-    nspListPar=global.nspListPar;
+var nspListStr = argument2,
+    nspListPar = argument3;
 var i,d,list_min,list_max,grid;
 
 list_min=argument0;

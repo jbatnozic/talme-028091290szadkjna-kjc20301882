@@ -26,8 +26,9 @@
           <argument>
             <kind>1</kind>
             <string>
-duration=0;
-code="";
+can_pause = true;
+duration  = 0;
+code      = "";
 </string>
           </argument>
         </arguments>
@@ -50,13 +51,15 @@ code="";
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (game_paused()) exit;
+            <string>if (can_pause == true and game_paused()) exit;
 
-duration-=1;
+duration -= 1;
 
-if (duration&lt;=0) {
+if (duration &lt;= 0) {
+
   NSP_execute_string(code);
   instance_destroy();
+  
   }
 </string>
           </argument>

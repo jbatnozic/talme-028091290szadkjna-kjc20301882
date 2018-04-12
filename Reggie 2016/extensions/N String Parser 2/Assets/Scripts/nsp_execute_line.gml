@@ -1,9 +1,9 @@
-///nsp_execute_line(Start, End)
+///nsp_execute_line(Start, End, StrList, ParList)
 /*
 Underlying NSP script.
 */
-var nspListStr=global.nspListStr,
-    nspListPar=global.nspListPar;
+var nspListStr = argument2,
+    nspListPar = argument3;
 var i,pos,pri_b,list_min,list_max,rv;
 
 list_min=argument0;
@@ -38,16 +38,16 @@ while (list_min<list_max) begin
   }
   
  //See if the single code has statements:
- if (nspListPar[|list_min]=NSP_TYPE._specword) or
-    (nspListStr[|list_min]="{") {
+ if (nspListPar[|list_min] = NSP_TYPE._specword) or
+    (nspListStr[|list_min] = "{") {
  
-  rv=nsp_execute_master(list_min,pos,true);
+  rv=nsp_execute_master(list_min,pos, true, nspListStr, nspListPar);
   if !is_undefined(rv) return rv;
  
   }
   else {
   
-   nsp_execute_single(list_min,pos);
+   nsp_execute_single(list_min, pos, nspListStr, nspListPar);
    
    }
  

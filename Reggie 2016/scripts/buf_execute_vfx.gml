@@ -8,7 +8,7 @@ w=_width;
 h=_height;
 
 if eff_fire=1 {
- ptc_create_particles(x,y,w,h,PTC_TYPE.fire,4,0,-1);
+ //ptc_create_particles(x,y,w,h,PTC_TYPE.fire,4,0,-1); STUB
  }
 
 if eff_acid=1 {

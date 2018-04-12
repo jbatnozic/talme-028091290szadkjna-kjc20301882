@@ -5,7 +5,7 @@ but can display very long messages properly.
 */
 var i,array;
 
-array=string_cut_to_array(argument0,150);
+array=string_cut_to_array(argument0,300);
 
 for (i=0; i<array_length_1d(array); i+=1) begin
 

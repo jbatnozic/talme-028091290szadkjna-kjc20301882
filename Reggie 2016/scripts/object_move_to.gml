@@ -18,7 +18,7 @@ with (argument0) {
   else if place_meeting_terrain(x,argument2,false)=false {
    
    y=argument2;
-   s=ite_ext(x>argument1,-1,1);
+   s=cpptern(x>argument1,-1,1);
    
    for (i=1; i<=argument4; i+=argument3) begin
    
@@ -34,7 +34,7 @@ with (argument0) {
    else if place_meeting_terrain(argument1,y,false)=false {
        
     x=argument1;
-    s=ite_ext(y>argument2,-1,1);
+    s=cpptern(y>argument2,-1,1);
    
     for (i=1; i<=argument4; i+=argument3) begin
     

@@ -175,14 +175,16 @@ if update_list=true {
             <kind>1</kind>
             <string>var spr,val,counter;
 
-draw_set_font(f_windows);
+var sprite_scale = 2;
+
+fnt_draw_set(FONT.window);
 
 //Set up GUI x and y:
-xx=gui_width()/2-sprite_get_width(sprite_index)/2;
-yy=gui_height()/2-sprite_get_height(sprite_index)/2;
+xx=gui_width()/2-sprite_get_width(sprite_index)*sprite_scale/2;
+yy=gui_height()/2-sprite_get_height(sprite_index)*sprite_scale/2;
 
 //Draw own sprite:
-draw_sprite(sprite_index,0,xx,yy);
+draw_sprite_ext(sprite_index,0,xx,yy,sprite_scale,sprite_scale,0,c_white,1);
 
 //ITEM LIST::
 draw_set_alpha(1);
@@ -199,17 +201,17 @@ if item_list[counter]&lt;&gt;"" {
 
 //Small icons:
 spr=real( inv_item_get_static_value(item_list[counter],7));
-draw_sprite_ext(spr,0,xx+9,yy+counter*20+43,0.5,0.5,0,c_white,1); 
+draw_sprite_ext(spr,0,xx+9,yy+counter*40+86,1,1,0,c_white,1); 
 
 //Clickable text boxes:
-spr=ite(item_list[counter],selected,1,0);
-if gui_draw_sprite_clickable(spr_window_name_box_wide,spr,xx+29,yy+counter*20+43,1)=true
+spr=tern(item_list[counter],selected,1,0);
+if gui_draw_sprite_clickable_ext(spr_window_name_box_wide,spr,xx+58,yy+counter*40+86,1,2,2,1)=true
  {selected=item_list[counter]; 
   /*update_array=true;*/}
 
 //Combination names:
 draw_set_color(c_black);
- draw_text(xx+32,yy+44+20*counter,item_list[counter]+" ("+string(inv_count_item(item_list[counter]))+")");
+ draw_text(xx+64,yy+88+40*counter,item_list[counter]+" ("+string(inv_count_item(item_list[counter]))+")");
 
 }
 end;
@@ -217,34 +219,34 @@ end;
 
 //Filter title:
 draw_set_color(c_black);
-draw_text(xx+12,yy+42,"Items to repair with:");
+draw_text(xx+24,yy+84,"Items to repair with:");
 
 //REPAIR ITEM BEGIN:
 
 //Item name:
 if selected&lt;&gt;"" str=selected+" ("+string(inv_count_item(selected))+")";
  else str="No item selected.";
-draw_text(xx+254,yy+41,str);
+draw_text(xx+508,yy+82,str);
 
 //Item icon:
 if selected&lt;&gt;"" {
  spr=real(inv_item_get_static_value(selected,7));
- draw_sprite(spr,0,xx+355,yy+67);
+ draw_sprite_ext(spr,0,xx+710,yy+134,2,2,0,c_white,1);
  }
 
 //Repair power:
 if selected&lt;&gt;"" {
  str="Repair#potency: "+string(global.repair_map_a[?selected]);
- draw_text(xx+254,yy+70,str);
+ draw_text(xx+508,yy+140,str);
  }
 
 //REPAIR ITEM END;
 
 //SCROLL:
-if gui_draw_sprite_clickable(spr_window_button_scroll,0,xx+230,yy+63,true)=true {
+if gui_draw_sprite_clickable(spr_window_button_scroll,0,xx+460,yy+126,true)=true {
  if scroll&gt;0 scroll-=1;
  }
-if gui_draw_sprite_clickable(spr_window_button_scroll,1,xx+230,yy+244,true)=true {
+if gui_draw_sprite_clickable(spr_window_button_scroll,1,xx+460,yy+488,true)=true {
  if item_list[10]&lt;&gt;"" scroll+=1;
  }
 
@@ -256,14 +258,14 @@ if target&gt;0
  str=global.inventory_current[target,1]
  else
   str=global.inventory_armour[1];
-draw_text(xx+254,yy+118,str);
+draw_text(xx+508,yy+236,str);
 
 //Item icon:
 if target&gt;0
  spr=real(inv_item_get_static_value(global.inventory_current[target,1],7))
  else
   spr=real(inv_item_get_static_value(global.inventory_armour[1],7));
-draw_sprite(spr,0,xx+355,yy+144);
+draw_sprite_ext(spr,0,xx+710,yy+288,2,2,0,c_white,1);
 
 //Durability:
 if target&gt;0
@@ -271,7 +273,7 @@ if target&gt;0
  else
   str=global.inventory_armour[4];
 str="Durability:#"+string(round(str))+" / "+string(maxdur);
-draw_text(xx+254,yy+147,str);
+draw_text(xx+508,yy+294,str);
 
 //Durability after repair:
 if selected&lt;&gt;"" {
@@ -282,7 +284,7 @@ if selected&lt;&gt;"" {
   else
    str=min(global.inventory_armour[4]+global.repair_map_a[?selected],maxdur);
  str="After repair:#"+string(round(str))+" / "+string(maxdur);
- draw_text(xx+254,yy+209,str);
+ draw_text(xx+508,yy+418,str);
  }
 
 //REPAIRED ITEM END;
@@ -312,7 +314,7 @@ else
  spr=1;
 
 
-if gui_draw_sprite_clickable(spr_window_button_repair,spr,xx+247,yy+248,true)=true
+if gui_draw_sprite_clickable_ext(spr_window_button_repair,spr,xx+494,yy+496,true,2,2,1)=true
  {if spr=0 {
  
    if target&gt;0 {
@@ -330,7 +332,7 @@ if gui_draw_sprite_clickable(spr_window_button_repair,spr,xx+247,yy+248,true)=tr
  }
 
 //Close button:
-if gui_draw_sprite_clickable_rel(spr_window_close,0,xx+283,yy+270)
+if gui_draw_sprite_clickable_rel(spr_window_close,0,xx+566,yy+540)
  instance_destroy();
 </string>
           </argument>

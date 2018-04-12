@@ -1,6 +1,6 @@
 ///nsp_variable_global_set(Name, Value)
 /*
-Underlying NSP script. Can be changed by user (read NSP Documentation for more info).
+Underlying NSP script.
 */
 var work_str;
 
@@ -37,4 +37,5 @@ switch (work_str) begin
   break;
   
 end;
+
 

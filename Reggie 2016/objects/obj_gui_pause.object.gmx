@@ -26,6 +26,8 @@
           <argument>
             <kind>1</kind>
             <string>_lifeCounter=0;
+
+sprite_scale = 2;
 </string>
           </argument>
         </arguments>
@@ -78,46 +80,54 @@ if keyboard_check_pressed(userControls[KEYBOARD.pause])=true and _lifeCounter=2
             <string>var xx,yy;
 
 //Set up GUI x and y:
-xx=gui_width()/2-sprite_get_width(sprite_index)/2;
-yy=gui_height()/2-sprite_get_height(sprite_index)/2;
+xx=gui_width()/2-sprite_get_width(sprite_index)*sprite_scale/2;
+yy=gui_height()/2-sprite_get_height(sprite_index)*sprite_scale/2;
 
 //Draw own sprite:
-draw_sprite(spr_window_pause,0,xx,yy);
+draw_sprite_ext(spr_window_pause,0,xx,yy,sprite_scale,sprite_scale,0,c_white,1);
 
 //Save:
-if gui_draw_sprite_clickable(spr_window_button_pause,0,xx+9,yy+71,true)=true {
+if (gui_draw_sprite_clickable_ext(spr_window_button_pause,0,xx+18,yy+142,true,sprite_scale,sprite_scale,1)) {
  var n;
  n=get_string("Name your save file:","Reggie");
- game_save_checkpoint(n);
+ //game_save_checkpoint(n); STUB
  }
 
 //Load:
-if gui_draw_sprite_clickable(spr_window_button_pause,1,xx+9,yy+90,true)=true {
+if (gui_draw_sprite_clickable_ext(spr_window_button_pause,1,xx+18,yy+180,true,sprite_scale,sprite_scale,1)) {
  instance_create(x,y,obj_gui_load_game);
  instance_destroy();
  }
 
 //Options:
-if gui_draw_sprite_clickable(spr_window_button_pause,2,xx+9,yy+109,true)=true {
+if (gui_draw_sprite_clickable_ext(spr_window_button_pause,2,xx+18,yy+218,true,sprite_scale,sprite_scale,1)) {
  instance_create(x,y,obj_gui_settings);
  instance_destroy();
  }
  
 //Main menu:
-if gui_draw_sprite_clickable(spr_window_button_pause,3,xx+9,yy+132,true)=true {
+if (gui_draw_sprite_clickable_ext(spr_window_button_pause,3,xx+18,yy+264,true,sprite_scale,sprite_scale,1)) {
  set_abs_end_action(ABSEND.returnToMenu);
  }
  
 //Quit to Windows:
-if gui_draw_sprite_clickable(spr_window_button_pause,4,xx+9,yy+151,true)=true {
+if (gui_draw_sprite_clickable_ext(spr_window_button_pause,4,xx+18,yy+302,true,sprite_scale,sprite_scale,1)) {
  set_abs_end_action(ABSEND.endGame);
  }
 
 
 //Close:
-if gui_draw_sprite_clickable_rel(spr_window_button_resume,0,xx+9,yy+39)=true
-or gui_draw_sprite_clickable_rel(spr_window_close,0,xx+39,yy+177)=true
- instance_destroy();
+if (gui_draw_sprite_clickable_rel_ext(spr_window_button_resume,0,xx+18,yy+78,sprite_scale,sprite_scale,1)
+or  gui_draw_sprite_clickable_rel_ext(spr_window_close,0,xx+78,yy+354,1,1,1)) {
+
+  instance_destroy();
+  
+  }
+  
+  
+  
+  
+  
 </string>
           </argument>
         </arguments>

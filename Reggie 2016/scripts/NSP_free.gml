@@ -12,13 +12,13 @@ var;
 
 global.nspToken=0;
 
-ds_list_destroy(global.nspListStr);
-ds_list_destroy(global.nspListPar);
+//ds_list_destroy(global.nspListStr);
+//ds_list_destroy(global.nspListPar);
 
-if global.nspDsMap<>-1 and ds_exists(global.nspDsMap,ds_type_map)
+if (global.nspDsMap<>-1 and ds_exists(global.nspDsMap,ds_type_map))
  ds_map_destroy(global.nspDsMap);
 
-if argument0=true {
+if argument0==true {
 
  repeat (ds_list_size(global.nspListSaved)) begin
  

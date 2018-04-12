@@ -68,7 +68,7 @@ if abs(_hspeed)>LIMIT.max_hspeed {
  else {
  
   if (abs(_hspeed)<LIMIT.min_hspeed/10 and (argument0=true or argument1=true))
-   _hspeed=ite(argument1,true,1,-1)*LIMIT.min_hspeed/10;
+   _hspeed=tern(argument1,true,1,-1)*LIMIT.min_hspeed/10;
    
    }
  

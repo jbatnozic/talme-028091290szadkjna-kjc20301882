@@ -86,7 +86,7 @@ switch (patron_type) begin
   break;
   
  case obj_enemy_turta:
-   ptc_create_particles(x,y,64,64,PTC_TYPE.fire,32,0,1);
+   ptc_create_particles(x,y,64,64,PTC_TYPE.fire,32,PTC_DISTR.uniform,PTC_SYS.fore_8);
   break;
  
  default:

@@ -28,36 +28,12 @@
             <string>///Dialogue
 if (game_paused()) exit;
 
-if (pnc_int(id)) {
+if (pnc_is_target(id) &amp;&amp; pnc_kbchk(KEYBOARD.interact)) {
 
  txt_begin();
-
- txt_add("Hello, my name is [fnt:bold:Tom]! What's yours?",0,0,"Reggie.","Fuck you!","Answer 3","Answer 4","Answer 5","Answer 6","Answer 7","Answer 8");
-     txt_add("Great! Do you like bananas?",0,0,"Yes.","Uhh... Not really, no...");
-         txt_add("Awesome!","","","Freak... {End}");
-          txt_path_to_last(1,3,2);
-         txt_add("You think you're better than me, huh?! You think you're *better* than me?","","","Yes! Yes, I do!","Dude, calm down...");
-             txt_add("That's it! I'm gonna tell my dad!","","","Sure, go ahead...","[spr:sword] Oh no, you're not! [Attack\]");
-                 txt_add("Tom runs away, crying...","","","[Walk away\] {End}");
-                 txt_add("You kill Tom...","","","[Walk away\] {End}");
-             txt_add("Okay... My name is Tom! What's yours?","","","Freak... {End}");
-              txt_path_to_last(1,3,2);
-     txt_add("Did your momma teach you to swear like that?","","","Sure she did!","No, my mother was a nice lady...");
-         txt_add("Uhh, uhh...","","","What's the matter, wimp? {End}");
-          txt_path_to_last(1,4,1);
-         txt_add("Yeah, right! [He walks away\]","","","[Walk away\] {End}");
-     txt_add("Test text",0,0,"Back {End}");
-      txt_path_to_last(1,1,1);
-     txt_add("Test text",0,0,"Back {End}");
-      txt_path_to_last(1,1,1);
-     txt_add("Test text",0,0,"Back {End}");
-      txt_path_to_last(1,1,1);
-     txt_add("Test text",0,0,"Back {End}");
-      txt_path_to_last(1,1,1);
-     txt_add("Test text",0,0,"Back {End}");
-      txt_path_to_last(1,1,1);
-     txt_add("Test text",0,0,"Back {End}");
-      txt_path_to_last(1,1,1);
+      
+ //txt_load_from_file("Tom.txt");
+ txt_load_from_file("Tom.txt");
          
  txt_interface_open(spr_portrait_template,"Reggie",spr_portrait_template,"Tom",x,y);
 
@@ -88,48 +64,8 @@ if (pnc_int(id)) {
 
 if (game_paused()) exit;
 
-if pnc_cursor_in_mask(4,0)
-  pnc_set_tooltip(id,"Tom#&lt;"+key_int()+": Speak&gt;");
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="72">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>/*
-
-txt_begin();
- 
- txt_add("Do you like bananas?","","","Yes","No","Pike off");
-    txt_add("Awesome! But why?","","","I don't know.","'Cause you're annoying!");
-        txt_add("Okay, bye!","","","Bye... [End]");
-        txt_add("I'll tell my dad!","","","Sure, go ahead... [End]");
-         txt_path_to_last(1,2,2);
-    txt_add("Me no likey you?","","","Sure, whatever... [Walk away][End]");
-    txt_add("But I don't want to!","","","Should I make you?","Yes","Yes, you do.");
-        txt_add("He runs away, crying...","","","[Walk away] [End]");
-        txt_add("What?","","","[Walk away] [End]");
-        txt_add("Ah okay. [He walks away]","","","[Walk away] [End]");
-        
-txt_interface_open(spr_portrait_template,"Reggie",spr_portrait_template,"Tom");
-
-*/
+if (pnc_cursor_in_mask(4,0))
+  pnc_set_tooltip(id, "Tom#&lt;"+key_int()+": Speak&gt;");
 </string>
           </argument>
         </arguments>

@@ -81,7 +81,14 @@ end;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_create(x,y,obj_gui_inventory);
+            <string>
+with (instance_create(x, y, obj_gui_inventory)) {
+
+  selected = other.target;
+  
+  event_user(ev_update_desc);
+
+  }
 </string>
           </argument>
         </arguments>
@@ -122,11 +129,15 @@ if item_list[10]="" and scroll&gt;0
   
 //Maximum durability update:
 if update_maxdur=true {
- if target&gt;0
-  maxdur=weapon_max_dur(global.inventory_current[target,1])
-  else
-   maxdur=weapon_max_dur(global.inventory_quick[-target,1]);
+   
+ var static_id = rinv_local_to_static(-1, target);
+ 
+ var name = rinv_item_get_static_value(static_id, RINV_STATIC.name);
+   
+ maxdur = wpn_sys_get_max_dur(name);
+   
  update_maxdur=false;
+ 
  }
 
 //Repair item lst update:
@@ -144,7 +155,7 @@ if update_list=true {
  
  for (i=1; i&lt;=ds_map_size(global.repair_map); i+=1) begin
  
-  if inv_count_item(current)&gt;0 valid_counter+=1;
+  if rinv_count_item(-1, current)&gt;0 valid_counter+=1;
   
   if valid_counter&gt;scroll {
    item_list[counter]=current;
@@ -184,14 +195,16 @@ if update_list=true {
             <kind>1</kind>
             <string>var spr,val,counter;
 
-draw_set_font(f_windows);
+var sprite_scale = 2;
+
+fnt_draw_set(FONT.window);
 
 //Set up GUI x and y:
-xx=gui_width()/2-sprite_get_width(sprite_index)/2;
-yy=gui_height()/2-sprite_get_height(sprite_index)/2;
+xx=gui_width()/2-sprite_get_width(sprite_index)*sprite_scale/2;
+yy=gui_height()/2-sprite_get_height(sprite_index)*sprite_scale/2;
 
 //Draw own sprite:
-draw_sprite(sprite_index,0,xx,yy);
+draw_sprite_ext(sprite_index,0,xx,yy,sprite_scale,sprite_scale,0,c_white,1);
 
 //ITEM LIST::
 draw_set_alpha(1);
@@ -207,18 +220,18 @@ counter+=1;
 if item_list[counter]&lt;&gt;"" {
 
 //Small icons:
-spr=real( inv_item_get_static_value(item_list[counter],7));
-draw_sprite_ext(spr,0,xx+9,yy+counter*20+43,0.5,0.5,0,c_white,1); 
+spr=rinv_item_get_static_value(item_list[counter], RINV_STATIC.icon);
+draw_sprite_ext(spr,0,xx+18,yy+counter*40+86,1,1,0,c_white,1); 
 
 //Clickable text boxes:
-spr=ite(item_list[counter],selected,1,0);
-if gui_draw_sprite_clickable(spr_window_name_box_wide,spr,xx+29,yy+counter*20+43,1)=true
+spr=tern(item_list[counter],selected,1,0);
+if gui_draw_sprite_clickable_ext(spr_window_name_box_wide,spr,xx+58,yy+counter*40+86,1,2,2,1)=true
  {selected=item_list[counter]; 
   /*update_array=true;*/}
 
 //Combination names:
 draw_set_color(c_black);
- draw_text(xx+32,yy+44+20*counter,item_list[counter]+" ("+string(inv_count_item(item_list[counter]))+")");
+ draw_text(xx+64,yy+88+40*counter,item_list[counter]+" ("+string(rinv_count_item(-1, item_list[counter]))+")");
 
 }
 end;
@@ -226,34 +239,34 @@ end;
 
 //Filter title:
 draw_set_color(c_black);
-draw_text(xx+12,yy+42,"Items to repair with:");
+draw_text(xx+24,yy+84,"Items to repair with:");
 
 //REPAIR ITEM BEGIN:
 
 //Item name:
-if selected&lt;&gt;"" str=selected+" ("+string(inv_count_item(selected))+")";
+if selected&lt;&gt;"" str=selected+" ("+string(rinv_count_item(-1, selected))+")";
  else str="No item selected.";
-draw_text(xx+254,yy+41,str);
+draw_text(xx+508,yy+82,str);
 
 //Item icon:
 if selected&lt;&gt;"" {
- spr=real(inv_item_get_static_value(selected,7));
- draw_sprite(spr,0,xx+355,yy+67);
+ spr=rinv_item_get_static_value(selected, RINV_STATIC.icon);
+ draw_sprite_ext(spr,0,xx+710,yy+134,2,2,0,c_white,1);
  }
 
 //Repair power:
 if selected&lt;&gt;"" {
  str="Repair#potency: "+string(global.repair_map[?selected]);
- draw_text(xx+254,yy+70,str);
+ draw_text(xx+508,yy+140,str);
  }
 
 //REPAIR ITEM END;
 
 //SCROLL:
-if gui_draw_sprite_clickable(spr_window_button_scroll,0,xx+230,yy+63,true)=true {
+if gui_draw_sprite_clickable(spr_window_button_scroll,0,xx+460,yy+126,true)=true {
  if scroll&gt;0 scroll-=1;
  }
-if gui_draw_sprite_clickable(spr_window_button_scroll,1,xx+230,yy+244,true)=true {
+if gui_draw_sprite_clickable(spr_window_button_scroll,1,xx+460,yy+488,true)=true {
  if item_list[10]&lt;&gt;"" scroll+=1;
  }
 
@@ -261,58 +274,54 @@ if gui_draw_sprite_clickable(spr_window_button_scroll,1,xx+230,yy+244,true)=true
 
 //Item name:
 draw_set_colour(c_black);
-if target&gt;0
- str=global.inventory_current[target,1]
- else
-  str=global.inventory_quick[-target,1];
-draw_text(xx+254,yy+118,str);
+
+var static_id = rinv_local_to_static(-1, target);
+  
+str = rinv_item_get_static_value(static_id, RINV_STATIC.name);
+  
+draw_text(xx+508,yy+236,str);
 
 //Item icon:
-if target&gt;0
- spr=real(inv_item_get_static_value(global.inventory_current[target,1],7))
- else
-  spr=real(inv_item_get_static_value(global.inventory_quick[-target,1],7));
-draw_sprite(spr,0,xx+355,yy+144);
+spr = rinv_item_get_static_value(static_id, RINV_STATIC.icon);
+  
+draw_sprite_ext(spr,0,xx+710,yy+288, 2, 2, 0, c_white, 1);
 
 //Durability:
-if target&gt;0
- str=inv_item_get_dynamic_value(target,false,3)
- else
-  str=inv_item_get_dynamic_value(-target,true,3);
-str="Durability:#"+string(round(str))+" / "+string(maxdur);
-draw_text(xx+254,yy+147,str);
+str = rinv_item_get_dynamic_value(-1, target, WPTRN.xdur);
+  
+str = "Durability:#"+string(round(str))+" / "+string(maxdur);
+
+draw_text(xx+508, yy+294, str);
 
 //Durability after repair:
-if selected&lt;&gt;"" {
+if (selected != "") {
+
  draw_set_color(c_green);
 
- if target&gt;0
-  str=min(inv_item_get_dynamic_value(target,false,3)+global.repair_map[?selected],maxdur)
-  else
-   str=min(inv_item_get_dynamic_value(-target,true,3)+global.repair_map[?selected],maxdur);
+ str = min(rinv_item_get_dynamic_value(-1, target, WPTRN.xdur) + global.repair_map[?selected],
+           maxdur);
+   
  str="After repair:#"+string(round(str))+" / "+string(maxdur);
- draw_text(xx+254,yy+209,str);
+ 
+ draw_text(xx+508,yy+418,str);
+ 
  }
 
 //REPAIRED ITEM END;
 
 //Repair button:
-if selected&lt;&gt;"" {
+if (selected != "") {
+   
+ val = rinv_item_get_dynamic_value(-1, target, WPTRN.xdur);
 
- if target&gt;0
-  val=inv_item_get_dynamic_value(target,false,3)
-  else
-   val=inv_item_get_dynamic_value(-target,true,3)
-
- if clamp(val+global.repair_map[?selected],0,maxdur)&lt;&gt;val
-  spr=0
-  else {
-   spr=1;
-   selected="";
-   }
- if inv_count_item(selected)&lt;1 {
-  spr=1;
-  selected="";
+ if (clamp(val+global.repair_map[?selected],0,maxdur) != val)
+  spr = 0;
+ else
+  spr = 1;
+   
+ if (selected != "" and rinv_count_item(-1, selected) &lt; 1) {
+  spr = 1;
+  selected = "";
   }
  
    
@@ -320,34 +329,28 @@ if selected&lt;&gt;"" {
 else
  spr=1;
 
+if (gui_draw_sprite_clickable_ext(spr_window_button_repair,spr,xx+494,yy+496,true,2,2,1)) {
 
-if gui_draw_sprite_clickable(spr_window_button_repair,spr,xx+247,yy+248,true)=true
- {if spr=0 {
+  if (spr == 0) {
  
-   if target&gt;0 {
-    inv_item_set_dynamic_value(target,false,3,round(clamp(val+global.repair_map[?selected],0,maxdur)));   
-    }
-    else {     
-     inv_item_set_dynamic_value(-target,true,3,round(clamp(val+global.repair_map[?selected],0,maxdur)));
+    rinv_item_set_dynamic_value(-1, target, WPTRN.xdur, round(clamp(val+global.repair_map[?selected],0,maxdur)));
      
-     if instance_exists(weaponHoldingPar)=true {
+    if (target &lt;= 4 and instance_exists(weaponHoldingPar)) {
      
-      if weaponHoldingPar.patron=-target
-       weaponHoldingPar.xdur=round(clamp(val+global.repair_map[?selected],0,maxdur));
+      if (weaponHoldingPar.patron == target)
+        weaponHoldingPar.xdur = round(clamp(val+global.repair_map[?selected],0,maxdur));
      
       }
+      
+    rinv_remove_simple(-1, selected, 1);
      
-     }
-   
-   inv_remove_item(selected,1);
-   
-   }
-   
- }
+    }
+    
+  }
 
 //Close button:
-if gui_draw_sprite_clickable_rel(spr_window_close,0,xx+283,yy+270)
- instance_destroy();
+if gui_draw_sprite_clickable_rel(spr_window_close,0,xx+566,yy+540)
+  instance_destroy();
 </string>
           </argument>
         </arguments>

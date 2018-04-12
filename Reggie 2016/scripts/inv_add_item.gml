@@ -21,7 +21,7 @@ qe=sett_get_value("Auto Equip");
 if real(inv_item_get_static_value(argument0,0))=INV_TYPE.weapon {
  repeat (argument1) {
  
-   a=inv_add_set_item(argument0,1,random_ammo(weapon_max_ammo(argument0)),1,random_dur(weapon_max_dur(argument0)),0,0);
+   //a=inv_add_set_item(argument0,1,random_ammo(weapon_max_ammo(argument0)),1,random_dur(weapon_max_dur(argument0)),0,0);
    if qe<>"Off"
     if inv_add_item_to_quick(a)
      player_update_hands();

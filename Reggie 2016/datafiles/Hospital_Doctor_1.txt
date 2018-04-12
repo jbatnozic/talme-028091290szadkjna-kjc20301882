@@ -1,0 +1,36 @@
+
+BEGIN 1, 1
+PCODE txt_obj_name_2('Raskal');
+{[Raskal shouts\] Uncle, I saw a comrade in the corridor and I need to go over some things with him. I’ll remain within earshot in the event any malpractice should occur.}
+{[Continue\]}
+END
+
+    BEGIN 2, 1
+    PCODE txt_obj_name_2('Doctor');
+    {[The doctor wipes off a large amount of visible sweat from his forehead\]\nNow Mr. Aarand, jr and sr, the only possible incident you could be alluding to was NOT the quality you or any of our patients can EVER expect from myself, or the very best ward in the very best hospital in this great district. The offending nurse has been let go and charges are ready to be filed should Aarand Sr. want to pursue them.}
+    {(Sigh) Raskal is not my child and I’m not a senior.}
+    END
+    
+        BEGIN 3, 1
+        {I apologize for my mistake. What will you have me do with the nurse?}
+        {It's the last thing on my mind at the moment.}
+        END
+        
+            BEGIN 4, 1
+            PCODE txt_obj_name_2('Raskal');
+            {[Raskal shouts\] Personally, I'm not surprised this place would employ a girl so unfit for manners of life and death.}
+            {[Continue\]}
+            END
+            
+                BEGIN 5, 1
+                PCODE txt_obj_name_2('Doctor');
+                {MR. AARAND PLEASE! I can assure you that even if the elder Aarand does not pursue charges, I will make sure she's not allowed to treat even a common cold.}
+                {[Continue\]}
+                END
+                
+                    BEGIN 6, 1
+                    PCODE txt_obj_name_2('Raskal');
+                    SCODE obj_hospital_doctor.a += 1;
+                    {See to it then.}
+                    {Ugh, don't do a damn thing until I'm ready to decide. Please don't keep your friend waiting for my sake Raskal...} EOP
+                    END

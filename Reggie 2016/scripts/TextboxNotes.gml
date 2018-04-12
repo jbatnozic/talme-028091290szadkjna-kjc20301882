@@ -1,8 +1,8 @@
 /*
 
-End branch keyword: [End]
+End branch keyword: {End}
 
-Condition keyword:  [Cdt]
+Condition keyword:  {Cdt}
 
 Up to 12 choices per conversation entry - the first ten can be selected
 using the keyboard (buttons 1 - 0, 0 = 10), the 11th and 12th can only

@@ -17,8 +17,8 @@ if keyboard_check(userControls[KEYBOARD.reload])=true {
  //State correction:
  if ((b_state=0 and xammo=0 and reload_lock=false) 
  or (keyboard_check_released(userControls[KEYBOARD.reload]) and unload_counter<24 and xammo<b_clipsize))
- and inv_count_item(bl_name[ammo_current])>0 {
-  inv_add_item(bl_name[ammo_current],xammo);
+ and rinv_count_item(-1, bl_name[ammo_current])>0 {
+  rinv_add_simple(-1, bl_name[ammo_current], xammo);
   xammo=0;
   b_state=1;
   unload_counter=0;
@@ -26,14 +26,14 @@ if keyboard_check(userControls[KEYBOARD.reload])=true {
   }
   else if b_state=0 and keyboard_check_released(userControls[KEYBOARD.reload]) and unload_counter=24 and xammo>0 {
    unload_counter=0;
-   inv_add_item(bl_name[ammo_current],xammo);
+   rinv_add_simple(-1, bl_name[ammo_current], xammo);
    reload_lock=true;
    xammo=0;
    if s_unload<>-1 sound_play(s_unload);
    }
    else if b_state=0 and mouse_check_button_pressed(userControls[MOUSE.change_amt])=true and ammo_available>1 {
     //Change ammo type - with unloading
-    inv_add_item(bl_name[ammo_current],xammo);
+    rinv_add_simple(-1, bl_name[ammo_current], xammo);
     xammo=0;
     ammo_current+=1;
     if ammo_current>ammo_available ammo_current=1;
@@ -82,12 +82,14 @@ if keyboard_check(userControls[KEYBOARD.reload])=true {
       
      if refiring=0 {
       //Create the projectile
-      var a,xx,yy,son;
+      var a,b,xx,yy,son;
       
       if mouse_x>x a=1 else a=-1;
       
-      xx=x+x_rotated(x_offset,y_offset*a,image_angle);
-      yy=y+y_rotated(x_offset,y_offset*a,image_angle);
+      b = xy_rotated(bullet_xoff, bullet_yoff * a, image_angle);
+      
+      xx = x + b[0];
+      yy = y + b[1];
       
       repeat (bl_number[ammo_current]) {
       
@@ -108,7 +110,7 @@ if keyboard_check(userControls[KEYBOARD.reload])=true {
        
        weapon_projectile_init(son,object_index,ammo_current,GROUP.friendly);
       
-      }
+       }
        
       if b_automatic[mode_current]=0 mouse_clear(userControls[MOUSE.shoot]);
       
@@ -141,9 +143,12 @@ if keyboard_check(userControls[KEYBOARD.reload])=true {
      }
    
    }
+   else {
    
-   else if preparing>0 {
-    preparing-=1;
+    if (preparing > 0) preparing -= 1;
+    
+    if (refiring > 0) refiring -= 1;
+    
     }
     
   }
@@ -151,7 +156,7 @@ if keyboard_check(userControls[KEYBOARD.reload])=true {
   //The weapon is being reloaded:
   else if b_state=1 {
    
-   if inv_count_item(bl_name[ammo_current])=0 reloading=0;
+   if rinv_count_item(-1, bl_name[ammo_current])=0 reloading=0;
    
    else if (xammo=0 and reloading=0 /*and reload_lock=false*/) {
      //Calculate chance to jam
@@ -183,13 +188,13 @@ if keyboard_check(userControls[KEYBOARD.reload])=true {
    //When "reloading" reaches 1, then the weapon is actually reloaded and ready to use again
    if reloading<=1 {
    
-    if inv_count_item(bl_name[ammo_current])>=b_clipsize {
+    if rinv_count_item(-1, bl_name[ammo_current])>=b_clipsize {
      xammo=b_clipsize;
-     inv_remove_item(bl_name[ammo_current],b_clipsize);
+     rinv_remove_simple(-1, bl_name[ammo_current], b_clipsize);
      }
      else {
-      xammo=inv_count_item(bl_name[ammo_current]);
-      inv_remove_item(bl_name[ammo_current],inv_count_item(bl_name[ammo_current]));
+      xammo=rinv_count_item(-1, bl_name[ammo_current]);
+      rinv_remove_simple(-1, bl_name[ammo_current], 9999999);
       }
       
     if xammo>0 and s_reload<>-1 sound_play(s_reload); //"xammo>0" check was added because, in theory, the player

@@ -254,7 +254,7 @@ switch (state) begin
   case 10:
     //Fade out, end of level
     screen_fade(c_black,181,0);
-    execute_string_delayed("game_change_room(); game_end_scene();",180);
+    execute_string_delayed("game_change_room(); game_end_scene();", 180, true);
     state+=1;
     break;
     

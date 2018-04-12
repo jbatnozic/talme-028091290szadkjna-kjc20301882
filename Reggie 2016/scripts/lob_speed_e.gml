@@ -1,6 +1,6 @@
 ///lob_speed_e(X,Y,Gravity,Angle,Elevation);
 /*
-Empiric formula.
+
 */
 var xx,yy,g,fi,e,v;
 

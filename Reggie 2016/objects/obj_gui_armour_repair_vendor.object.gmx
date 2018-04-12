@@ -175,7 +175,7 @@ if update_list=true {
             <kind>1</kind>
             <string>var spr,val,counter;
 
-draw_set_font(f_windows);
+fnt_draw_set(FONT.window);
 
 //Set up GUI x and y:
 xx=gui_width()/2-sprite_get_width(sprite_index)/2;
@@ -202,7 +202,7 @@ spr=real( inv_item_get_static_value(item_list[counter],7));
 draw_sprite_ext(spr,0,xx+9,yy+counter*20+43,0.5,0.5,0,c_white,1); 
 
 //Clickable text boxes:
-spr=ite(item_list[counter],selected,1,0);
+spr=tern(item_list[counter],selected,1,0);
 if gui_draw_sprite_clickable(spr_window_name_box_wide,spr,xx+29,yy+counter*20+43,1)=true
  {selected=item_list[counter]; 
   /*update_array=true;*/}

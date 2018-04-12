@@ -40,8 +40,6 @@ bloomOvrIntensity=0;
 bloomOvrRadius=0;
 
 application_surface_draw_enable(false);
-auxSurf=surface_create(surface_get_width(application_surface),
-                       surface_get_height(application_surface));
 
 //Info:
 _infoY=-32;
@@ -56,6 +54,8 @@ end;
 //Window resize:
 _drawX=0;
 _drawY=0;
+_drawW=0;
+_drawH=0;
 _windowW_1=window_get_width();
 _windowW_2=_windowW_1;
 _windowH_1=window_get_height();
@@ -64,11 +64,15 @@ window_set_min_height(180*2);
 window_set_min_width(320*2);
 
 //Other:
+hud_scale = 2;
+
 _mouseHudPos=0;
 _hudOffset=1.5;
 _heartFrame=0;
+_debugOverlay=0;
 //display_set_gui_maximise(gui_get_scale(),gui_get_scale(),0,0);
-_string="HG_world_lighting_set_ambient(-1,0.5,make_colour_rgb(255,255,255));";
+//_string="HG_world_lighting_set_ambient(-1,0.5,make_colour_rgb(255,255,255));";
+_string = "";
 _reloadStatePrev=0;
 _roomGoto=room_menu;
 sett_update_settings();
@@ -99,77 +103,19 @@ sett_update_settings();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Interact
+            <string>///Particles Step
 
-if (keyboard_check_pressed(userControls[KEYBOARD.interact]) and
-    global.pnc_target_id&gt;=0) {
+if (!_dc) {
 
-  global.pnc_interact_id=global.pnc_target_id;
-  
-  }
+ ptc_update();
+ 
+ }
 </string>
           </argument>
         </arguments>
       </action>
     </event>
     <event eventtype="3" enumb="1">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Secondary initialization
-
-if (global.sl_string&lt;&gt;"") {
-
- var name=global.sl_string;
- 
- //Basic initialization:
- game_initialize(0,0);
- 
- //Mercury &amp; Pathfinding:
- if instance_exists(obj_hg_controller)
-  remove(obj_hg_controller);
- instance_create(0,0,obj_hg_controller);
- 
- if instance_exists(obj_pfd_controller)
-  remove(obj_pfd_controller);
- instance_create(0,0,obj_pfd_controller);
- 
- //Systems &amp; resettables: 
- game_load_systems(name);
- 
- with (propResettableParObj) {
- 
-  instance_create(x,y,object_index);  
-  skipdel=true;
-  instance_destroy();  
- 
-  }
-
- gui_show_message("Game loaded.",c_black,true);
- 
- }
- 
- 
- 
- 
- 
-</string>
-          </argument>
-        </arguments>
-      </action>
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -205,34 +151,6 @@ or instance_exists(obj_gui_pause)=true
  _dc=true
  else
   _dc=false;
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Particles Step
-
-if (_dc=false) {
-
- part_system_update(global.ptc_system_back);
- part_system_update(global.ptc_system_fore);
- 
- }
 </string>
           </argument>
         </arguments>
@@ -438,17 +356,18 @@ _heartFrame=(_heartFrame+0.2) mod (sprite_get_number(spr_heart));
 
 //Offset:
 
-if !(global.scene_active) {
+if (!global.scene_active) {
 
  //Not in scene:
  
  if (_hudOffset&lt;0.003) {
  
-  _hudOffset=0;
+ _hudOffset=0;
   
   } else if (_hudOffset&gt;0) {
   
-   _hudOffset*=0.90;
+   if (!instance_exists(obj_initializer))
+    _hudOffset *= 0.90;
    
    }
   
@@ -484,94 +403,111 @@ if !(global.scene_active) {
           <argument>
             <kind>1</kind>
             <string>///Draw application surface
+var auxSurf = global.auxilary_surface;
 
-if (!surface_exists(auxSurf))
- auxSurf=surface_create(surface_get_width(application_surface),
-                        surface_get_height(application_surface));
+if (!surface_exists(auxSurf)) {
+
+  auxSurf = surface_create(GLOBAL.view_width, GLOBAL.view_height);
+                           
+  global.auxilary_surface = auxSurf;
+                         
+  }
 
 if (surface_exists(auxSurf) and surface_exists(application_surface)) {
- 
- //Apply blur if needed:
- switch (sign(blurRadius)) begin
-
-  case 0:
-    draw_set_colour(c_black);
-    draw_set_alpha(1);
-    draw_rectangle(0,0,window_get_width(),window_get_height(),false);
-   
-    surface_set_target(auxSurf);
-   
-     draw_surface(application_surface,0,0);
-    
-    surface_reset_target();
-   break;
-
-  case 1:    
-    draw_set_colour(c_black);
-    draw_set_alpha(1);
-    draw_rectangle(0,0,window_get_width(),window_get_height(),false);
-   
-    shader_set(sh_gauss);
-    
-    shader_set_uniform_f(global.sha_gauss_sigma,blurRadius*0.2);
-    shader_set_uniform_f(global.sha_gauss_blurSize,1.0/360);
-
-    surface_set_target(auxSurf);
-   
-     draw_surface(application_surface,0,0);
-    
-    surface_reset_target();
-
-    shader_reset();
-   break;
   
-  default:
-   break;
+  // Apply blur if needed:
+  switch (sign(blurRadius)) begin
   
- end;
-
- //Apply bloom if needed:
- switch (sign(max(bloomIntensity,bloomOvrIntensity))) begin
-
-  case 0:
-    draw_surface(auxSurf,_drawX,_drawY);
-   break;
-   
-  case 1:
-    var uScale, uIntensity, texScreen, texBase;
+   case 0:
+     draw_set_colour(c_black);
+     draw_set_alpha(1);
+     draw_rectangle(0,0,window_get_width(),window_get_height(),false);
     
-    uScale=shader_get_uniform(sh_bloom,"uScale");
-    uIntensity=shader_get_uniform(sh_bloom,"uIntensity");
-    texScreen=surface_get_texture(auxSurf);
-    texPass=surface_get_texture(application_surface); 
+     surface_set_target(auxSurf);
     
-    shader_set(sh_bloom);
+       draw_surface(application_surface,0,0);
+       
+     surface_reset_target();
+    break;
+  
+   case 1:    
+     draw_set_colour(c_black);
+     draw_set_alpha(1);
+     draw_rectangle(0,0,window_get_width(),window_get_height(),false);
     
-     surface_set_target(application_surface);
-      draw_clear_alpha(c_black,0.0);
-      shader_set_uniform_f(uIntensity,1+max(bloomIntensity,bloomOvrIntensity));
-      shader_set_uniform_f(uScale,texture_get_texel_width(texScreen)*max(bloomRadius,bloomOvrRadius),0.0);
-      draw_surface_ext(auxSurf,0,0,1,1,0,c_white,1);
+     shader_set(sh_gauss);
+     
+     shader_set_uniform_f(global.sha_gauss_sigma,blurRadius*0.2);
+     shader_set_uniform_f(global.sha_gauss_blurSize,1.0/360);
+  
+     surface_set_target(auxSurf);
+    
+      draw_surface(application_surface,0,0);
+     
      surface_reset_target();
   
-     draw_set_blend_mode_ext(bm_src_alpha, bm_one);
-      shader_set_uniform_f(uScale,0.0,texture_get_texel_height(texPass)*max(bloomRadius,bloomOvrRadius));
-      draw_surface(application_surface,_drawX,_drawY);
-     draw_set_blend_mode(bm_normal);
-     
-    shader_reset();
-    
-   break;
+     shader_reset();
+    break;
+   
+   default:
+    break;
+   
+  end;
 
-  default:
-   break;
+  // Apply bloom if needed:
+  switch (sign(max(bloomIntensity, bloomOvrIntensity))) begin
   
- end;
+   case 0:
+     
+     draw_surface_ext(auxSurf, _drawX, _drawY,
+                      _drawW / GLOBAL.view_width,
+                      _drawH / GLOBAL.view_height,
+                      0, c_white, 1);
+                      
+    break;
+    
+   case 1:
+     var uScale, uIntensity, texScreen, texBase;
+     
+     uScale=shader_get_uniform(sh_bloom,"uScale");
+     uIntensity=shader_get_uniform(sh_bloom,"uIntensity");
+     texScreen=surface_get_texture(auxSurf);
+     texPass=surface_get_texture(application_surface); 
+     
+     shader_set(sh_bloom);
+     
+      surface_set_target(application_surface);
+       draw_clear_alpha(c_black,0.0);
+       shader_set_uniform_f(uIntensity,1+max(bloomIntensity,bloomOvrIntensity));
+       shader_set_uniform_f(uScale,texture_get_texel_width(texScreen)*max(bloomRadius,bloomOvrRadius),0.0);
+       draw_surface_ext(auxSurf,0,0,1,1,0,c_white,1);
+      surface_reset_target();
+   
+      draw_set_blend_mode_ext(bm_src_alpha, bm_one);
+       shader_set_uniform_f(uScale,0.0,texture_get_texel_height(texPass)*max(bloomRadius,bloomOvrRadius));
+       draw_surface(application_surface,_drawX,_drawY);
+      draw_set_blend_mode(bm_normal);
+      
+     shader_reset();
+     
+    break;
+  
+   default:
+    break;
+   
+  end;
+  
+  // Temp:
+  /*if (mouse_check_button(mb_middle)) {
+  
+    draw_surface(global.composit_surface, _drawX, _drawY);
+
+    }*/
  
- }
- else {
+  }
+else {
  
-  var s="Not enough Video Memory!",sw=string_width(s);
+  var s = "Surfaces could not be allocated.", sw = string_width(s);
  
   draw_set_colour(c_black);
   draw_rectangle(0,0,_drawX+window_get_width(),_drawY+window_get_height(),false);
@@ -587,6 +523,41 @@ if (surface_exists(auxSurf) and surface_exists(application_surface)) {
 
 
 
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="75">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Draw tooltip
+
+if (game_is_initialized())
+  pnc_draw_tooltip(sett_get_value("Tooltip position")=="Fixed");
+
+/*if (!ds_exists(global.sett_map, ds_type_map)) {
+//if (!game_is_initialized()) {
+
+  show_message("sett_map = " + string(global.sett_map));
+  show_message("svld_string = " + global.svld_string);
+  show_message("game_init_flag = " + string(global.game_init_flag));
+
+  }*/
 </string>
           </argument>
         </arguments>
@@ -615,51 +586,38 @@ switch (global.abs_end_action) begin
   break;
   
  case ABSEND.returnToMenu:   
-   game_free();
-   global.abs_end_action=0;
+   game_cleanup();
    room_goto(room_menu); 
   break;
   
  case ABSEND.roomGoto:
-   //game_free();   
-   global.abs_end_action=0;
+   game_cleanup();
    room_goto(_roomGoto);
   break;
   
  case ABSEND.endGame:
-   game_free();
+   game_cleanup();
    game_end();
+  break; 
+  
+ case ABSEND.saveChkpt:
+  game_checkpoint_save();
+  break;
+  
+ case ABSEND.loadChkpt:
+  // Maybe not needed? STUB
   break; 
   
  default:
   break;
 
 end;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="8" enumb="75">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Draw tooltip
 
-pnc_draw_tooltip(sett_get_value("Tooltip position")=="Fixed");
+set_abs_end_action(ABSEND.doNothing);
+
+
+
+
 </string>
           </argument>
         </arguments>
@@ -762,85 +720,91 @@ if (0) {
 //-------------------------------------------------------------------------------------------------------------
 
 //Set up HUD X and Y:
-xx=gui_width()/2-sprite_get_width(spr_hud_2)/2;
-yy=gui_height()-sprite_get_height(spr_hud_2);
- yy+=sprite_get_height(spr_hud_2)*(_hudOffset);
+xx=gui_width()/2-sprite_get_width(spr_hud_2)*hud_scale/2;
+yy=gui_height()-sprite_get_height(spr_hud_2)*hud_scale;
+ yy+=sprite_get_height(spr_hud_2)*hud_scale*(_hudOffset);
 
 //Draw HUD sprite:
-draw_sprite(spr_hud_2,0,xx,yy);
+draw_sprite_ext(spr_hud_2,0,xx,yy,hud_scale,hud_scale,0,c_white,1);
 
 //Stamina and Health:
 std=((global.player_obj_id)._stamina/PLAYER.topStamina);
-gui_draw_bar(spr_hud_stamina_2,0,xx+193,yy+31,std,true);
+gui_draw_bar(spr_hud_stamina_2,0,xx+386,yy+62,std,true);
 
 hpd=((global.player_obj_id)._health/PLAYER.topHealth);
-gui_draw_bar(spr_hud_health_2,0,xx+125,yy+31,hpd,false);
+gui_draw_bar(spr_hud_health_2,0,xx+250,yy+62,hpd,false);
 
 ard=((global.player_obj_id)._armour/PLAYER.topHealth);
-gui_draw_bar(spr_hud_armour,0,xx+125,yy+31,ard,false);
+gui_draw_bar(spr_hud_armour,0,xx+250,yy+62,ard,false);
 
 //-------------------------------------------------------------------------------------------------------------
 
 //Set up Heart X and Y:
-xx=gui_width()/2-0.75*sprite_get_width(spr_heart)/2;
-yy=gui_height()-0.75*sprite_get_height(spr_heart)-10;
- yy+=sprite_get_height(spr_hud_2)*(_hudOffset);
+xx=gui_width()/2-0.75*sprite_get_width(spr_heart)*hud_scale/2;
+yy=gui_height()-0.75*sprite_get_height(spr_heart)*hud_scale-10;
+ yy+=sprite_get_height(spr_hud_2)*(_hudOffset)*hud_scale;
 
 //Draw Heart:
-draw_sprite_ext(spr_heart,_heartFrame,xx,yy,0.75,0.75,1,c_white,1);
+draw_sprite_ext(spr_heart,_heartFrame,xx,yy,0.75*hud_scale,0.75*hud_scale,1,c_white,1);
 
 //heart_debug_draw(32,32);
 
 //-------------------------------------------------------------------------------------------------------------
 
 //Set up Battery X and Y:
-xx=gui_width()/2+sprite_get_width(spr_hud_2)/2+4;
-yy=gui_height()-29;
- yy+=sprite_get_height(spr_hud_2)*(_hudOffset);
+xx=gui_width()/2+sprite_get_width(spr_hud_2)*hud_scale/2+8;
+yy=gui_height()-58;
+ yy+=sprite_get_height(spr_hud_2)*hud_scale*(_hudOffset);
 
-draw_sprite(spr_hud_battery,(global.player_obj_id)._defib,xx,yy);
+draw_sprite_ext(spr_hud_battery,(global.player_obj_id)._defib,xx,yy,hud_scale,hud_scale,0,c_white,1);
 
 //-------------------------------------------------------------------------------------------------------------
 
 //Set up quick items' X and Y:
+
 //xx=-sprite_get_width(spr_item_default)*(_hudOffset);
 //yy=gui_height()-42+sprite_get_height(spr_item_default)*(_hudOffset);
-xx=-34*(_hudOffset);
-yy=gui_height()-42+34*(_hudOffset);
+
+xx = -34 * (_hudOffset) * hud_scale;
+yy = gui_height() - 84 + 34 * (_hudOffset) * hud_scale;
 
 //Draw quick items:
-counter=0;
-repeat (5) begin
- counter+=1;
- if global.inventory_quick[counter,1]="ZZZZZ" spr=spr_item_default
-  else spr=real(inv_item_get_static_value(global.inventory_quick[counter,1],7));
- 
- draw_sprite(spr,0,xx+4+(counter-1)*42,yy);
+for (var i = 0; i &lt; 5; i += 1) {
 
-end;
+  var static_id = rinv_local_to_static(-1, i);
+  
+  if (static_id == RINV_NULL.id)
+    spr = spr_item_default;
+  else
+    spr = rinv_item_get_static_value(static_id, RINV_STATIC.icon);
+
+  draw_sprite_ext(spr, 0, xx+8+i*84, yy, hud_scale, hud_scale, 0, c_white, 1);
+    
+  }
 
 draw_set_color(c_white);
 draw_set_alpha(0.3);
-draw_rectangle(xx+4+(global.inventory_active-1)*42,
+draw_rectangle(xx+8+global.rinv_active_slot*84,
                yy,
-               xx+42+(global.inventory_active-1)*42,
-               yy+38,
+               xx+84+global.rinv_active_slot*84,
+               yy+76,
                false);
 draw_set_alpha(1);
 
 //-------------------------------------------------------------------------------------------------------------
 
 //Draw Equip info:
-draw_set_font(f_windows);
+fnt_draw_set(FONT.window);
 draw_set_color(c_black);
 draw_set_valign(fa_top);
 draw_set_halign(fa_left);
 draw_set_alpha(1);
 
-if instance_exists(weaponHoldingPar) {
+if (instance_exists(weaponHoldingPar)) {
 
  xx=gui_width()-sprite_get_width(spr_equip_info);
   xx+=sprite_get_width(spr_equip_info)*(_hudOffset);
+  
  yy=gui_height()-sprite_get_height(spr_equip_info);
   yy+=sprite_get_height(spr_equip_info)*(_hudOffset);
 
@@ -850,7 +814,7 @@ if instance_exists(weaponHoldingPar) {
  
  ammo=weaponHoldingPar.xammo;
  ammo_max=weaponHoldingPar.b_clipsize;
- ammo_inv=inv_count_item(weaponHoldingPar.bl_name[weaponHoldingPar.ammo_current]);
+ ammo_inv=rinv_count_item(-1, weaponHoldingPar.bl_name[weaponHoldingPar.ammo_current]);
  ammo_name=weaponHoldingPar.bl_name[weaponHoldingPar.ammo_current];
  
  dur=round(weaponHoldingPar.xdur);
@@ -859,16 +823,17 @@ if instance_exists(weaponHoldingPar) {
  frm=weaponHoldingPar.fm_name[weaponHoldingPar.mode_current];
  rld=1-weaponHoldingPar.reloading/(weaponHoldingPar.b_reloadtime-1);
   
- str=global.inventory_quick[weaponHoldingPar.patron,1];
+ //str=global.inventory_quick[weaponHoldingPar.patron,1];
+ str = "Name [STUB]";
  if string_length(str)&gt;20
    str=string_copy(str,1,17)+"...";
     
  draw_text(xx+4,yy+2,str);
  
- if inv_count_item(ammo_name)&lt;1 and weaponHoldingPar.xammo&lt;1
+ if rinv_count_item(-1, ammo_name)&lt;1 and weaponHoldingPar.xammo&lt;1
   draw_text(xx+17,yy+19,"No ammo left!")
   else
-   draw_text(xx+17,yy+19,string(ammo)+"/"+string(ammo_inv)+ite_ext(weaponHoldingPar.b_state=1," [Reloading]",""));
+   draw_text(xx+17,yy+19,string(ammo)+"/"+string(ammo_inv)+cpptern(weaponHoldingPar.b_state=1," [Reloading]",""));
    
  draw_text(xx+17,yy+44,"-"+ammo_name);
  draw_text(xx+17,yy+57,"-"+frm);
@@ -886,19 +851,22 @@ if instance_exists(weaponHoldingPar) {
  gui_draw_bar(spr_dur_bar,0,xx+17,yy+81,dur/dur_max,true);
  
  }
- else if global.inventory_quick[global.inventory_active,1]&lt;&gt;"ZZZZZ" {
+ else if (!rinv_item_is_null(-1, global.rinv_active_slot)) {
  
   xx=gui_width()-sprite_get_width(spr_equip_info);
    xx+=20*(_hudOffset);
   yy=gui_height()-20;
    yy+=20*(_hudOffset);
   
-  var str,str1,str2;
+  var str, str1, str2, amnt;
   
-  str1=global.inventory_quick[global.inventory_active,1];
-  str2=global.inventory_quick[global.inventory_active,3];
-   if str2&gt;1 str2=" ("+string(str2)+")"
-    else str2="";
+  var static_id = rinv_local_to_static(-1, global.rinv_active_slot);
+  
+  str1 = rinv_item_get_static_value(static_id, RINV_STATIC.name);
+  amnt = rinv_item_get_amount(-1, global.rinv_active_slot);
+  
+  if (amnt &gt; 1) str2 = " (" + string(amnt) + ")";
+  else str2 = "";
   
   if string_length(str1+str2)&gt;15
    str=string_copy(str1,1,15-string_length(str2))+"... "+str2;
@@ -925,19 +893,40 @@ if instance_exists(weaponHoldingPar) {
 //-------------------------------------------------------------------------------------------------------------
 
 //Set up top left display X and Y:
-if gui_get_mouse_in_hud()=1 {
- if _infoY&lt;0 _infoY+=4;
+if (gui_get_mouse_in_hud()==1) {
+ if _infoY&lt;0 _infoY+=8;
  }
- else if _infoY&gt;-32 _infoY-=4;
+ else if _infoY&gt;-64 _infoY-=8;
  
-xx=-sprite_get_height(spr_hud_info)*(_hudOffset);
-yy=_infoY-sprite_get_height(spr_hud_info)*(_hudOffset);
+xx=-sprite_get_height(spr_hud_info)*hud_scale*(_hudOffset);
+yy=_infoY-sprite_get_height(spr_hud_info)*hud_scale*(_hudOffset);
 
 alp=clamp(_infoA/50,sett_get_value("Info Box Opacity")/100,1);
  
-draw_sprite(spr_hud_info,0,xx,yy);
-draw_sprite_ext(spr_hud_info,1,xx,yy,1,1,0,c_white,alp);
+draw_sprite_ext(spr_hud_info,0,xx,yy,hud_scale,hud_scale,0,c_white,1);
+draw_sprite_ext(spr_hud_info,1,xx,yy,hud_scale,hud_scale,0,c_white,alp);
  
+// TEMP:
+draw_set_halign(fa_left);
+draw_set_valign(fa_top);
+
+if (player_is_in_combat()) {
+
+  draw_set_colour(c_red);
+
+  draw_text(16, yy + 8 + sprite_get_height(spr_hud_info) * hud_scale,
+            "&gt;&gt; DIAG: In combat!");
+
+  }
+else {
+
+  draw_set_colour(c_green);
+
+  draw_text(16, yy + 8 + sprite_get_height(spr_hud_info) * hud_scale,
+            "&gt;&gt; DIAG: Not in combat.");
+
+  }
+
 //Draw messages:
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
@@ -946,62 +935,63 @@ for (i=8; i&gt;=1; i-=1) begin
 
  draw_set_colour(_infoMsg[9-i+_infoScroll,1]);
  draw_set_alpha(_infoA/50);
- draw_text(xx+18,yy+32+(i-1)*12,_infoMsg[9-i+_infoScroll,0]);
+ draw_text(xx+36,yy+64+(i-1)*24,_infoMsg[9-i+_infoScroll,0]);
 
 end;
 
 draw_set_alpha(1);
 
 //Draw buttons:
-if _infoY&gt;-32 {
+if _infoY&gt;-64 {
 
- if gui_draw_sprite_clickable(spr_hud_info_buttons,0,xx+2,yy+32,true)=true
+ if gui_draw_sprite_clickable_ext(spr_hud_info_buttons,0,xx+4,yy+64,true,hud_scale,hud_scale,1)=true
  or mouse_wheel_up()=true {
   _infoScroll=clamp(_infoScroll+1,0,56);
   _infoA=GUI.max_alp;
   }
   
- if gui_draw_sprite_clickable(spr_hud_info_buttons,1,xx+2,yy+53,true)=true
+ if gui_draw_sprite_clickable_ext(spr_hud_info_buttons,1,xx+4,yy+106,true,hud_scale,hud_scale,1)=true
  or mouse_wheel_down()=true {
   _infoScroll=clamp(_infoScroll-1,0,56);
   _infoA=GUI.max_alp;
   }
 
- if gui_draw_sprite_clickable(spr_hud_info_buttons,2,xx+2,yy+74,true)=true {
+ if gui_draw_sprite_clickable_ext(spr_hud_info_buttons,2,xx+4,yy+148,true,hud_scale,hud_scale,1)=true {
   _infoScroll=0;
   _infoA=GUI.max_alp;
   }
 
   
- if gui_draw_sprite_clickable(spr_hud_info_big_buttons,0,xx+3,yy+3,true)=true {
+ if gui_draw_sprite_clickable_ext(spr_hud_info_big_buttons,0,xx+6,yy+6,true,hud_scale,hud_scale,1,"Pause Menu")=true {
   //Pause menu
   instance_create(x,y,obj_gui_pause);
   }
   
- if gui_draw_sprite_clickable(spr_hud_info_big_buttons,1,xx+32,yy+3,true)=true {
+ if gui_draw_sprite_clickable_ext(spr_hud_info_big_buttons,1,xx+64,yy+6,true,hud_scale,hud_scale,1)=true {
   //Save
   //gui_show_message("Can't save right now.",c_maroon,true);
-  //game_save_checkpoint();
+  set_abs_end_action(ABSEND.saveChkpt);
+  //game_checkpoint_save();
   //gui_show_message_ext("Game saved (Slot "+string(global.game_slot)+").",c_black);
   }
   
- if gui_draw_sprite_clickable(spr_hud_info_big_buttons,2,xx+57,yy+3,true)=true {
+ if gui_draw_sprite_clickable_ext(spr_hud_info_big_buttons,2,xx+114,yy+6,true,hud_scale,hud_scale,1)=true {
   //Load
   //gui_show_message("Can't load right now.",c_maroon,true);
-  //game_load_checkpoint(get_integer("Input slot to load:",1));
+  game_checkpoint_load();
   }
   
- if gui_draw_sprite_clickable(spr_hud_info_big_buttons,3,xx+86,yy+3,true)=true {
+ if gui_draw_sprite_clickable_ext(spr_hud_info_big_buttons,3,xx+172,yy+6,true,hud_scale,hud_scale,1,"Open Inventory")=true {
   //Inventory
   instance_create(x,y,obj_gui_inventory);
   }
   
- if gui_draw_sprite_clickable(spr_hud_info_big_buttons,4,xx+111,yy+3,true)=true {
+ if gui_draw_sprite_clickable_ext(spr_hud_info_big_buttons,4,xx+222,yy+6,true,hud_scale,hud_scale,1,"Open Journal")=true {
   //Journal
   instance_create(x,y,obj_gui_journal);
   }
   
- if gui_draw_sprite_clickable(spr_hud_info_big_buttons,5,xx+136,yy+3,true)=true {
+ if gui_draw_sprite_clickable_ext(spr_hud_info_big_buttons,5,xx+272,yy+6,true,hud_scale,hud_scale,1,"Open Crafting")=true {
   //Crafting
   instance_create(x,y,obj_gui_crafting);
   }
@@ -1095,6 +1085,33 @@ draw_set_alpha(1);
         <relative>0</relative>
         <isnot>0</isnot>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Activate all if about to save state
+
+if (global.abs_end_action == ABSEND.saveChkpt) {
+
+  instance_activate_all();
+
+  }
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="8" enumb="0">
       <action>
@@ -1116,12 +1133,10 @@ draw_set_alpha(1);
             <string>///UI resize
 //This is needed because of the manual window resize feature.
 
-if (_windowW_1==_windowW_2 or _windowH_1==_windowH_2) and
-   (!keyboard_check_pressed(userControls[KEYBOARD.refresh])) {}
-   
- else {
+if (_windowW_1 != _windowW_2 or _windowH_1 != _windowH_2 or
+   keyboard_check_pressed(userControls[KEYBOARD.refresh])) {
 
-  gui_refresh();
+  refresh_draw_surfaces();
   
   }
 </string>
@@ -1150,6 +1165,29 @@ spl_draw_system(view_xview,view_yview);
 /*draw_set_alpha(0.35);
 mp_grid_draw(global.pfd_grid);
 draw_set_alpha(1);*/
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="82">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>rinv_refresh(-1, true);
 </string>
           </argument>
         </arguments>
@@ -1205,7 +1243,9 @@ _string=s;
 
 if game_paused() exit;
 
-show_debug_overlay(true);
+_debugOverlay ^= 1;
+
+show_debug_overlay(_debugOverlay);
 </string>
           </argument>
         </arguments>
@@ -1228,12 +1268,34 @@ show_debug_overlay(true);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///TEMP - Restart game
+            <string>rinv_destroy(rinv_get_default());
 
-if game_paused() exit;
+var new = rinv_read(rinv_string);
 
-game_free();
-game_restart();
+rinv_set_default(new);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="75">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>rinv_string = rinv_write(-1);
 </string>
           </argument>
         </arguments>

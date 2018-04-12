@@ -26,12 +26,13 @@
           <argument>
             <kind>1</kind>
             <string>//Setup:
-offset=1;
+txt_local_init();
 
-stage=1;
-branch=1;
-choice=0;
-code_sec="";
+choice = 0;
+
+// Visual:
+offset = 1;
+sprite_scale = 2;
 
 name_1="Name 1";
 name_2="Name 2";
@@ -71,15 +72,10 @@ switch (sett_get_value("Textbox Speed")) {
   }
 
 //Other:
-update_box=true;
-text_width=910;
-text_sep=36;
-text_max_rows=10;
-
-//GUI scale:
-gui_scale=gui_get_scale();
-//gui_set_scale(gui_scale/2);
-//gui_refresh();
+update_box = true;
+text_width = 910;
+text_sep = 36;
+text_max_rows = 10;
 
 //Scene:
 game_start_scene(true);
@@ -112,9 +108,7 @@ cov=0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>gui_set_scale(gui_scale);
-gui_refresh();
-
+            <string>
 TPP_text_free(text_grid);
 txt_clear();
 game_end_scene();
@@ -193,7 +187,7 @@ game_set_scene_camera(camera_target_x,camera_target_y+cov);
 //Choices:
 var a;
 
-if (choice=0 and letters&gt;=letters_max) {
+if (choice = 0 and letters &gt;= letters_max) {
 
  if keyboard_check_pressed(ord("1"))=true choice=1
   else if keyboard_check_pressed(ord("2"))=true choice=2
@@ -208,48 +202,97 @@ if (choice=0 and letters&gt;=letters_max) {
    
  };
  
-if (choice&lt;&gt;0 and choice&gt;txt_property_get(stage,branch,TEXTBOX.choices))
- choice=0;
+if (choice != 0 and choice &gt; txt_local_choices()) choice = 0;
 
-//IF A CHOICE WAS MADE:
-if choice&lt;&gt;0 {
+// UPDATE:
+var status = txt_local_update(choice);
 
- a=txt_path_get(stage, branch, choice);
+if (status == TXT_STATUS.update_ok) {
 
- stage=a[0];
- branch=a[1];
- choice=0;
+ choice = 0;
  
  io_clear();
  
- scroll=0;
- update_box=true;
+ scroll = 0;
+ update_box = true;
 
- //Execute Secondary Code:
- if is_string(code_sec) {
-  if code_sec&lt;&gt;"" {   
-   NSP_execute_string(code_sec);
-   }
-  }
- 
- //Check for end of textbox:
- if is_undefined(txt_property_get(stage,branch,TEXTBOX.main))=true {
+ }
+else if (status == TXT_STATUS.end_of_dia) {
+
   instance_destroy();
   exit;
+
+  }
+else if (status == TXT_STATUS.no_change) {
+  // Do nothing
+  }
+else {
+  // Error - STUB
   }
  
- };
- 
-//REGULAR STEP UPDATE:
+// TEXT UPDATE:
 
 //Scroll:
-if mouse_wheel_up()=true scroll-=1;
- else if mouse_wheel_down()=true scroll+=1;
+if (mouse_wheel_up()) scroll -= 1;
+else if (mouse_wheel_down()) scroll += 1;
  
-scroll=clamp(scroll,0,max(TPP_text_get_lines(text_grid)-text_max_rows,0));
+scroll = clamp(scroll, 0, max(TPP_text_get_lines(text_grid) - text_max_rows, 0) );
 
 //Textbox update:
-if update_box=true {
+if (update_box) {
+
+  var i,g,b,text_main,text_choice,text_cond,do_show,counter;
+  
+  //Text grid:
+  TPP_text_free(text_grid);
+  rows = 0;
+  
+  text_main = txt_local_get_main() + "\n" + string_repeat("=", 48);
+  letters_max = TPP_text_length(text_main);
+  
+  g = TPP_text_parse(text_main,c_black,1,fnt_get(FONT.textbox_regular),fa_center,text_width,text_sep,1);
+  rows[0] = TPP_text_get_lines(g);
+  
+  counter = 1;
+  
+  for (i = 1; i &lt;= txt_local_choices(); i += 1) {
+  
+    var a = txt_local_get_choice(i);
+    
+    if (a[1]) {
+    
+      b = string(counter) + ". " + a[0];   
+      enabled[i] = true;
+      counter += 1;
+    
+      var t = TPP_text_get_lines(g);
+      TPP_text_append(g, b);
+      rows[i] = TPP_text_get_lines(g) - t;
+    
+      letters_max += TPP_text_length(b);
+    
+      }
+    else {
+    
+      rows[i] = 0;
+      enabled[i] = false;
+    
+      }
+      
+    }
+  
+  text_grid = g;
+  
+  //Other:
+  scroll = 0;
+  
+  letters = 0;
+  update_box = false;
+ 
+  }
+
+//Textbox update:
+/*if update_box=true {
 
  var i,g,b,text_main,text_choice,text_cond,do_show,counter;
 
@@ -260,7 +303,7 @@ if update_box=true {
  text_main=txt_property_get(stage,branch,TEXTBOX.main)+"\n"+string_repeat("=",48);
  letters_max=TPP_text_length(text_main);
 
- g=TPP_text_parse(text_main,c_black,1,f_textbox_regular,fa_center,text_width,text_sep,1);
+ g=TPP_text_parse(text_main,c_black,1,fnt_get(FONT.textbox_regular),fa_center,text_width,text_sep,1);
  rows[0]=TPP_text_get_lines(g);
  
  counter=1;
@@ -270,13 +313,17 @@ if update_box=true {
   
   //Check for condition:
   do_show=false;
-  if string_pos("{Cdt}",text_choice)&gt;0 {
+  if string_pos("{Cdt}",text_choice)&gt;0 { // TEMP - string_pos -&gt; var
   
    text_cond=string_copy(text_choice,1,string_pos("{Cdt}",text_choice)-1);
    text_choice=string_delete(text_choice,1,string_pos("{Cdt}",text_choice)+4);
   
-   if NSP_evaluate(text_cond)=true
+   //show_message("Evaluating condition: " + text_cond);
+   
+   if (NSP_evaluate(text_cond))
     do_show=true;
+    
+   //show_message(do_show);
    
    }
    else do_show=true;
@@ -310,7 +357,6 @@ if update_box=true {
  
  //Other:
  scroll=0;
- //veil=1;
  code_sec=txt_property_get(stage,branch,TEXTBOX.code_s);
  
  //Execute Primary Code:
@@ -326,15 +372,17 @@ if update_box=true {
   
  update_box=false;
  
- }
+ }*/
  
 //Text printing:
-if (letters_per_step&lt;&gt;0) {
-  if (letters&lt;letters_max)
-    letters+=letters_per_step;
+if (letters_per_step != 0) {
+
+  if (letters &lt; letters_max)
+    letters += letters_per_step;
+    
   }
-  else
-    letters=letters_max;
+else
+  letters = letters_max;
 
 
 
@@ -430,7 +478,7 @@ draw_sprite_ext(sprite_1,0,xx+16,yy+16,2,2,0,c_white,1);
 draw_sprite_ext(sprite_2,0,xx+1136,yy+16,2,2,0,c_white,1);
 
 //Draw names:
-draw_set_font(f_windows);
+fnt_draw_set(FONT.window);
 draw_set_colour(c_black);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
@@ -450,7 +498,7 @@ h=text_sep;
 
 if (letters&gt;=letters_max) {
 
- for (i=1; i&lt;=txt_property_get(stage,branch,TEXTBOX.choices); i+=1) begin
+ for (i=1; i&lt;=txt_local_choices(); i+=1) begin
 
   if enabled[i]=true {
 
@@ -462,6 +510,8 @@ if (letters&gt;=letters_max) {
     if gui_draw_rectangle_clickable(xx+166,yy+20+h*max(row-scroll-1,0),918,h*(rows[t]-max(first+1-row,0)-max(row+rows[i]-1-last,0)),true)=true {
  
      choice=i;
+     
+     //show_message("choice = " + string(choice));
  
      }
     
@@ -474,14 +524,18 @@ if (letters&gt;=letters_max) {
  }
  
 //Draw text:
+var tlerp = (sett_get_value("Interpolation") == "On");
+
+ftlerp();
 TPP_text_print_ext_part(xx+170,yy+18,text_grid,fa_left,fa_top,first+1,last,letters);
+rtlerp(tlerp);
 
 //Scroll:
-if gui_draw_sprite_clickable_ext(spr_window_button_scroll,0,xx+1090,yy+18,true,2,2,1)=true {
+if gui_draw_sprite_clickable(spr_window_button_scroll,0,xx+1090,yy+18,true)=true {
  scroll-=1;
  }
  
-if gui_draw_sprite_clickable_ext(spr_window_button_scroll,1,xx+1090,yy+344,true,2,2,1)=true {
+if gui_draw_sprite_clickable(spr_window_button_scroll,1,xx+1090,yy+344,true)=true {
  scroll+=1;
  }
  
@@ -541,24 +595,7 @@ if (veil&gt;0) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Set GUI scale
-var scale,pause;
-
-scale=gui_get_scale();
-pause=game_paused();
-
-if (scale&lt;&gt;gui_scale/2 and pause==false) {
-
-  gui_set_scale(gui_scale/2);
-  gui_refresh();
-
-  }
-else if (scale==gui_scale/2 and pause==true) {
-
-  gui_set_scale(gui_scale);
-  gui_refresh();
-
-  }
+            <string>/// Dummy
 
 </string>
           </argument>

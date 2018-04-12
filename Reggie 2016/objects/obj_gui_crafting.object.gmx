@@ -207,14 +207,16 @@ end;
             <kind>1</kind>
             <string>var str,spr,i,counter,check;
 
-draw_set_font(f_windows);
+var sprite_scale = 2;
+
+fnt_draw_set(FONT.window);
 
 //Set up GUI x and y:
-xx=gui_width()/2-sprite_get_width(sprite_index)/2;
-yy=gui_height()/2-sprite_get_height(sprite_index)/2;
+xx=gui_width()/2-sprite_get_width(sprite_index)*sprite_scale/2;
+yy=gui_height()/2-sprite_get_height(sprite_index)*sprite_scale/2;
 
 //Draw own sprite:
-draw_sprite(spr_window_crafting_barter,0,xx,yy);
+draw_sprite_ext(spr_window_crafting_barter,0,xx,yy,sprite_scale,sprite_scale,0,c_white,1);
 
 //ITEM LIST::
 draw_set_alpha(1);
@@ -231,17 +233,17 @@ if recipes_list[counter]&lt;&gt;0 {
 
 //Small icons:
  spr=real( inv_item_get_static_value( ds_list_find_value(recipes_list[counter],0),7 ) );
- draw_sprite_ext(spr,0,xx+9,yy+counter*20+43,0.5,0.5,0,c_white,1);
+ draw_sprite(spr,0,xx+18,yy+counter*40+86);
 
 //Clickable text boxes:
-spr=ite(recipes_list[counter],selected,1,0);
-if gui_draw_sprite_clickable(spr_window_name_box,spr,xx+29,yy+counter*20+43,1)=true
+spr=tern(recipes_list[counter],selected,1,0);
+if gui_draw_sprite_clickable_ext(spr_window_name_box,spr,xx+58,yy+counter*40+86,1,2,2,1)=true
  {selected=recipes_list[counter];
   update_array=true; }
 
 //Recipe names:
 draw_set_color(c_black); 
- draw_text(xx+32,yy+45+20*counter,ds_list_find_value(recipes_list[counter],0)+" ("+string(ds_list_find_value(recipes_list[counter],1))+")");
+ draw_text(xx+64,yy+90+40*counter,ds_list_find_value(recipes_list[counter],0)+" ("+string(ds_list_find_value(recipes_list[counter],1))+")");
 
 } 
 end;
@@ -249,17 +251,17 @@ end;
  
 //Filter title:
 draw_set_color(c_black);
-draw_text(xx+12,yy+42,"Recipes");
+draw_text(xx+24,yy+84,"Recipes");
 
 //ITEM DETAILS BEGIN:
 if (selected&lt;&gt;0 and update_array=false) begin
 
 //Item name:
 draw_set_color(c_black); 
-draw_text(xx+242,yy+42,recipes_array[1]+" ("+string(recipes_array[2])+")");
+draw_text(xx+484,yy+84,recipes_array[1]+" ("+string(recipes_array[2])+")");
 
 //Item icon:
-draw_sprite(real(inv_item_get_static_value(recipes_array[1],7)),0,xx+377,yy+67);
+draw_sprite_ext(real(inv_item_get_static_value(recipes_array[1],7)),0,xx+754,yy+134,2,2,0,c_white,1);
 
 //Description:
 str="You need:#";
@@ -277,11 +279,11 @@ end;
 
 str+="#You will get:# -"+recipes_array[1]+" ("+string(recipes_array[2])+")"+":#  "+inv_item_get_static_value(recipes_array[1],6);
 
-draw_text_ext(xx+234,yy+113,str,13,180);
+draw_text_ext(xx+468,yy+226,str,18,360);
 
 //Craft button:
-spr=ite(check,true,0,1);
-if gui_draw_sprite_clickable(spr_window_button_craft,spr,xx+249,yy+348,true)
+spr=tern(check,true,0,1);
+if gui_draw_sprite_clickable_ext(spr_window_button_craft,spr,xx+498,yy+696,true,2,2,1)
  {if spr=0 { 
  i=3;
  repeat (7) begin
@@ -296,13 +298,13 @@ end;
 //ITEM DETAILS END;
   
 //Scroll buttons:
-if gui_draw_sprite_clickable(spr_window_button_scroll,0,xx+212,yy+63,true)=true
+if gui_draw_sprite_clickable(spr_window_button_scroll,0,xx+424,yy+126,true)=true
  {if scroll&gt;0 {scroll-=1; update_list=true;}}
-if gui_draw_sprite_clickable(spr_window_button_scroll,1,xx+212,yy+343,true)=true
+if gui_draw_sprite_clickable(spr_window_button_scroll,1,xx+424,yy+686,true)=true
  {if scroll&lt;ds_list_size(global.crafting_recipes)-15 {scroll+=1; update_list=true;}}
 
 //Close button:
-if gui_draw_sprite_clickable_rel(spr_window_close,0,xx+305,yy+370)=true
+if gui_draw_sprite_clickable_rel(spr_window_close,0,xx+610,yy+740)=true
   instance_destroy();
 </string>
           </argument>

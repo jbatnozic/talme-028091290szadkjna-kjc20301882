@@ -57,7 +57,7 @@ while (string_length(work_str)>0) begin
  //See what to do with the current word:
  if temp_exit=false {
  
-  width=string_width(ite(space,0,current_word,string_copy(current_word,1,string_length(current_word)-1)));
+  width=string_width(tern(space,0,current_word,string_copy(current_word,1,string_length(current_word)-1)));
  
   if string_width(str_array[current_line])+width<=argument1 {
    str_array[current_line]+=current_word;

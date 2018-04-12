@@ -280,8 +280,8 @@ end;
           <argument>
             <kind>1</kind>
             <string>var str,spr,i,counter,check;
-//234,70
-draw_set_font(f_windows);
+
+fnt_draw_set(FONT.window);
 
 //Set up GUI x and y:
 xx=gui_width()/2-sprite_get_width(sprite_index)/2;
@@ -311,7 +311,7 @@ if comb_list[counter]&lt;&gt;0 {
  draw_sprite_ext(spr,0,xx+9,yy+counter*20+43,0.5,0.5,0,c_white,1); 
 
 //Clickable text boxes:
-spr=ite(comb_list[counter],selected,1,0);
+spr=tern(comb_list[counter],selected,1,0);
 if gui_draw_sprite_clickable(spr_window_name_box,spr,xx+29,yy+counter*20+43,1)=true
  {selected=comb_list[counter]; 
   update_array=true;}
@@ -362,7 +362,7 @@ str+="#You will get:# -"+comb_array[1]+" ("+string(comb_array[2])+")"+":#  "+inv
 draw_text_ext(xx+236,yy+113,str,13,180);
 
 //Craft button:
-spr=ite(check,true,0,1);
+spr=tern(check,true,0,1);
 if gui_draw_sprite_clickable(spr_window_button_trade,spr,xx+249,yy+348,true)
  {if spr=0 { 
  i=3;

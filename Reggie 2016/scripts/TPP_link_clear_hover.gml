@@ -1,4 +1,4 @@
-//TPP_link_clear_hover()
+///TPP_link_clear_hover()
 /*
 
 From Documentation:

@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>-2</depth>
+  <depth>0</depth>
   <persistent>0</persistent>
   <parentName>weaponHoldingPar</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -26,9 +26,10 @@
           <argument>
             <kind>1</kind>
             <string>//Weapon setup:
-weapon_initialise();
+weapon_initialize();
 weapon_set_basics(30,150,0,0.3,200,PROJECTILE.bullet);
-weapon_set_sprite(weaponTestSpr,0,0,0,0,1,0,0);
+weapon_set_sprite(weaponTestSpr,0,0,0,0,1);
+weapon_set_offset(20, -2, -8, 6, 0, 3, 0, 0);
 weapon_set_sounds(-1,-1,-1,-1,-1);
 
 weapon_add_firing_mode("FiringMode1",2,1,3,6);

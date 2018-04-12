@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>-2</depth>
+  <depth>0</depth>
   <persistent>0</persistent>
   <parentName>weaponHoldingPar</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -26,9 +26,10 @@
           <argument>
             <kind>1</kind>
             <string>//Weapon setup:
-weapon_initialise();
+weapon_initialize();
 weapon_set_basics(60,150,0,0.3,200,PROJECTILE.flame);
-weapon_set_sprite(weaponTestSpr,0,0,0,0,1,25,0);
+weapon_set_sprite(weaponTestSpr,0,0,0,0,1);
+weapon_set_offset(20, -2, -8, 6, 0, 3, 0, 0);
 weapon_set_sounds(-1,-1,-1,-1,-1);
 
 weapon_add_firing_mode("FiringMode1",4,1,0,7);
@@ -68,7 +69,7 @@ if !game_paused() begin
 
  weapon_set_position(25,80);
  weapon_execute((global.player_obj_id).mod_rel,(global.player_obj_id).mod_acc);
- weapon_update();
+ weapon_update_patron();
  
 end;
 </string>

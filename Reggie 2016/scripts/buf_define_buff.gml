@@ -1,4 +1,4 @@
-///buf_define_buff(Buff ID,Additive,HeartStrain,HaChance,Speed,Jump,Acc,Sta,HP,Rel,DR,CarryW,KBRes,stamReg,HACmod,AbsCtrl)
+///buf_define_buff(Buff ID, Additive, HeartStrain, HaChance, Speed, Jump, Acc, Sta, HP, Rel, DR, CarryW, KBRes, stamReg, HACmod, AbsCtrl)
 /*
 Defines a buff to use later on.
 

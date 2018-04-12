@@ -1,6 +1,6 @@
 ///nsp_variable_global_set(Name, Value)
 /*
-Underlying NSP script. Can be changed by user (read NSP Documentation for more info).
+Underlying NSP script.
 */
 var work_str;
 
@@ -32,13 +32,10 @@ switch (work_str) begin
    global.state=argument1;
   break;
   
- case "room_speed":
-   room_speed=argument1;
-  break;
-  
  default:
    NSP_notify("SCRIPT: nsp_variable_global_set. ERROR: Variable not supported ("+argument0+").");
   break;
   
 end;
+
 

@@ -137,7 +137,7 @@ yy=gui_height()/2-sprite_get_height(sprite_index)/2;
 draw_sprite(sprite_index,0,xx,yy);
 
 //Font setup:
-draw_set_font(f_windows);
+fnt_draw_set(FONT.window);
 draw_set_alpha(1);
 draw_set_valign(fa_top);
 draw_set_halign(fa_left);
@@ -167,7 +167,7 @@ draw_text(xx+12,yy+155,"Write down your thoughts:");
 
 //Keyboard string:
 draw_set_color(c_black);
-draw_text_ext(xx+11,yy+178,keyboard_string+ite(line,true," |",""),13,350);
+draw_text_ext(xx+11,yy+178,keyboard_string+tern(line,true," |",""),13,350);
 
 //Finalize button:
 spr=!(string_length(keyboard_string)&gt;=JOURNAL.textMinimum);

@@ -2,16 +2,25 @@
 /*
 Underlying NSP script.
 */
-var char1,char2;
+var ord1, ord2;
 
-if string_letters(argument0)<>argument0 return true;
+if (string_letters(argument0) != argument0) return true;
 
-char1=string_copy(argument1,1,1);
-char2=string_copy(argument1,string_length(argument1),1);
+ord1 = ord( string_copy(argument1,1,1) );
+ord2 = ord( string_copy(argument1,string_length(argument1),1) );
 
-if string_letters(char1)<>char1 &&
-   string_letters(char2)<>char2
- return true;
+// 65 - 90  Letters
+// 97 - 122 Letters
+// 48 - 57  Digits
+// 95       Underscore
+
+if ((ord1 >= 65 and ord1 <= 90) or (ord1 >= 97 and ord1 <= 122)
+    or (ord1 == 95))
+  return false;
+
+if ((ord2 >= 65 and ord2 <= 90) or (ord2 >= 97 and ord2 <= 122)
+    or (ord2 == 95) or (ord2 >= 48 and ord2 <= 57))
+  return false;
  
-return false;
+return true;
 
