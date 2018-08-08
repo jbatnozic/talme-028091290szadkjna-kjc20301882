@@ -459,6 +459,8 @@ if (surface_exists(auxSurf) and surface_exists(application_surface)) {
   
    case 0:
      
+     //show_debug_message("1");
+   
      draw_surface_ext(auxSurf, _drawX, _drawY,
                       _drawW / GLOBAL.view_width,
                       _drawH / GLOBAL.view_height,
@@ -468,6 +470,8 @@ if (surface_exists(auxSurf) and surface_exists(application_surface)) {
     
    case 1:
      var uScale, uIntensity, texScreen, texBase;
+     
+     //show_debug_message("2");
      
      uScale=shader_get_uniform(sh_bloom,"uScale");
      uIntensity=shader_get_uniform(sh_bloom,"uIntensity");
@@ -485,7 +489,10 @@ if (surface_exists(auxSurf) and surface_exists(application_surface)) {
    
       draw_set_blend_mode_ext(bm_src_alpha, bm_one);
        shader_set_uniform_f(uScale,0.0,texture_get_texel_height(texPass)*max(bloomRadius,bloomOvrRadius));
-       draw_surface(application_surface,_drawX,_drawY);
+       draw_surface_ext(application_surface,_drawX,_drawY,
+                        _drawW / GLOBAL.view_width,
+                        _drawH / GLOBAL.view_height,
+                        0, c_white, 1);
       draw_set_blend_mode(bm_normal);
       
      shader_reset();

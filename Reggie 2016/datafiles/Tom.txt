@@ -25,9 +25,7 @@ END
         {Awesome!}
         {Freak...} EOP       
         END
-        
-            PATH 1 -> 3, 2
-            END
+        PATH 1 -> 3, 2
         
         BEGIN 3, 2
         PCODE
@@ -65,9 +63,7 @@ END
             {Okay... My name is Tom! What's yours?}
             {Freak...} EOP
             END
-            
-                PATH 1 -> 3, 2
-                END         
+            PATH 1 -> 3, 2        
     
     BEGIN 2, 2
     PCODE
@@ -83,9 +79,7 @@ END
         {Uhh, uhh...}
         {What's the matter, wimp?} EOP
         END
-        
-            PATH 1 -> 4, 1
-            END
+        PATH 1 -> 4, 1
             
         BEGIN 3, 3
         PCODE

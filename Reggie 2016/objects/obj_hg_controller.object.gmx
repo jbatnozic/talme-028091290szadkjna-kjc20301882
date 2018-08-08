@@ -102,38 +102,55 @@ if (sett_get_value("Dynamic Bloom")="On") {
 var auxSurf  = global.auxilary_surface;
 var compSurf = global.composit_surface;
 
-if (!surface_exists(auxSurf) or !surface_exists(compSurf) or
+if (!surface_exists(auxSurf) or
     !surface_exists(application_surface)) exit;
  
-var texelW = texture_get_texel_width( surface_get_texture(application_surface));
-var texelH = texture_get_texel_height(surface_get_texture(application_surface));
+// WITH COMPOSITING:
+if (global.do_compose_surfaces == true) {
+    
+  if (!surface_exists(compSurf)) exit;
 
-// Create lighting mask:
-surface_set_target(auxSurf);
-
-var sampler_ind = shader_get_sampler_index(sh_equality, "baseSampler");
-var text = surface_get_texture(compSurf);
-
-shader_set(sh_equality_ol);
-
-  shader_set_uniform_f(uPixelW, texelW);
-  shader_set_uniform_f(uPixelH, texelH);
-
-  // Pass compSurf sampler to the shader:
-  texture_set_stage(sampler_ind, text);
+  var texelW = texture_get_texel_width( surface_get_texture(application_surface));
+  var texelH = texture_get_texel_height(surface_get_texture(application_surface));
   
-  // Draw the other surface:
-  draw_surface(application_surface, 0, 0);
-
-shader_reset();
-
-surface_reset_target();
-
-surface_copy(compSurf, 0, 0, auxSurf);
+  // Create lighting mask:
+  surface_set_target(auxSurf);
   
-HG_world_render_lighting(-1, view_xview, view_yview);
+  var sampler_ind = shader_get_sampler_index(sh_equality, "baseSampler");
+  var text = surface_get_texture(compSurf);
+  
+  shader_set(sh_equality_ol);
+  
+    shader_set_uniform_f(uPixelW, texelW);
+    shader_set_uniform_f(uPixelH, texelH);
+  
+    // Pass compSurf sampler to the shader:
+    texture_set_stage(sampler_ind, text);
+    
+    // Draw the other surface:
+    draw_surface(application_surface, 0, 0);
+  
+  shader_reset();
+  
+  surface_reset_target();
+  
+  surface_copy(compSurf, 0, 0, auxSurf);
 
-HG_world_draw_lighting_mask(-1, view_xview, view_yview, compSurf);
+  HG_world_render_lighting(-1, view_xview, view_yview);
+
+  HG_world_draw_lighting_mask(-1, view_xview, view_yview, compSurf);
+  
+  }
+// WITHOUT COMPOSITING:
+else {
+
+  HG_world_render_lighting(-1, view_xview, view_yview);
+
+  HG_world_draw_lighting(-1, view_xview, view_yview);
+
+  }
+  
+
 
 
 

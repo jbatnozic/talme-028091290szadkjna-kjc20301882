@@ -10,7 +10,10 @@ enum FONT {
   textbox_regular,
   textbox_bold,
   textbox_italic,
-  tooltip
+  tooltip,
+  title,
+  subtitle
+  
 
   }
   
@@ -20,3 +23,5 @@ global.FONT_ARRAY[FONT.textbox_regular] = f_palatino_26;
 global.FONT_ARRAY[FONT.textbox_bold]    = f_palatino_26_bold;
 global.FONT_ARRAY[FONT.textbox_italic]  = f_palatino_26_italic;
 global.FONT_ARRAY[FONT.tooltip]         = f_exo2med_16;
+global.FONT_ARRAY[FONT.title]           = f_exo_48_bold;
+global.FONT_ARRAY[FONT.subtitle]        = f_exo_48_bold;
