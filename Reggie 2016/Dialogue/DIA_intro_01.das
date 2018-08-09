@@ -4,7 +4,7 @@
 //pre susreta movement tutorial
 
 BEGIN 1, 1 
-{Richard: Finally! I was beginning to think you'd never come!}
+{[spr:sword]Richard: Finally! I was beginning to think you'd never come!}
 {If the punishment for deserting wasn't a noose, I'd gladly let you have all the fun...}
 {What, and let you have all the fun? Dream on!}
 {I wouldn't leave you to guard a toilet without supervision, let alone carry out an important mission.}
@@ -39,7 +39,7 @@ END
 	PATH 1->3, 1
 
 	BEGIN 2, 3
-	{Do you have to keep bringing that up? It was just one tiny screwup! I swear I didn't know the pipes could jet out <b>that</b> much water! Let's just let bygones be bygones, and focus on the now!}
+	{Do you have to keep bringing that up? It was just one tiny screwup! I swear I didn't know the pipes could jet out [fnt:italic:that] much water! Let's just let bygones be bygones, and focus on the now!}
 	{[Continue\]} EOP
 	END
 	PATH 1->3, 1
