@@ -4,7 +4,7 @@
 //pre susreta movement tutorial
 
 BEGIN 1, 1 
-{[spr:sword]Richard: Finally! I was beginning to think you'd never come!}
+{Richard: Finally! I was beginning to think you'd never come!}
 {If the punishment for deserting wasn't a noose, I'd gladly let you have all the fun...}
 {What, and let you have all the fun? Dream on!}
 {I wouldn't leave you to guard a toilet without supervision, let alone carry out an important mission.}
