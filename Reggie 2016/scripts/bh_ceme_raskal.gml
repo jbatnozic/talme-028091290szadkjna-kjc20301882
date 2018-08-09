@@ -27,7 +27,7 @@ else if (_state==3) {
   
     txt_add("Placeholder Raskal Dialogue.",0,0,"[End\]{End}");
   
-    txt_interface_open(spr_portrait_template,"Reggie",spr_portrait_template,"Raskal",x,y);
+    txt_interface_open(x, y);
     
     _state=4;
   

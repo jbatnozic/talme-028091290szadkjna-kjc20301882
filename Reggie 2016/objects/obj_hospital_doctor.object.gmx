@@ -85,7 +85,7 @@ if (_dialogue==1) {
          
     txt_load_from_file("Hospital_Doctor_1.txt");      
        
-  txt_interface_open(spr_portrait_template,"Reggie",spr_portrait_template,"Raskal",x,y-38);
+  txt_interface_open(x,y-38);
 
   s=0;
   _dialogue=0;
@@ -118,13 +118,13 @@ if (_dialogue==2) {
   var s;
   
   s[0]="[The Doctor approaches your bed and pulls a clipboard off of the wall next to the "+
-       "bed. He looks up from the clipboard and addresses you.] Absolutely stunning. "+
+       "bed. He looks up from the clipboard and addresses you.\] Absolutely stunning. "+
        "The surgery was a success of such a rare grade that I'm hesitant to say that will ever "+
        "be topped. Truly, you could not have found better results in any other hospital in "+
        "this district, city, and by extension the rest of the world.  Saint's General certainly "+
        "couldn't match this quality, even if they receive more funding than us! Oh, and that "+
        "invalid of a nurse couldn't spoil the toil of the very best doctors of the very best ward "+
-       "of the only true city left on earth. We –";
+       "of the only true city left on earth. We-–";
   s[1]="If the results are as good as you say then I would prefer to hear them right away before "+
        "hearing any further praise.";
   s[2]="Yes, but please bear in mind that all measurements of success are relative to the actual "+
@@ -162,15 +162,15 @@ if (_dialogue==2) {
   
   txt_begin();
   
-    txt_add(s[0],0,0,s[1]);
-     txt_add(s[2],0,0,s[3]);
-      txt_add(s[4],0,0,s[5]);
-       txt_add(s[6],0,0,s[7]);
-        txt_add(s[8],0,0,s[9]);
-         txt_add(s[10],0,0,s[11]);
-          txt_add(s[12],0,0,s[13]+"{End}");      
+    txt_add(s[0],"","",s[1]);
+     txt_add(s[2],"","",s[3]);
+      txt_add(s[4],"","",s[5]);
+       txt_add(s[6],"","",s[7]);
+        txt_add(s[8],"","",s[9]);
+         txt_add(s[10],"","",s[11]);
+          txt_add(s[12],"","",s[13]+"{End}");      
        
-  txt_interface_open(spr_portrait_template,"Reggie",spr_portrait_template,"Doctor",x,y-38);
+  txt_interface_open(x,y-38);
 
   s=0;
 

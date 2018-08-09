@@ -25,11 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Setup:
-txt_local_init();
-
-choice = 0;
-
+            <string>
 // Visual:
 offset = 1;
 sprite_scale = 2;
@@ -71,6 +67,11 @@ switch (sett_get_value("Textbox Speed")) {
 
   }
 
+//Setup:
+txt_local_init();
+
+choice = 0;
+  
 //Other:
 update_box = true;
 text_width = 910;
@@ -474,17 +475,20 @@ if (false) {
  }
 
 //Draw portraits:
-draw_sprite_ext(sprite_1,0,xx+16,yy+16,2,2,0,c_white,1);
-draw_sprite_ext(sprite_2,0,xx+1136,yy+16,2,2,0,c_white,1);
+draw_sprite_ext(sprite_1,0,xx+16,yy+24,2,2,0,c_white,1);
+draw_sprite_ext(sprite_2,0,xx+1176,yy+24,2,2,0,c_white,1);
 
 //Draw names:
 fnt_draw_set(FONT.window);
 draw_set_colour(c_black);
+
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
+draw_text(xx+212, yy+10, name_1);
 
-draw_text_ext_transformed(xx+20,yy+164,name_1,12,61,2,2,0);  //STUB
-draw_text_ext_transformed(xx+1140,yy+164,name_2,12,61,2,2,0);
+draw_set_halign(fa_right);
+draw_set_valign(fa_top);
+draw_text(xx+1146, yy+10, name_2);
 
 //Crash safety:
 if (update_box=true) exit;
@@ -507,7 +511,7 @@ if (letters&gt;=letters_max) {
  
    if (row&lt;=last and row+rows[i]-1&gt;=first+1) {
  
-    if gui_draw_rectangle_clickable(xx+166,yy+20+h*max(row-scroll-1,0),918,h*(rows[t]-max(first+1-row,0)-max(row+rows[i]-1-last,0)),true)=true {
+    if gui_draw_rectangle_clickable(xx+206,yy+70+h*max(row-scroll-1,0),918,h*(rows[t]-max(first+1-row,0)-max(row+rows[i]-1-last,0)),true)=true {
  
      choice=i;
      
@@ -527,35 +531,21 @@ if (letters&gt;=letters_max) {
 var tlerp = (sett_get_value("Interpolation") == "On");
 
 ftlerp();
-TPP_text_print_ext_part(xx+170,yy+18,text_grid,fa_left,fa_top,first+1,last,letters);
+TPP_text_print_ext_part(xx+210,yy+68,text_grid,fa_left,fa_top,first+1,last,letters);
 rtlerp(tlerp);
 
 //Scroll:
-if gui_draw_sprite_clickable(spr_window_button_scroll,0,xx+1090,yy+18,true)=true {
+if gui_draw_sprite_clickable(spr_window_button_scroll,0,xx+1130,yy+68,true)=true {
  scroll-=1;
  }
  
-if gui_draw_sprite_clickable(spr_window_button_scroll,1,xx+1090,yy+344,true)=true {
+if gui_draw_sprite_clickable(spr_window_button_scroll,1,xx+1130,yy+394,true)=true {
  scroll+=1;
  }
  
-scroll=gui_draw_scroll_bar(xx+1090,yy+58,xx+1110,yy+340,TPP_text_get_lines(text_grid),text_max_rows,scroll,placeholderSpr);
+scroll=gui_draw_scroll_bar(xx+1130,yy+108,xx+1150,yy+390,TPP_text_get_lines(text_grid),text_max_rows,scroll,placeholderSpr);
 
 scroll=clamp(scroll,0,max(TPP_text_get_lines(text_grid)-text_max_rows,0));
-
-//Draw the veil:
-/*var w,h;
-
-if (veil&gt;0) {
-
- w=459;
- h=183;
-
- draw_sprite_part(sprite_index,0,83,8,w*veil/2,h,xx+83,yy+8);
- draw_sprite_part(sprite_index,0,542-w*veil/2,8,w*veil/2,h,xx+542-w*veil/2,yy+8);
- 
- }*/
-
 
 //Close button:
 //-Not allowed.

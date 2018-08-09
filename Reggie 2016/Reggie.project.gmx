@@ -3,58 +3,98 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="5" name="datafiles">
-    <datafile>
-      <name>Tom.txt</name>
-      <exists>-1</exists>
-      <size>2368</size>
-      <exportAction>2</exportAction>
-      <exportDir></exportDir>
-      <overwrite>0</overwrite>
-      <freeData>-1</freeData>
-      <removeEnd>0</removeEnd>
-      <store>0</store>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <filename>Tom.txt</filename>
-    </datafile>
-    <datafile>
-      <name>Hospital_Doctor_1.txt</name>
-      <exists>-1</exists>
-      <size>1893</size>
-      <exportAction>2</exportAction>
-      <exportDir></exportDir>
-      <overwrite>0</overwrite>
-      <freeData>-1</freeData>
-      <removeEnd>0</removeEnd>
-      <store>0</store>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <filename>Hospital_Doctor_1.txt</filename>
-    </datafile>
-    <datafile>
-      <name>Hospital_Doctor_2.txt</name>
-      <exists>-1</exists>
-      <size>0</size>
-      <exportAction>2</exportAction>
-      <exportDir></exportDir>
-      <overwrite>0</overwrite>
-      <freeData>-1</freeData>
-      <removeEnd>0</removeEnd>
-      <store>0</store>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <filename>Hospital_Doctor_2.txt</filename>
-    </datafile>
+  <datafiles number="7" name="datafiles">
+    <datafiles number="7" name="Dialogues">
+      <datafiles number="7" name="Intro">
+        <datafile>
+          <name>dia_intro_01.txt</name>
+          <exists>-1</exists>
+          <size>1851</size>
+          <exportAction>2</exportAction>
+          <exportDir></exportDir>
+          <overwrite>0</overwrite>
+          <freeData>-1</freeData>
+          <removeEnd>0</removeEnd>
+          <store>0</store>
+          <ConfigOptions>
+            <Config name="Default">
+              <CopyToMask>9223372036854775807</CopyToMask>
+            </Config>
+          </ConfigOptions>
+          <filename>dia_intro_01.txt</filename>
+        </datafile>
+        <datafile>
+          <name>dia_intro_02.txt</name>
+          <exists>-1</exists>
+          <size>469</size>
+          <exportAction>2</exportAction>
+          <exportDir></exportDir>
+          <overwrite>0</overwrite>
+          <freeData>-1</freeData>
+          <removeEnd>0</removeEnd>
+          <store>0</store>
+          <ConfigOptions>
+            <Config name="Default">
+              <CopyToMask>9223372036854775807</CopyToMask>
+            </Config>
+          </ConfigOptions>
+          <filename>dia_intro_02.txt</filename>
+        </datafile>
+      </datafiles>
+      <datafile>
+        <name>DIALOGUE_0.das</name>
+        <exists>-1</exists>
+        <size>2368</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>DIALOGUE_0.das</filename>
+      </datafile>
+    </datafiles>
+    <datafiles number="7" name="OldStuff">
+      <datafile>
+        <name>Hospital_Doctor_1.txt</name>
+        <exists>-1</exists>
+        <size>1893</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>Hospital_Doctor_1.txt</filename>
+      </datafile>
+      <datafile>
+        <name>Hospital_Doctor_2.txt</name>
+        <exists>-1</exists>
+        <size>0</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>Hospital_Doctor_2.txt</filename>
+      </datafile>
+    </datafiles>
   </datafiles>
   <NewExtensions>
     <extension index="0">extensions\Mercury-2D Worlds and Lighting</extension>
@@ -305,6 +345,7 @@
     </backgrounds>
     <backgrounds name="Backgrounds">
       <background>background\bg_1</background>
+      <background>background\bg_clearing</background>
       <background>background\bg_2</background>
       <background>background\bg_3</background>
       <background>background\bg_ceramic_tile</background>
@@ -313,6 +354,7 @@
       <background>background\bg_poster</background>
       <background>background\bg_night_sky_1</background>
       <background>background\bg_night_sky_2</background>
+      <background>background\bg_clear_sky_1</background>
     </backgrounds>
   </backgrounds>
   <paths name="paths"/>
@@ -355,6 +397,8 @@
         <script>scripts\rtlerp.gml</script>
         <script>scripts\string_crop.gml</script>
         <script>scripts\draw_arm.gml</script>
+        <script>scripts\begin_background_switch.gml</script>
+        <script>scripts\begin_ambient_switch.gml</script>
         <scripts name="Armours">
           <script>scripts\armour_get_speed.gml</script>
           <script>scripts\armour_get_streq.gml</script>
@@ -1244,6 +1288,7 @@
     <font>fonts\f_palatino_26_bold</font>
     <font>fonts\f_palatino_26_italic</font>
     <font>fonts\f_arial_12</font>
+    <font>fonts\f_exo_48_bold</font>
   </fonts>
   <objects name="objects">
     <object>objects\placeholderObj</object>
@@ -1299,7 +1344,7 @@
       </objects>
       <objects name="Other">
         <object>objects\obj_vendor_template</object>
-        <object>objects\obj_tom</object>
+        <object>objects\obj_title_fade</object>
       </objects>
     </objects>
     <objects name="Gameplay">
@@ -1401,19 +1446,26 @@
           <object>objects\spr_ceme_veteran</object>
           <object>objects\obj_ceme_raskal</object>
         </objects>
+        <objects name="Intro">
+          <object>objects\obj_intro_richard</object>
+          <object>objects\object117</object>
+        </objects>
       </objects>
       <object>objects\obj_flashlight</object>
       <object>objects\obj_pickup_item</object>
       <object>objects\obj_await_tester</object>
+      <object>objects\obj_bg_switcher</object>
+      <object>objects\obj_tom</object>
+      <object>objects\obj_dia_tester</object>
     </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\room_initialize</room>
     <room>rooms\room_menu</room>
+    <room>rooms\room_intro</room>
     <room>rooms\room_demo</room>
-    <room>rooms\room_cemetary</room>
     <room>rooms\room_hospital</room>
-    <room>rooms\room_forest_precapture</room>
+    <room>rooms\room_cemetary</room>
     <room>rooms\room_HQ_mission_brief</room>
   </rooms>
   <help>

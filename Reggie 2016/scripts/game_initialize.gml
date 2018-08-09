@@ -172,6 +172,7 @@ if (argument0 == false) {
   //Helper draw surface:
   global.auxilary_surface = -1;
   global.composit_surface = -1;
+  global.do_compose_surfaces = true;
   
   }
   
