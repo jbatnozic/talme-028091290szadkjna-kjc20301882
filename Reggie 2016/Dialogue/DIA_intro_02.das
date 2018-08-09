@@ -15,8 +15,8 @@ END
 	END
 	
 	BEGIN 2, 2
-	{Richard: The command can do the scouting themselves if they're so pressed for time. I'm not going to kill a guy just because 
-	some paper pushers can't wait a bit longer!}
+	{Richard: The command can do the scouting themselves if they're so pressed for time. I'm not going to kill a guy just because
+	 some paper-pushers can't wait a bit longer!}
 	{It's hard to disagree when you put it that way.} EOP	
 	END
 	PATH 1->2, 1
