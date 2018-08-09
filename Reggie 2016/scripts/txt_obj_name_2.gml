@@ -3,4 +3,4 @@
 
 */
 
-obj_textbox.name_2=argument0;
+obj_textbox.name_2 = argument0;
