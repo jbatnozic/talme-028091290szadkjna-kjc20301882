@@ -122,28 +122,6 @@ while (!file_text_eof(file)) {
       
     cnt += 1;
   
-    /*var show_pos = string_pos("SHOW", line);
-    
-    var cond = string_copy(line, 3, show_pos - 3);
-    
-    var i, t;
-    
-    for (i = show_pos + 4; i <= len; i += 1) {
-      if (string_char_at(line, i) == "{") break;
-      }
-      
-    for (t = len; t > i; t -= 1) {
-      if (string_char_at(line, i) == "{") break;
-      }
-      
-    arr[cnt] = cond + "{Cdt}" + string_copy(line, i + 1, t - (i + 1));
-    
-    if (string_pos("EOP", string_delete(line, 1, t)) != 0) {
-      arr[cnt] += "{End}";
-      }
-      
-    cnt += 1;*/
-  
     }
   else if (string_copy(line, 1, 2) == "//") { // COMMENT - OK
     // Ignore
@@ -189,12 +167,12 @@ while (!file_text_eof(file)) {
       }
     else if (temp == "PCODE") { // PCODE - OK
     
-      pcode = string_delete(line, 1, 5);
+      pcode += string_delete(line, 1, 5);
     
       }
     else if (temp == "SCODE") { // SCODE - OK
     
-      scode = string_delete(line, 1, 5);
+      scode += string_delete(line, 1, 5);
     
       }
     else if (temp == "JMPIF") { // JMPIF - OK

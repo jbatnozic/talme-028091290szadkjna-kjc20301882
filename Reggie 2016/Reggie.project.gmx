@@ -3,48 +3,29 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="7" name="datafiles">
-    <datafiles number="7" name="Dialogues">
-      <datafiles number="7" name="Intro">
-        <datafile>
-          <name>dia_intro_01.txt</name>
-          <exists>-1</exists>
-          <size>1851</size>
-          <exportAction>2</exportAction>
-          <exportDir></exportDir>
-          <overwrite>0</overwrite>
-          <freeData>-1</freeData>
-          <removeEnd>0</removeEnd>
-          <store>0</store>
-          <ConfigOptions>
-            <Config name="Default">
-              <CopyToMask>9223372036854775807</CopyToMask>
-            </Config>
-          </ConfigOptions>
-          <filename>dia_intro_01.txt</filename>
-        </datafile>
-        <datafile>
-          <name>dia_intro_02.txt</name>
-          <exists>-1</exists>
-          <size>469</size>
-          <exportAction>2</exportAction>
-          <exportDir></exportDir>
-          <overwrite>0</overwrite>
-          <freeData>-1</freeData>
-          <removeEnd>0</removeEnd>
-          <store>0</store>
-          <ConfigOptions>
-            <Config name="Default">
-              <CopyToMask>9223372036854775807</CopyToMask>
-            </Config>
-          </ConfigOptions>
-          <filename>dia_intro_02.txt</filename>
-        </datafile>
-      </datafiles>
+  <datafiles number="13" name="datafiles">
+    <datafiles number="13" name="Dialogues">
+      <datafile>
+        <name>.gitkeep</name>
+        <exists>-1</exists>
+        <size>2</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>.gitkeep</filename>
+      </datafile>
       <datafile>
         <name>DIALOGUE_0.das</name>
         <exists>-1</exists>
-        <size>2368</size>
+        <size>1991</size>
         <exportAction>2</exportAction>
         <exportDir></exportDir>
         <overwrite>0</overwrite>
@@ -58,42 +39,76 @@
         </ConfigOptions>
         <filename>DIALOGUE_0.das</filename>
       </datafile>
-    </datafiles>
-    <datafiles number="7" name="OldStuff">
-      <datafile>
-        <name>Hospital_Doctor_1.txt</name>
-        <exists>-1</exists>
-        <size>1893</size>
-        <exportAction>2</exportAction>
-        <exportDir></exportDir>
-        <overwrite>0</overwrite>
-        <freeData>-1</freeData>
-        <removeEnd>0</removeEnd>
-        <store>0</store>
-        <ConfigOptions>
-          <Config name="Default">
-            <CopyToMask>9223372036854775807</CopyToMask>
-          </Config>
-        </ConfigOptions>
-        <filename>Hospital_Doctor_1.txt</filename>
-      </datafile>
-      <datafile>
-        <name>Hospital_Doctor_2.txt</name>
-        <exists>-1</exists>
-        <size>0</size>
-        <exportAction>2</exportAction>
-        <exportDir></exportDir>
-        <overwrite>0</overwrite>
-        <freeData>-1</freeData>
-        <removeEnd>0</removeEnd>
-        <store>0</store>
-        <ConfigOptions>
-          <Config name="Default">
-            <CopyToMask>9223372036854775807</CopyToMask>
-          </Config>
-        </ConfigOptions>
-        <filename>Hospital_Doctor_2.txt</filename>
-      </datafile>
+      <datafiles number="13" name="Intro">
+        <datafile>
+          <name>DIA_intro_01.das</name>
+          <exists>-1</exists>
+          <size>1921</size>
+          <exportAction>2</exportAction>
+          <exportDir></exportDir>
+          <overwrite>0</overwrite>
+          <freeData>-1</freeData>
+          <removeEnd>0</removeEnd>
+          <store>0</store>
+          <ConfigOptions>
+            <Config name="Default">
+              <CopyToMask>9223372036854775807</CopyToMask>
+            </Config>
+          </ConfigOptions>
+          <filename>DIA_intro_01.das</filename>
+        </datafile>
+        <datafile>
+          <name>DIA_intro_02.das</name>
+          <exists>-1</exists>
+          <size>1327</size>
+          <exportAction>2</exportAction>
+          <exportDir></exportDir>
+          <overwrite>0</overwrite>
+          <freeData>-1</freeData>
+          <removeEnd>0</removeEnd>
+          <store>0</store>
+          <ConfigOptions>
+            <Config name="Default">
+              <CopyToMask>9223372036854775807</CopyToMask>
+            </Config>
+          </ConfigOptions>
+          <filename>DIA_intro_02.das</filename>
+        </datafile>
+        <datafile>
+          <name>DIA_intro_03.das</name>
+          <exists>-1</exists>
+          <size>2197</size>
+          <exportAction>2</exportAction>
+          <exportDir></exportDir>
+          <overwrite>0</overwrite>
+          <freeData>-1</freeData>
+          <removeEnd>0</removeEnd>
+          <store>0</store>
+          <ConfigOptions>
+            <Config name="Default">
+              <CopyToMask>9223372036854775807</CopyToMask>
+            </Config>
+          </ConfigOptions>
+          <filename>DIA_intro_03.das</filename>
+        </datafile>
+        <datafile>
+          <name>DIA_intro_04.das</name>
+          <exists>-1</exists>
+          <size>1927</size>
+          <exportAction>2</exportAction>
+          <exportDir></exportDir>
+          <overwrite>0</overwrite>
+          <freeData>-1</freeData>
+          <removeEnd>0</removeEnd>
+          <store>0</store>
+          <ConfigOptions>
+            <Config name="Default">
+              <CopyToMask>9223372036854775807</CopyToMask>
+            </Config>
+          </ConfigOptions>
+          <filename>DIA_intro_04.das</filename>
+        </datafile>
+      </datafiles>
     </datafiles>
   </datafiles>
   <NewExtensions>

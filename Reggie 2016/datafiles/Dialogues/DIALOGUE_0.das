@@ -3,7 +3,8 @@
 //Ovaj pocetak, osim sto uspostavlja odnos izmedju Reggie-a i buduceg plot point-a, tj. oca klinca (WiP), takodje predstavlja priliku za osnovni tutorial - kretanje, combat, etc
 
 BEGIN 1, 1 
-PCODE txt_obj_name_2('Reggie'); txt_obj_name_2('Richard');
+PCODE txt_obj_name_1('Reggie');
+PCODE txt_obj_name_2('Richard');
 {[fnt:bold:Finally!] [spr:sword] I was beginning to think you'd never come!}
 {If the punishment for deserting wasn't a noose, I'd gladly let you have all the fun...}
 {What, and let you have all the fun? Dream on!}
