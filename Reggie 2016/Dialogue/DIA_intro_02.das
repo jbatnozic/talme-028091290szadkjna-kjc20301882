@@ -14,6 +14,8 @@ END
 	{[End Dialogue.\]} EOP
 	END
 	
+	//stealth (LoS basically) tutorial
+	
 	BEGIN 2, 2
 	{Richard: The command can do the scouting themselves if they're so pressed for time. I'm not going to kill a guy just because
 	 some paper-pushers can't wait a bit longer!}
