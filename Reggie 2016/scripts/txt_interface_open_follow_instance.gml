@@ -1,4 +1,4 @@
-///txt_interface_open(Camera X, Camera Y);
+///txt_interface_open_follow_instance(InstanceId);
 /*
 
 */
@@ -8,18 +8,17 @@ io_clear();
 
 a = instance_create(x, y, obj_textbox);
 
-a.camera_target_x = argument0;
-a.camera_target_y = argument1;
-a.camera_mode = 0;
+a.camera_target_id = argument0;
+a.camera_mode = 1;
 
 with (a) {
 
   var camX, camY;
-
-  camX = camera_target_x;
-  camY = camera_target_y;  
+  
+  camX = camera_target_id.x;
+  camY = camera_target_id.y;
      
-  var windowPerc = (sprite_height * sprite_scale) / gui_height();
+  var windowPerc = (sprite_height * sprite_scale) / gui_height(); // OK, works with GUI scaling
   var viewPerc;
   
   var ratio = gui_width() / gui_height();

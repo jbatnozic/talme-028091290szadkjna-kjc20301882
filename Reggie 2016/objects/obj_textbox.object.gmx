@@ -80,9 +80,11 @@ text_max_rows = 10;
 
 //Scene:
 game_start_scene(true);
-camera_target_x=0;
-camera_target_y=0;
-cov=0;
+camera_target_x = 0;
+camera_target_y = 0;
+camera_target_id = noone;
+camera_mode = 0; // 0 = coordinates, 1 = instance
+cov = 0;
 
 
 
@@ -180,11 +182,45 @@ if (offset&lt;0.000) {
    }
 
 //Scene:
-var bbh=obj_game_controller._drawY,
-    cov=max(0,sprite_height-bbh)/(4-gui_get_scale());
+var camX, camY;
 
-game_set_scene_camera(camera_target_x,camera_target_y+cov);
+if (camera_mode == 0) { // Coordinates
+  
+  camX = camera_target_x;
+  camY = camera_target_y;
+  
+  }
+else { // Instance
+
+  camX = camera_target_id.x;
+  camY = camera_target_id.y;
+
+  }
    
+var windowPerc = (sprite_height * sprite_scale) / gui_height(); // OK, works with GUI scaling
+var viewPerc;
+
+var ratio = gui_width() / gui_height();
+
+if (ratio &gt;= 16/9) { // Black bars on the side
+
+  viewPerc = windowPerc;
+  
+  }
+else { // Black barn on top &amp; bottom
+
+  var actualHeight   = gui_width() * (9/16);
+  var blackBarHeight = (gui_height() - actualHeight) / 2;
+  
+  if (blackBarHeight &gt;= sprite_height * sprite_scale)
+    viewPerc = 0;
+  else
+    viewPerc = (sprite_height * sprite_scale - blackBarHeight) / actualHeight;
+    
+  }
+  
+game_set_scene_camera(camX, camY + (view_hview * viewPerc / 2));
+
 //Choices:
 var a;
 
@@ -475,8 +511,10 @@ if (false) {
  }
 
 //Draw portraits:
-draw_sprite_ext(sprite_1,0,xx+16,yy+24,2,2,0,c_white,1);
-draw_sprite_ext(sprite_2,0,xx+1176,yy+24,2,2,0,c_white,1);
+draw_sprite(spr_portrait_background, 0, xx+16,   yy+24);
+draw_sprite(spr_portrait_background, 0, xx+1176, yy+24);
+draw_sprite(sprite_1, 0, xx+16,   yy+24);
+draw_sprite(sprite_2, 0, xx+1176, yy+24);
 
 //Draw names:
 fnt_draw_set(FONT.window);

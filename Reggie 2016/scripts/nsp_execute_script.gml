@@ -33,6 +33,9 @@ switch (argument0) begin
   instance_destroy();
   return 0;
   
+ case "instance_exists":
+  return instance_exists(argument1[0]);
+  
  case "game_restart":
   game_restart();
   return 0;
