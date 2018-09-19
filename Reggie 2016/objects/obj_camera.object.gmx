@@ -109,15 +109,24 @@ if (x&lt;&gt;_targetX or y&lt;&gt;_targetY) {
   var _dir  = point_direction(x,y,_targetX,_targetY),
       _dist = point_distance(x,y,_targetX,_targetY);
       
-  x += round(dcos(_dir)*(_dist/8));
-  y -= round(dsin(_dir)*(_dist/8));
+  if (!global.scene_camera_on) {
+      
+    x += round(dcos(_dir)*(_dist/8));
+    y -= round(dsin(_dir)*(_dist/8));
   
+  } else {
+  
+    x += round(dcos(_dir)*(_dist/16));
+    y -= round(dsin(_dir)*(_dist/16));
+  
+    }
+    
   }
         
 //If close, snap:
-if (abs(x - _targetX) &lt; 1/8)
+if (abs(x - _targetX) &lt; 0.15)
   x = _targetX; 
-if (abs(y - _targetY) &lt; 1/8)
+if (abs(y - _targetY) &lt; 0.15)
   y = _targetY;
  
 //Clamp &amp; Round:   

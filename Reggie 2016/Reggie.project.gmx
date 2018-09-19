@@ -3,9 +3,9 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="18" name="datafiles">
-    <datafiles number="18" name="Dialogues">
-      <datafiles number="18" name="Intro">
+  <datafiles number="20" name="datafiles">
+    <datafiles number="20" name="Dialogues">
+      <datafiles number="20" name="Intro">
         <datafile>
           <name>DIA_intro_01.das</name>
           <exists>-1</exists>
@@ -74,8 +74,42 @@
           </ConfigOptions>
           <filename>DIA_intro_04.das</filename>
         </datafile>
+        <datafile>
+          <name>DIA_intro_02_1.das</name>
+          <exists>-1</exists>
+          <size>8</size>
+          <exportAction>2</exportAction>
+          <exportDir></exportDir>
+          <overwrite>0</overwrite>
+          <freeData>-1</freeData>
+          <removeEnd>0</removeEnd>
+          <store>0</store>
+          <ConfigOptions>
+            <Config name="Default">
+              <CopyToMask>9223372036854775807</CopyToMask>
+            </Config>
+          </ConfigOptions>
+          <filename>DIA_intro_02_1.das</filename>
+        </datafile>
+        <datafile>
+          <name>DIA_intro_05.das</name>
+          <exists>-1</exists>
+          <size>0</size>
+          <exportAction>2</exportAction>
+          <exportDir></exportDir>
+          <overwrite>0</overwrite>
+          <freeData>-1</freeData>
+          <removeEnd>0</removeEnd>
+          <store>0</store>
+          <ConfigOptions>
+            <Config name="Default">
+              <CopyToMask>9223372036854775807</CopyToMask>
+            </Config>
+          </ConfigOptions>
+          <filename>DIA_intro_05.das</filename>
+        </datafile>
       </datafiles>
-      <datafiles number="18" name="Miscellaneous">
+      <datafiles number="20" name="Miscellaneous">
         <datafile>
           <name>DIALOGUE_0.das</name>
           <exists>-1</exists>
@@ -120,6 +154,7 @@
       <sprite>sprites\itemPickupMaskSpr</sprite>
       <sprite>sprites\projectileDefaultSprite</sprite>
       <sprite>sprites\spr_dot</sprite>
+      <sprite>sprites\spr_yellow_grid</sprite>
       <sprites name="Controllers">
         <sprite>sprites\spr_ctrl_scenery</sprite>
         <sprite>sprites\spr_ctrl_game</sprite>
@@ -217,7 +252,9 @@
       </sprites>
       <sprites name="Textbox">
         <sprite>sprites\spr_window_textbox</sprite>
+        <sprite>sprites\spr_portrait_background</sprite>
         <sprite>sprites\spr_portrait_template</sprite>
+        <sprite>sprites\spr_portrait_reggie</sprite>
         <sprites name="Emoticons">
           <sprite>sprites\spr_emot_sword</sprite>
         </sprites>
@@ -264,6 +301,7 @@
       <sprite>sprites\spr_player_crawl</sprite>
       <sprite>sprites\spr_player_bug</sprite>
       <sprite>sprites\spr_tom</sprite>
+      <sprite>sprites\spr_richard</sprite>
       <sprite>sprites\spr_enemy_sct</sprite>
       <sprite>sprites\spr_enemy_turta</sprite>
       <sprite>sprites\spr_primal_basic</sprite>
@@ -325,6 +363,7 @@
     <sprite>sprites\spr_boxes</sprite>
     <sprite>sprites\spr_ammo_box</sprite>
     <sprite>sprites\spr_weapon_box</sprite>
+    <sprite>sprites\spr_parachute_soldier</sprite>
     <sprite>sprites\spr_temp_arm</sprite>
     <sprite>sprites\spr_hit</sprite>
   </sprites>
@@ -405,6 +444,7 @@
           <script>scripts\armour_get_ratio.gml</script>
           <script>scripts\armour_max_dur.gml</script>
         </scripts>
+        <script>scripts\objdist.gml</script>
       </scripts>
       <scripts name="Pspec">
         <script>scripts\pspec_rinv_initialize.gml</script>
@@ -413,6 +453,7 @@
         <script>scripts\pspec_drop_item.gml</script>
         <script>scripts\pspec_pickup_init.gml</script>
         <script>scripts\pspec_pickup_init_arr.gml</script>
+        <script>scripts\pspec_rinv_player_inv.gml</script>
       </scripts>
       <scripts name="Resource Management">
         <script>scripts\res_initialize.gml</script>
@@ -726,12 +767,13 @@
           <script>scripts\txt_load_from_file.gml</script>
         </scripts>
         <scripts name="PSpec">
+          <script>scripts\txt_interface_open.gml</script>
+          <script>scripts\txt_interface_open_follow_instance.gml</script>
           <script>scripts\txt_obj_exists.gml</script>
           <script>scripts\txt_obj_name_1.gml</script>
           <script>scripts\txt_obj_name_2.gml</script>
           <script>scripts\txt_obj_sprite_1.gml</script>
           <script>scripts\txt_obj_sprite_2.gml</script>
-          <script>scripts\txt_interface_open.gml</script>
         </scripts>
         <scripts name="Background">
           <script>scripts\txt_map_set.gml</script>
@@ -790,6 +832,14 @@
           <script>scripts\game_load_master.gml</script>
         </scripts>
       </scripts>
+      <scripts name="Level VarMap">
+        <script>scripts\lvm_initialize.gml</script>
+        <script>scripts\lvm_free.gml</script>
+        <script>scripts\lvm_id.gml</script>
+        <script>scripts\lvm_exists.gml</script>
+        <script>scripts\lvm_get.gml</script>
+        <script>scripts\lvm_set.gml</script>
+      </scripts>
     </scripts>
     <scripts name="Local">
       <script>scripts\object_damage.gml</script>
@@ -827,6 +877,18 @@
         <script>scripts\place_meeting_platform.gml</script>
         <script>scripts\movement_execute.gml</script>
         <script>scripts\impact.gml</script>
+      </scripts>
+      <scripts name="AI - New">
+        <script>scripts\ai_land_initialize_default.gml</script>
+        <script>scripts\ai_land_cleanup_default.gml</script>
+        <script>scripts\ai_land_update_default.gml</script>
+        <script>scripts\ai_land_execute_movement.gml</script>
+        <script>scripts\ai_land_move_inertially.gml</script>
+        <script>scripts\ai_land_move_towards.gml</script>
+        <script>scripts\ai_land_move_away_from.gml</script>
+        <script>scripts\ai_guard_place.gml</script>
+        <script>scripts\ai_guard_body.gml</script>
+        <script>scripts\ai_guard_disable.gml</script>
       </scripts>
       <scripts name="AI">
         <script>scripts\ai_enums.gml</script>
@@ -1381,15 +1443,15 @@
         <object>objects\obj_hg_earth_slope_se</object>
         <object>objects\obj_hg_earth_slab</object>
       </objects>
-      <objects name="Enemies">
+      <objects name="AI">
         <object>objects\obj_ai_parent</object>
         <object>objects\obj_ai_parent_flyer</object>
         <object>objects\obj_tracker</object>
         <objects name="Primal">
           <object>objects\obj_enemy_basic</object>
           <object>objects\obj_enemy_sct</object>
-          <object>objects\obj_enemy_waker</object>
           <object>objects\obj_enemy_turta</object>
+          <object>objects\obj_enemy_waker</object>
           <object>objects\obj_enemy_hhp</object>
           <object>objects\obj_enemy_bb</object>
           <object>objects\obj_enemy_alpha</object>
@@ -1431,6 +1493,11 @@
         </objects>
       </objects>
       <objects name="Level specific">
+        <objects name="Intro">
+          <object>objects\obj_fsm_intro</object>
+          <object>objects\obj_intro_richard</object>
+          <object>objects\obj_parachute_soldier</object>
+        </objects>
         <objects name="Hospital">
           <object>objects\obj_fsm_hospital</object>
           <object>objects\obj_player_hospital</object>
@@ -1446,10 +1513,6 @@
           <object>objects\spr_ceme_veteran</object>
           <object>objects\obj_ceme_raskal</object>
         </objects>
-        <objects name="Intro">
-          <object>objects\obj_intro_richard</object>
-          <object>objects\object117</object>
-        </objects>
       </objects>
       <object>objects\obj_flashlight</object>
       <object>objects\obj_pickup_item</object>
@@ -1457,6 +1520,7 @@
       <object>objects\obj_bg_switcher</object>
       <object>objects\obj_tom</object>
       <object>objects\obj_dia_tester</object>
+      <object>objects\obj_secret_area</object>
     </objects>
   </objects>
   <rooms name="rooms">

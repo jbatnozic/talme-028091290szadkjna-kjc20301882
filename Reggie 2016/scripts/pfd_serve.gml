@@ -27,6 +27,6 @@ with (client) begin
 if instance_exists(tracker) && tracker>0
  remove(tracker);
  
-tracker=ai_send_tracker(_tarX,_tarY,def_maxspeed*1.42);
+tracker=ai_send_tracker(_tarX, _tarY, def_maxspeed * 1.42);
 
 end;

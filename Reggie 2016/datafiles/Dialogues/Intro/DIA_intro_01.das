@@ -4,6 +4,8 @@
 //pre susreta movement tutorial
 
 BEGIN 1, 1 
+PCODE txt_obj_name_1('Reggie');
+PCODE txt_obj_name_2('Richard');
 {Richard: Finally! I was beginning to think you'd never come!}
 {If the punishment for deserting wasn't a noose, I'd gladly let you have all the fun...}
 {What, and let you have all the fun? Dream on!}

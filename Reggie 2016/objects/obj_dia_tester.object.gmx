@@ -32,7 +32,7 @@ if (pnc_is_target(id) &amp;&amp; pnc_kbchk(KEYBOARD.interact)) {
 
  txt_begin();
       
- txt_load_from_file("Dialogues/DIALOGUE_0.das");
+ txt_load_from_file("Dialogues/Miscellaneous/DIALOGUE_0.das");
       
  txt_interface_open(x,y);
 

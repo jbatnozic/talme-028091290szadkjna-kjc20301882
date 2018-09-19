@@ -19,6 +19,7 @@ ptc_free();
 sev_free();
 res_free();
 buf_free();
+lvm_free();
 
 spl_free();
 

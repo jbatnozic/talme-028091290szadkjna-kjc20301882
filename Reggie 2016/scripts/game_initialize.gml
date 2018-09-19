@@ -146,6 +146,7 @@ if (argument0 == false) {
   txt_initialize();
   ptc_initialize();
   pnc_initialize();
+  lvm_initialize();
   
   spl_initialize();
   
