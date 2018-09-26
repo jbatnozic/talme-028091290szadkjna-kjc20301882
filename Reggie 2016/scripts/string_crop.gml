@@ -9,13 +9,17 @@ len = string_length(argument0);
 
 for (i = 1; i <= len; i += 1) {
 
-  if (string_char_at(argument0, i) != " ") break;
+  var c = string_char_at(argument0, i);
+
+  if (c != " " && c != chr(9)/*TAB*/) break;
 
   }
   
 for (t = len; t >= 1; t -= 1) {
 
-  if (string_char_at(argument0, t) != " ") break;
+  var c = string_char_at(argument0, t);
+
+  if (c != " " && c != chr(9)/*TAB*/) break;
 
   }
   

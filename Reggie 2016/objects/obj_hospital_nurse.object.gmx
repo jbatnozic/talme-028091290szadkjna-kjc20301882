@@ -61,12 +61,12 @@
 
   txt_begin();
   
-  txt_add(s[0],0,0,"[Continue\]");
-   txt_add(s[1],0,0,"[Continue\]");
-    txt_add(s[2],0,0,"[Continue\]");
-     txt_add(s[3],0,0,"[Continue\]{End}");
+  txt_add(s[0],"","","[Continue\]");
+   txt_add(s[1],"","","[Continue\]");
+    txt_add(s[2],"","","[Continue\]");
+     txt_add(s[3],"","","[Continue\]{End}");
     
-  txt_interface_open(spr_portrait_template,"Nurse",spr_portrait_template,"Raskal",x,y-38);
+  txt_interface_open(x, y-38);
   
   s=0;
 

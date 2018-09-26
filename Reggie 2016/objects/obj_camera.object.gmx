@@ -109,15 +109,24 @@ if (x&lt;&gt;_targetX or y&lt;&gt;_targetY) {
   var _dir  = point_direction(x,y,_targetX,_targetY),
       _dist = point_distance(x,y,_targetX,_targetY);
       
-  x += round(dcos(_dir)*(_dist/8));
-  y -= round(dsin(_dir)*(_dist/8));
+  if (!global.scene_camera_on) {
+      
+    x += round(dcos(_dir)*(_dist/8));
+    y -= round(dsin(_dir)*(_dist/8));
   
+  } else {
+  
+    x += round(dcos(_dir)*(_dist/16));
+    y -= round(dsin(_dir)*(_dist/16));
+  
+    }
+    
   }
         
 //If close, snap:
-if (abs(x - _targetX) &lt; 1/8)
+if (abs(x - _targetX) &lt; 0.15)
   x = _targetX; 
-if (abs(y - _targetY) &lt; 1/8)
+if (abs(y - _targetY) &lt; 0.15)
   y = _targetY;
  
 //Clamp &amp; Round:   
@@ -165,29 +174,6 @@ if (deactivation_counter == 0) {
   
 
 
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="54">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>shake_force = 20;
 </string>
           </argument>
         </arguments>

@@ -78,12 +78,12 @@ if (_dialogue==1) {
   
   txt_begin();
   
-    txt_add(s[0],0,0,s[1]);
-     txt_add(s[2],0,0,s[3]);
-      txt_add(s[4],0,"obj_hospital_raskal.a=1;","That's a pity. Richard was-");
-       txt_add(s[5],0,"obj_hospital_raskal.a=2;","[End\]{End}");
+    txt_add(s[0],"","",s[1]);
+     txt_add(s[2],"","",s[3]);
+      txt_add(s[4],"","obj_hospital_raskal.a=1;","That's a pity. Richard was-");
+       txt_add(s[5],"","obj_hospital_raskal.a=2;","[End\]{End}");
        
-  txt_interface_open(spr_portrait_template,"Reggie",spr_portrait_template,"Raskal",x,y-38);
+  txt_interface_open(x,y-38);
 
   s=0;
   _dialogue=false;
@@ -128,12 +128,12 @@ if (_dialogue==2) {
   
   txt_begin();
   
-    txt_add(s[0],0,0,s[1]);
-     txt_add(s[2],0,0,s[3]);
-      txt_add(s[4],0,0,s[5]);
-       txt_add(s[6],0,0,"[End\]{End}");
+    txt_add(s[0],"","",s[1]);
+     txt_add(s[2],"","",s[3]);
+      txt_add(s[4],"","",s[5]);
+       txt_add(s[6],"","","[End\]{End}");
        
-  txt_interface_open(spr_portrait_template,"Reggie",spr_portrait_template,"Raskal",0,0);
+  txt_interface_open(0,0);
 
   s=0;
   _dialogue=false;

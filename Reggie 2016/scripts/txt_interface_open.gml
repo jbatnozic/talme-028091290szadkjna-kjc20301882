@@ -1,4 +1,4 @@
-///txt_interface_open(Sprite 1, Name 1, Sprite 2, Name 2, Camera X, Camera Y);
+///txt_interface_open(Camera X, Camera Y);
 /*
 
 */
@@ -6,20 +6,41 @@ var a;
 
 io_clear();
 
-a=instance_create(x,y,obj_textbox);
+a = instance_create(x, y, obj_textbox);
 
-a.sprite_1=argument[0];
-a.sprite_2=argument[2];
-a.name_1=argument[1];
-a.name_2=argument[3];
-
-a.camera_target_x=argument[4];
-a.camera_target_y=argument[5];
+a.camera_target_x = argument0;
+a.camera_target_y = argument1;
+a.camera_mode = 0;
 
 with (a) {
 
-  var bbh=obj_game_controller._drawY,
-      cov=max(0,sprite_height-bbh)/(4-gui_get_scale());
-  game_set_scene_camera(camera_target_x,camera_target_y+cov);
+  var camX, camY;
+
+  camX = camera_target_x;
+  camY = camera_target_y;  
+     
+  var windowPerc = (sprite_height * sprite_scale) / gui_height();
+  var viewPerc;
+  
+  var ratio = gui_width() / gui_height();
+  
+  if (ratio >= 16/9) { // Black bars on the side
+  
+    viewPerc = windowPerc;
+    
+    }
+  else { // Black barn on top & bottom
+  
+    var actualHeight   = gui_width() * (9/16);
+    var blackBarHeight = (gui_height() - actualHeight) / 2;
+    
+    if (blackBarHeight >= sprite_height * sprite_scale)
+      viewPerc = 0;
+    else
+      viewPerc = (sprite_height * sprite_scale - blackBarHeight) / actualHeight;
+      
+    }
+    
+  game_set_scene_camera(camX, camY + (view_hview * viewPerc / 2));
   
   }

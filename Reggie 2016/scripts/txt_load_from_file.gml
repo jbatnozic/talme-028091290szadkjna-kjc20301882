@@ -7,6 +7,10 @@ argument0 - name of the file to read from (including the .txt suffix)
 
 var file, line, len, mode, pcode, scode, arr, cnt, ordinal;
 
+var newline = chr(13) + chr(10); // CRLF on Windows
+var nl_len  = string_length(newline);
+var disable_jmpif = false;
+
 // Modes: 0 = Add, 1 = Set path
 
 file = file_text_open_read(argument0);
@@ -21,18 +25,11 @@ while (!file_text_eof(file)) {
 
   line = file_text_readln(file);
   
-  if (string_copy(line, string_length(line) - 1, 2) == (chr(13) + chr(10))) { // Remove CRLF if needed
-  
-    line = string_crop(string_delete(line, string_length(line) - 1, 2)); // On Windows, \n is CRLF (2 characters) so
-                                                                        // we need to remove 2 from the end
+  if (string_copy(line, string_length(line) - 1, 2) == newline) { // Remove newline if needed
+    line = string_crop(string_delete(line, string_length(line) - (nl_len - 1), nl_len));
     }
   else
     line = string_crop(line);
-  
-  //for (var j = 1; j <= string_length(line); j+= 1)
-  //  show_message(ord(string_char_at(line, j)));
-  //show_message(string(string_pos(chr(10), line)) + " in line " + string(ordinal));
-  //if (true) show_message(ord(string_char_at(line, string_length(line))));
   
   len = string_length(line);
   
@@ -40,10 +37,35 @@ while (!file_text_eof(file)) {
   
   if (string_char_at(line, 1) == "{") { // TEXT - OK
   
-    var t = string_length(line);
+    var t;
     
-    while (string_char_at(line, t) != "}") t -= 1;
+    while (true) {
     
+      t = string_length(line);
+    
+      while (t >= 1 && string_char_at(line, t) != "}") t -= 1;
+      
+      if (t < 1) { // Read and append another line
+      
+        if (!file_text_eof(file))
+          line += file_text_readln(file);
+        else {
+          file_text_close(file);
+          show_error("txt_load_from_file - Unclosed { found, end of file reached.", true);
+          }
+      
+        // Remove newline if needed:
+        if (string_copy(line, string_length(line) - 1, 2) == newline) { 
+          line = string_crop(string_delete(line, string_length(line) - (nl_len - 1), nl_len));
+          }
+        else
+          line = string_crop(line);
+          
+        }
+      else break;
+      
+      }
+      
     arr[cnt] = string_copy(line, 2, t - 2);
     
     if (string_pos("EOP", string_delete(line, 1, t)) != 0) {
@@ -65,8 +87,31 @@ while (!file_text_eof(file)) {
       if (string_char_at(line, i) == "{") break;
       }
       
-    for (t = len; t > i; t -= 1) {
-      if (string_char_at(line, i) == "{") break;
+    while (true) {
+    
+      t = string_length(line);
+    
+      while (t >= 1 && string_char_at(line, t) != "}") t -= 1;
+      
+      if (t < 1) { // Read and append another line
+      
+        if (!file_text_eof(file))
+          line += file_text_readln(file);
+        else {
+          file_text_close(file);
+          show_error("txt_load_from_file - Unclosed { found, end of file reached.", true);
+          }
+      
+        // Remove newline if needed:
+        if (string_copy(line, string_length(line) - 1, 2) == newline) { 
+          line = string_crop(string_delete(line, string_length(line) - (nl_len - 1), nl_len));
+          }
+        else
+          line = string_crop(line);
+          
+        }
+      else break;
+      
       }
       
     arr[cnt] = cond + "{Cdt}" + string_copy(line, i + 1, t - (i + 1));
@@ -79,7 +124,7 @@ while (!file_text_eof(file)) {
   
     }
   else if (string_copy(line, 1, 2) == "//") { // COMMENT - OK
-    // Skip
+    // Ignore
     }
   else if (string_copy(line, 1, 3) == "END") { // END - OK
   
@@ -122,15 +167,17 @@ while (!file_text_eof(file)) {
       }
     else if (temp == "PCODE") { // PCODE - OK
     
-      pcode = string_delete(line, 1, 5);
+      pcode += string_delete(line, 1, 5);
     
       }
     else if (temp == "SCODE") { // SCODE - OK
     
-      scode = string_delete(line, 1, 5);
+      scode += string_delete(line, 1, 5);
     
       }
     else if (temp == "JMPIF") { // JMPIF - OK
+    
+      if (disable_jmpif) continue;
     
       var arrow_pos = string_pos("->", line);
     
@@ -149,6 +196,8 @@ while (!file_text_eof(file)) {
         txt_map_set("begin_branch", branch);
         
         //show_message("JMPIF set begin stage / branch to [" + string(stage) + ", " + string(branch) + "].");
+        
+        disable_jmpif = true;
             
         }
     

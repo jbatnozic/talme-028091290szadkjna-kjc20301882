@@ -46,15 +46,28 @@ HG_world_lighting_set_ambient(-1, amb_alpha, col);
 
 res_instance_init();
 
+amb_color_sw = 0;
+amb_alpha_sw = 0;
+amb_switch_amount = 0;
+amb_switch_flag = false;
+
 //*** BACKGROUND SETUP: ***
 
 //Example:
-//amb_backgrounds[n,0] = background_name;
-//amb_backgrounds[n,1] = parallax_speed;
+// far_backgrounds[n,0] = background_name;
+// far_backgrounds[n,1] = parallax_speed;
+//near_backgrounds[n,0] = background_name;
+//near_backgrounds[n,1] = parallax_speed;
 
-amb_backgrounds = 0;
+ far_backgrounds = 0;
+near_backgrounds = 0;
+ far_backgrounds_sw = 0;
+near_backgrounds_sw = 0;
 
 _altHeight = 0;
+switch_alpha = 0;
+
+global.do_compose_surfaces = true;
 
 
 
@@ -179,6 +192,93 @@ if (res_instance_get_flag() == RES_FLAG.do_recover) {
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Background switching
+
+if (is_array(far_backgrounds_sw) || is_array(near_backgrounds_sw)) {
+
+  switch_alpha += (1 / 60);
+  
+  if (switch_alpha &gt;= 1) {
+  
+     far_backgrounds =  far_backgrounds_sw;
+    near_backgrounds = near_backgrounds_sw;
+  
+     far_backgrounds_sw = 0;
+    near_backgrounds_sw = 0;
+    
+    switch_alpha = 0;
+    
+    }
+  
+  }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Ambient switching
+
+if (amb_switch_flag) {
+
+  amb_switch_amount = min(amb_switch_amount + (1 / 60), 1);
+
+  var _r, _g, _b, _a;
+  
+  _r = lerp(amb_red,   colour_get_red(amb_color_sw),   amb_switch_amount);
+  _g = lerp(amb_green, colour_get_green(amb_color_sw), amb_switch_amount);
+  _b = lerp(amb_blue,  colour_get_blue(amb_color_sw),  amb_switch_amount);
+  _a = lerp(amb_alpha, amb_alpha_sw,                   amb_switch_amount);
+
+  HG_world_lighting_set_ambient(-1, _a, make_colour_rgb(_r, _g, _b));
+  
+  if (amb_switch_amount == 1) {
+  
+    amb_red   = _r;
+    amb_green = _g;
+    amb_blue  = _b;
+    amb_alpha = _a;
+    
+    amb_switch_amount = 0;
+    amb_switch_flag = false;
+  
+    }
+
+  }
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="7" enumb="10">
       <action>
@@ -220,16 +320,29 @@ if (res_instance_get_flag() == RES_FLAG.do_recover) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Draw the sky STUB
-               
-var bg = bg_night_sky_1;               
+            <string>/// Draw FAR backgrounds
+  
+var i;
 
-draw_background_ext(bg, view_xview, view_yview,
-                    GLOBAL.view_width  / background_get_width(bg),
-                    GLOBAL.view_height / background_get_height(bg),
-                    0, c_white, 1);
-                    
-draw_background_parallax(bg_3, 0.5, true, false, _altHeight, 1, 1);
+if (is_array(far_backgrounds)) {
+
+  for (i=0; i&lt;array_height_2d(far_backgrounds); i += 1) {
+  
+    draw_background_parallax(far_backgrounds[i,0], far_backgrounds[i,1], true, false, _altHeight, 1, 1);
+   
+    }
+  
+  }
+  
+if (is_array(far_backgrounds_sw)) {
+
+  for (i=0; i&lt;array_height_2d(far_backgrounds_sw); i += 1) {
+  
+    draw_background_parallax(far_backgrounds_sw[i,0], far_backgrounds_sw[i,1], true, false, _altHeight, switch_alpha, 1);
+   
+    }
+  
+  }
 </string>
           </argument>
         </arguments>
@@ -262,7 +375,11 @@ if (!surface_exists(compSurf)) {
 
   }
   
-surface_copy(compSurf, 0, 0, application_surface);
+if (global.do_compose_surfaces == true) {
+  
+  surface_copy(compSurf, 0, 0, application_surface);
+
+  }
 </string>
           </argument>
         </arguments>
@@ -283,21 +400,33 @@ surface_copy(compSurf, 0, 0, application_surface);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Draw other packgrounds
+            <string>/// Draw NEAR packgrounds
 var i;
 
-if (!is_array(amb_backgrounds)) exit;
+if (!is_array(near_backgrounds)) {
 
-for (i=0; i&lt;array_height_2d(amb_backgrounds); i+=1) {
-
- draw_background_parallax(amb_backgrounds[i,0], amb_backgrounds[i,1], true, false, _altHeight, 1, 1);
+  for (i=0; i&lt;array_height_2d(near_backgrounds); i += 1) {
+  
+   draw_background_parallax(near_backgrounds[i,0], near_backgrounds[i,1], true, false, _altHeight, 1, 1);
+   
+   }
  
  }
  
- /*
- draw_background_parallax(bg_2,0.75,true,false,_altHeight,1,1);
- draw_background_parallax(bg_1,0.5,true,false,_altHeight,1,1);
- */
+if (!is_array(near_backgrounds_sw)) {
+
+  for (i=0; i&lt;array_height_2d(near_backgrounds_sw); i += 1) {
+  
+   draw_background_parallax(near_backgrounds_sw[i,0], near_backgrounds_sw[i,1], true, false, _altHeight, switch_alpha, 1);
+   
+   }
+ 
+ }
+ 
+/*
+draw_background_parallax(bg_2,0.75,true,false,_altHeight,1,1);
+draw_background_parallax(bg_1,0.5,true,false,_altHeight,1,1);
+*/
 </string>
           </argument>
         </arguments>

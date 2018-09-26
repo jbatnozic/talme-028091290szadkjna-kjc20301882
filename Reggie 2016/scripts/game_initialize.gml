@@ -146,6 +146,7 @@ if (argument0 == false) {
   txt_initialize();
   ptc_initialize();
   pnc_initialize();
+  lvm_initialize();
   
   spl_initialize();
   
@@ -172,6 +173,7 @@ if (argument0 == false) {
   //Helper draw surface:
   global.auxilary_surface = -1;
   global.composit_surface = -1;
+  global.do_compose_surfaces = true;
   
   }
   

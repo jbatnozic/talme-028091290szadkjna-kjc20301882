@@ -29,126 +29,127 @@
 
 //&lt;MOVEMENT&gt; variables:
 
- //Output:
- _hspeed=0;
- _vspeed=0;
- _grounded=0;
- _climb=10;
-
- //Mask:
- _maskDefault=aiDefaultMask;
- _maskCrouch=aiCrouchMask;
-  mask_index=_maskCrouch;
- _height=sprite_get_height(mask_index);
- _width=sprite_get_width(mask_index);
-
- //Default variables: (Enumerate All)
- def_maxspeed=5;
- def_climbspeed=2;
- def_acceleration=0.8;
- def_jumpPower=12;
- def_aircontrol=0.4;
- def_abscontrol=1;
- def_gravity=0.6;
- def_friction=1-0.005;
-
- //Other:
- _moveMode=0;
- _moveType=3;
- _moveHeight=0;
- _jumpCd=0;
- _jumpCdMax=0;
- 
- _allowedLadder=true; // e
-
- _xPrevOlder=x;
- _xPrevOld=x;
- 
- _hSpeedTreshold=11;   // e
- _vSpeedTreshold=14;   // e
- 
- _KBresist=0;
- 
- _eccentricity=1;      // e
- _rangeTolerance=32;   // e, d
- _prefTolerance=0;     // e, d 
- pfd_instance_init();
+  //Output:
+  _hspeed   = 0;
+  _vspeed   = 0;
+  _grounded = 0;
+  _climb    = 10;
+  
+  //Mask:
+  _maskDefault = aiDefaultMask;
+  _maskCrouch  = aiCrouchMask;
+   mask_index  = _maskCrouch;
+  _height = sprite_get_height(mask_index);
+  _width  = sprite_get_width(mask_index);
+  
+  //Default variables: (Enumerate All)
+  def_maxspeed     = 5;
+  def_climbspeed   = 2;
+  def_acceleration = 0.8;
+  def_jumpPower    = 12;
+  def_aircontrol   = 0.4;
+  def_abscontrol   = 1;
+  def_gravity      = 0.6;
+  def_friction     = 1 - 0.005;
+  
+  //Other:
+  _moveMode   = 0;
+  _moveType   = 3;
+  _moveHeight = 0;
+  _jumpCd     = 0;
+  _jumpCdMax  = 0;
+  
+  _allowedLadder = true; // e
+  
+  _xPrevOlder = x;
+  _xPrevOld   = x;
+  
+  _hSpeedTreshold = 11;   // e
+  _vSpeedTreshold = 14;   // e
+  
+  _KBresist = 0;
+  
+  _eccentricity   = 1;  // e
+  _rangeTolerance = 32; // e, d
+  _prefTolerance  = 0;  // e, d 
+  pfd_instance_init();
  
 //&lt;BEHAVIOUR&gt; variables:
-_scriptIdle=0; // d
-_scriptHide=0; // d
-_scriptStep=0; // d
 
-_skipUpdate=0;
+  _scriptIdle = 0; // d
+  _scriptHide = 0; // d
+  _scriptStep = 0; // d
+  
+  _skipUpdate = 0;
 
 //&lt;COMBAT&gt; variables:
 
- //Basic:
- _group=GROUP.enemy;
-
- _maxHealth=100;      // e
- _health=_maxHealth;
- _armour=0;           // e
-
- _aiState=AI_STATE.idle;
- _target=-1;
- _tarX=-1;
- _tarY=-1;
- _hiddenTimer=0;
- _hiddenTimerMax=900; // e
- _fleeTimerMax=300;   // e
- _prefDistPrim=0;     // e
- _prefDistSec=0;      // e
- _prefDist=_prefDistPrim;
- _viewRange=800;      // e - Larger than preferred distance
- _playerBias=50;      // e 
- 
- //Buffs:
- buf_instance_init();
- res_instance_init();
-
- //Patrol:
- point_1_x=-1;
- point_1_y=-1;
- point_2_x=-1;
- point_2_y=-1;
- _aiPatrol=false;
- _aiPatrolNode=0;
- 
- //Guard:
- _startX=x;
- _startY=y;
- _aiGuard=false;
- _guardRange=240;
- _guardBody=-1;
- 
- //Morale:
- _moraleBase=0;       //e
- _moraleCounter=irandom(60);
- _morale=(MORALE.flee+MORALE.rage)/2;
- 
- //Spawn Point 
- _spawnPointEnabled=false;
- _allowedSpawnDistance=100;
+  //Basic:
+  _group = GROUP.enemy;
+  
+  _maxHealth = 100;     // e
+  _health    = _maxHealth;
+  _armour    = 0;       // e
+  
+  _aiState        = AI_STATE.idle;
+  _target         = -1;
+  _tarX           = -1;
+  _tarY           = -1;
+  _hiddenTimer    = 0;
+  _hiddenTimerMax = 900; // e
+  _fleeTimerMax   = 300; // e
+  _prefDistPrim   = 0;   // e
+  _prefDistSec    = 0;   // e
+  _prefDist       = _prefDistPrim;
+  _viewRange      = 800; // e - Larger than preferred distance
+  _playerBias     = 50;  // e 
+  
+  //Buffs:
+  buf_instance_init();
+  res_instance_init();
+  
+  //Patrol:
+  point_1_x = -1;
+  point_1_y = -1;
+  point_2_x = -1;
+  point_2_y = -1;
+  _aiPatrol = false;
+  _aiPatrolNode = 0;
+  
+  //Guard:
+  _startX     = x;
+  _startY     = y;
+  _aiGuard    = false;
+  _guardRange = 240;
+  _guardBody  = -1;
+  
+  //Morale:
+  _moraleBase    = 0; // e
+  _moraleCounter = irandom(60);
+  _morale        = (MORALE.flee + MORALE.rage) / 2;
+  
+  //Spawn Point 
+  _spawnPointEnabled    = false;
+  _allowedSpawnDistance = 100;
 
 //&lt;OTHER&gt; variables:
 
- _density=15/100;
- _eyesYDefault=15;    //e
- _eyesYCrouch=7;      //e
- _eyesY=_eyesYDefault;
- _relY=sprite_get_height(_maskDefault)-sprite_get_height(_maskCrouch);
- _randomGen=0;
- _randomGenCounter=0;
- _idleType=0;
- sprite_index=choose(spr_enemy_brain,
-                     spr_enemy_robocop,
-                     spr_enemy_sponge,
-                     spr_enemy_prime,
-                     spr_enemy_ninja,
-                     spr_enemy_fsm);
+ _density      = 15 / 100;
+ _eyesYDefault = 15; // e
+ _eyesYCrouch  = 7;  // e
+ _eyesY        = _eyesYDefault;
+ _relY         = sprite_get_height(_maskDefault)-sprite_get_height(_maskCrouch);
+ _randomGen    = 0;
+ _randomGenCounter = 0;
+ _idleType     = 0;
+ sprite_index  = choose(spr_enemy_brain,
+                        spr_enemy_robocop,
+                        spr_enemy_sponge,
+                        spr_enemy_prime,
+                        spr_enemy_ninja,
+                        spr_enemy_fsm);
  
- _bufSave="";
+ _bufSave = "";
 </string>
           </argument>
         </arguments>
@@ -323,10 +324,10 @@ if _attackTimerSec&gt;-_attackSpeedSec
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Update
+            <string>/// Update
 
-//Load recovery:
-if (res_instance_get_flag() == RES_FLAG.do_recover) {
+// Load recovery -- STUB
+/*if (res_instance_get_flag() == RES_FLAG.do_recover) {
 
   //show_message("Enemy recovering");
 
@@ -335,35 +336,37 @@ if (res_instance_get_flag() == RES_FLAG.do_recover) {
   
   res_instance_init();
 
+  }*/
+
+// Calc General Random:
+if (_randomGenCounter &gt; 0) {
+  _randomGenCounter -= 1;
+  }
+else {
+  _randomGenCounter = 59;
+  _randomGen = 1 + irandom(99);
   }
 
-//Calc General Random:
-if (_randomGenCounter&gt;0) _randomGenCounter-=1
- else {
-  _randomGenCounter=59;
-  _randomGen=1+irandom(99);
-  }
-
-//Save old xPrevious:
+// Save old xPrevious:
 _xPrevOlder = _xPrevOld;
-_xPrevOld = xprevious;
+_xPrevOld   = xprevious;
 
 //*** MOVEMENT TYPE &amp; HEIGHT: ***
 var __ceiling, __ladder;
 
-__ladder=false;
+__ladder = false;
 
 set_mask(_maskDefault);
-__ceiling=place_meeting_solid(x,y);
+__ceiling = place_meeting_solid(x, y);
 
-if (__ceiling=false and _allowedLadder=true)
- __ladder=place_meeting_obj(x,y,ladderObj,false);
+if (__ceiling == false and _allowedLadder == true)
+  __ladder = place_meeting_obj(x, y, ladderObj, false);
   
 set_mask(_maskCrouch);
-if (__ceiling=true and _allowedLadder=true)
- __ladder=place_meeting_obj(x,y,ladderObj,false);
+if (__ceiling == true and _allowedLadder == true)
+  __ladder=place_meeting_obj(x, y, ladderObj, false);
 
-if (_grounded=true) {
+if (_grounded == true) {
 
  _moveType = AI_MOVE.mt_normal;
  
@@ -651,85 +654,85 @@ else
 
 switch (_aiState) begin
 
- case AI_STATE.idle:
-   _maxspeed=def_maxspeed;
-   _climbSpeed=def_climbspeed;
-   _acceleration=def_acceleration;
-   _jumpPower=def_jumpPower;
-   _aircontrol=def_aircontrol;
-   _abscontrol=def_abscontrol;
-   _gravity=def_gravity;
-   _friction=def_friction;
-  break;
+  case AI_STATE.idle:
+     _maxspeed     = def_maxspeed;
+     _climbSpeed   = def_climbspeed;
+     _acceleration = def_acceleration;
+     _jumpPower    = def_jumpPower;
+     _aircontrol   = def_aircontrol;
+     _abscontrol   = def_abscontrol;
+     _gravity      = def_gravity;
+     _friction     = def_friction;
+    break;
   
- case AI_STATE.patrol:
-   _maxspeed=def_maxspeed/2;
-   _climbSpeed=def_climbspeed;
-   _acceleration=def_acceleration/2;
-   _jumpPower=def_jumpPower;
-   _aircontrol=def_aircontrol;
-   _abscontrol=def_abscontrol;
-   _gravity=def_gravity;
-   _friction=def_friction;
-  break;
+  case AI_STATE.patrol:
+     _maxspeed     = def_maxspeed / 2.0;
+     _climbSpeed   = def_climbspeed;
+     _acceleration = def_acceleration / 2.0;
+     _jumpPower    = def_jumpPower;
+     _aircontrol   = def_aircontrol;
+     _abscontrol   = def_abscontrol;
+     _gravity      = def_gravity;
+     _friction     = def_friction;
+    break;
   
- case AI_STATE.ret:
-   _maxspeed=def_maxspeed;
-   _climbSpeed=def_climbspeed;
-   _acceleration=def_acceleration;
-   _jumpPower=def_jumpPower;
-   _aircontrol=def_aircontrol;
-   _abscontrol=def_abscontrol;
-   _gravity=def_gravity;
-   _friction=def_friction;
-  break;
+  case AI_STATE.ret:
+     _maxspeed     = def_maxspeed;
+     _climbSpeed   = def_climbspeed;
+     _acceleration = def_acceleration;
+     _jumpPower    = def_jumpPower;
+     _aircontrol   = def_aircontrol;
+     _abscontrol   = def_abscontrol;
+     _gravity      = def_gravity;
+     _friction     = def_friction;
+    break;
   
- case AI_STATE.flee:
-   _maxspeed=def_maxspeed*1.0;
-   _climbSpeed=def_climbspeed;
-   _acceleration=def_acceleration;
-   _jumpPower=def_jumpPower;
-   _aircontrol=def_aircontrol;
-   _abscontrol=def_abscontrol;
-   _gravity=def_gravity;
-   _friction=def_friction;
-  break;
+  case AI_STATE.flee:
+     _maxspeed     = def_maxspeed * 1.0;
+     _climbSpeed   = def_climbspeed;
+     _acceleration = def_acceleration;
+     _jumpPower    = def_jumpPower;
+     _aircontrol   = def_aircontrol;
+     _abscontrol   = def_abscontrol;
+     _gravity      = def_gravity;
+     _friction     = def_friction;
+    break;
   
- case AI_STATE.hide:
-   _maxspeed=def_maxspeed;
-   _climbSpeed=def_climbspeed;
-   _acceleration=def_acceleration;
-   _jumpPower=def_jumpPower;
-   _aircontrol=def_aircontrol;
-   _abscontrol=def_abscontrol;
-   _gravity=def_gravity;
-   _friction=def_friction;
-  break;
+  case AI_STATE.hide:
+     _maxspeed     = def_maxspeed;
+     _climbSpeed   = def_climbspeed;
+     _acceleration = def_acceleration;
+     _jumpPower    = def_jumpPower;
+     _aircontrol   = def_aircontrol;
+     _abscontrol   = def_abscontrol;
+     _gravity      = def_gravity;
+     _friction     = def_friction;
+    break;
   
- case AI_STATE.forcedmove:
-   _maxspeed=def_maxspeed;
-   _climbSpeed=def_climbspeed;
-   _acceleration=def_acceleration;
-   _jumpPower=def_jumpPower;
-   _aircontrol=def_aircontrol;
-   _abscontrol=def_abscontrol;
-   _gravity=def_gravity;
-   _friction=def_friction;
-  break;
+  case AI_STATE.forcedmove:
+     _maxspeed     = def_maxspeed;
+     _climbSpeed   = def_climbspeed;
+     _acceleration = def_acceleration;
+     _jumpPower    = def_jumpPower;
+     _aircontrol   = def_aircontrol;
+     _abscontrol   = def_abscontrol;
+     _gravity      = def_gravity;
+     _friction     = def_friction;
+    break;
   
- case AI_STATE.hunt:
-   _maxspeed=def_maxspeed;
-   _climbSpeed=def_climbspeed;
-   _acceleration=def_acceleration;
-   _jumpPower=def_jumpPower;
-   _aircontrol=def_aircontrol;
-   _abscontrol=def_abscontrol;
-   _gravity=def_gravity;
-   _friction=def_friction;
-  break;
+  case AI_STATE.hunt:
+     _maxspeed     = def_maxspeed;
+     _climbSpeed   = def_climbspeed;
+     _acceleration = def_acceleration;
+     _jumpPower    = def_jumpPower;
+     _aircontrol   = def_aircontrol;
+     _abscontrol   = def_abscontrol;
+     _gravity      = def_gravity;
+     _friction     = def_friction;
+    break;
   
- default:
-  break;
+  default:
+    break;
 
 end;
 
@@ -752,12 +755,17 @@ if _moveType=1 { // Ladder:
 buf_execute();
 buf_execute_vfx();
 
-_maxspeed*=mod_speed;
-_climbSpeed*=mod_speed;
-_acceleration*=mod_speed;
-_jumpPower*=mod_jump;
+_maxspeed     *= mod_speed;
+_climbSpeed   *= mod_speed;
+_acceleration *= mod_speed;
+_jumpPower    *= mod_jump;
 
-_health+=mod_hp/60;
+_health += mod_hp / 60;
+
+
+
+
+
 </string>
           </argument>
         </arguments>
@@ -802,319 +810,23 @@ if _scriptStep&lt;&gt;0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Movement execution -- MODE 0
-/*
-Just move inertially.
-*/
-if _moveMode==0 begin
+            <string>///Movement execution
 
- movement_execute(0,0,0,0,4);
+switch (_moveMode) {
 
-end;
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Movement execution -- MODE 1
-/*
-Move towards target.
-*/
-var __left,__right,__down,__jump,__grounded,__ceiling,__sign;
+  case AI_MOVE.mm_inertial:
+    ai_land_move_inertially();
+    break;
+  
+  case AI_MOVE.mm_towards:
+    ai_land_move_towards();
+    break;
+  
+  case AI_MOVE.mm_away_from:
+    ai_land_move_away_from();
+    break;
 
-if _moveMode==1 begin
-
-//Deal with trackers &amp; set left/right controls:
-if point_distance(x,y,_tarX,_tarY)&lt;32 {
- if instance_exists(tracker) &amp;&amp; tracker&gt;0
-  remove(tracker);
-  __left=0;
-  __right=0;
- }
- else {
-  pfd_request();
-  __left=(sign(_hspeed)==-1);
-  __right=(sign(_hspeed)==1);
   }
-
-//Controls:
-__down=false;
-__jump=false;
-
-if instance_exists(tracker)=true and tracker&gt;0 {
- 
- //Down:
- if tracker._Ystate=1
-  __down=true;
-  
- //Grounded &amp; ceiling check: 
- __grounded=_grounded;
- __ceiling=place_meeting_terrain(x,y-_jumpPower-cpptern(_moveType==1,_relY,0),false);
-
- //Left / right:
- if (__grounded=true or _hspeed=0) {
-  if tracker._Xstate=1 {
-   __right=true;
-   __left=false;
-   }
-   else if tracker._Xstate=-1 {
-    __left=true;
-    __right=false;
-    }
-  }
-  
- __sign=tracker._Xstate;
-
- //Jump:
- if (__grounded=true and __ceiling=false and _jumpCd&lt;=0) {
-     
-  if (_vspeed&gt;=0 and tracker._Ystate=-1 and y-tracker.y&gt;8) {  
-      // Jump over terrain in front (High - Moving):
-   if (HG_collision_rectangle(-1,x+_width*__sign/2,y-_eyesY-_height/4,x+_width*__sign+_hspeed*2,y-_height/4,GLOBAL.precision)=true)
-      // Tracker going vertically:
-   || (abs(tracker.x-x)&lt;8 and __sign=0)
-     
-    __jump=true;    
-    
-   }
-   
-     // Jump over gaps:
-  if __jump=false {
-   if (_vspeed&gt;=0 and tracker._Ystate&lt;&gt;1 and
-      !HG_collision_rectangle(-1,x,y+_height/2,x+__sign*_width*2,y+_height/2+8,GLOBAL.precision) &amp;&amp;
-      collision_line(x,y+_height/2+1,x+__sign*_width*2,y+_height/2+1,platformParObj,false,true)=noone)
-    __jump=true;
-    }
-   
-     //Jump over terrain in front (Low and High - Stationary):
-  if __jump=false {
-   if (abs(x-_xPrevOlder)&lt;0.3 and place_meeting_terrain(x+_width*__sign/2,y,!__down)=true)
-    __jump=true;
-   }
-  
-     //Randomization:
-  if (_randomGen&gt;100-_eccentricity and tracker._Ystate&lt;&gt;0 and
-      _aiState&lt;&gt;AI_STATE.patrol and _aiState&lt;&gt;AI_STATE.hide) {
-   __jump=!__jump;
-   }
-    
-  }
-  
-  //Airborne steering:
-  else if (__grounded=false and _aircontrol&gt;0) {
-  
-   var __dl, __dc, __dr;
-   
-   __dl=HG_collision_ray(-1,x-_width*0.5,y+_height*0.5,270,GLOBAL.precision,_height*1.5);
-   if (__dl[1]&lt;&gt;undefined)
-    __dl=(__dl[1]-y)
-    else __dl=1000;
-   
-   __dc=HG_collision_ray(-1,x,y+_height*0.5,270,GLOBAL.precision,_height*1.5);
-   if (__dc[1]&lt;&gt;undefined)
-    __dc=(__dc[1]-y)
-    else __dc=1000;
-   
-   __dr=HG_collision_ray(-1,x+_width*0.5,y+_height*0.5,270,GLOBAL.precision,_height*1.5);
-   if (__dr[1]&lt;&gt;undefined)
-    __dr=(__dr[1]-y)
-    else __dr=1000;
-    
-   if (__dl+__dr+__dc&lt;3000) {
-   
-    if (__dl&lt;__dc and __dl&lt;__dr) {
-      __left=true;
-      __right=false;
-      }
-      else if (__dr&lt;__dc and __dr&lt;__dl) {
-      __left=false;
-      __right=true;
-      }
-      
-     }
-   
-   }  
-  
-//Ladder:
-if _moveType=1 {
- if (__down=true and _vspeed&lt;_climbSpeed)
-  _vspeed+=_climbSpeed*0.01
-  else if (tracker._Ystate=-1 and _vspeed&gt;-_climbSpeed)
-   _vspeed-=_climbSpeed*0.01;
- _vspeed=clamp(_vspeed,-_climbSpeed,_climbSpeed);
- 
- if abs(tracker.x-x)&lt;8 {
-  __left=false;
-  __right=false;
-  }
- }
-
-
-}
-
-//Executing:
-movement_execute(__left,__right,__down,__jump,4);
-
-if (__jump=true)
- _jumpCd=_jumpCdMax;
-
-end;
-
-
-
-
-
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Movement execution -- MODE 2
-/*
-Move away from the target.
-*/
-var __left,__right,__down,__jump,__grounded,__ceiling,__sign;
-
-if _moveMode==2 begin
-
-//Deal with trackers:
-if instance_exists(tracker) &amp;&amp; tracker&gt;0 {
-  remove(tracker);
-  }
-  
-//Controls:
-
- //Down:
- if _tarY+8&lt;y __down=false
-  else __down=true;
-  
-  //Randomization:
-  if place_meeting_platform(x,y+1) and _randomGen&lt;35
-   __down=!__down;
-
- //Grounded &amp; ceiling check: 
- __grounded=_grounded;
- __ceiling=place_meeting_terrain(x,y-_jumpPower,false);
- 
- //Left &amp; Right, Sign set:
- __sign=0;
- if _tarX&gt;x {
-  __left=true;
-  __right=false;
-  __sign=-1;
-  }
-  else {
-   __left=false;
-   __right=true;  
-   __sign=1;
-   }
-
- //Jump:
- __jump=false;
-
- if (__grounded=true and __ceiling=false and _jumpCd&lt;=0) {
-     
-  if (_vspeed&gt;=0) {
-      // Jump over terrain in front (High - Moving):
-   if (HG_collision_rectangle(-1,x+_width*__sign/2,y-_height/2,x+_width*__sign+_hspeed*2,y,GLOBAL.precision)=true)
-      // Jump over gaps:
-   || (HG_collision_line(-1,x,y+_height/2+1,x+__sign*_width*2,y+_height/2+1,GLOBAL.precision)=false &amp;&amp;
-       collision_line(x,y+_height/2+1,x+__sign*_width*2,y+_height/2+1,platformParObj,false,true)=noone)
-    
-    __jump=true;
-
-   }
-   
-     //Jump over terrain in front (Low and High - Stationary):
-  if __jump=false {
-   if (abs(x-_xPrevOlder)&lt;0.33 and place_meeting_terrain(x+_width*__sign/2,y,!__down)=true)
-    __jump=true;
-   }
-  
-     //Randomization:
-  if (_randomGen&gt;100-_eccentricity) {
-   __jump=!__jump;
-   }
-    
-  }
-  
-  //Airborne steering:
-  else if (__grounded=false) {
-  
-   var __dl, __dc, __dr;
-   
-   __dl=HG_collision_ray(-1,x-_width*0.5,y+_height*0.5,270,GLOBAL.precision,_height*1.5);
-   if (__dl[1]&lt;&gt;undefined)
-    __dl=(__dl[1]-y)
-    else __dl=1000;
-   
-   __dc=HG_collision_ray(-1,x,y+_height*0.5,270,GLOBAL.precision,_height*1.5);
-   if (__dc[1]&lt;&gt;undefined)
-    __dc=(__dc[1]-y)
-    else __dc=1000;
-   
-   __dr=HG_collision_ray(-1,x+_width*0.5,y+_height*0.5,270,GLOBAL.precision,_height*1.5);
-   if (__dr[1]&lt;&gt;undefined)
-    __dr=(__dr[1]-y)
-    else __dr=1000;
-    
-   if (__dl+__dr+__dc&lt;3000) {
-   
-    if (__dl&lt;__dc and __dl&lt;__dr) {
-      __left=true;
-      __right=false;
-      }
-      else if (__dr&lt;__dc and __dr&lt;__dl) {
-      __left=false;
-      __right=true;
-      }
-      
-     }
-   
-   }
-
-//Executing:
-movement_execute(__left,__right,__down,__jump,4);
-
-if (__jump=true)
- _jumpCd=_jumpCdMax;
-
-end;
-
-
-
-
-
 </string>
           </argument>
         </arguments>
@@ -1158,10 +870,16 @@ end;
             <kind>1</kind>
             <string>///Mask correction
 
-if (_moveHeight=0 and mask_index&lt;&gt;_maskDefault)
- set_mask(_maskDefault)
- else if (_moveHeight=1 and mask_index&lt;&gt;_maskCrouch)
+if (_moveHeight == AI_MOVE.mh_normal &amp;&amp; mask_index != _maskDefault) {
+
+  set_mask(_maskDefault);
+  
+  }
+else if (_moveHeight = AI_MOVE.mh_crouch &amp;&amp; mask_index != _maskCrouch) {
+
   set_mask(_maskCrouch);
+  
+  }
 </string>
           </argument>
         </arguments>
@@ -1393,8 +1111,7 @@ if _hspeed&lt;&gt;0 {
             <string>///Finalize step
 
 //*** DESTROY: ***
-if _health&lt;=0
- instance_destroy();
+if (_health &lt;= 0) instance_destroy();
 </string>
           </argument>
         </arguments>

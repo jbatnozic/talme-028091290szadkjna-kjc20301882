@@ -35,7 +35,7 @@ instance_create(x,y,obj_camera);
 In order for an istance to act as a surrogate for the player object,
 it needs to have the following variables initialized:
 
-_health, _stamina, _armour, _defib,
+_health, _stamina, _armour, _defib, _combatTimer
 _grounded and other basic movement variables,
 buff variables;
 
@@ -64,6 +64,8 @@ _climb=0;
 
 _hSpeedTreshold=12;
 _vSpeedTreshold=12;
+
+_combatTimer=0;
 
 buf_instance_init();
 

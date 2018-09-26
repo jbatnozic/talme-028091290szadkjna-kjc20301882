@@ -34,7 +34,7 @@
    ...
    -001 Player object
    ...
-   +100 Scenery controller
+   +100 Scenery (Aux) controller
    
    *-The save/load mechanism depends on the Main game controller being right after
      GUI window objects in execution (because of the secondary initialization).

@@ -38,6 +38,16 @@ _txt_local_choices = cnt;
 _txt_local_array[0, 0] = txt_property_get(st, br, TEXTBOX.main);
 _txt_local_array[1, 0] = true;
     
+// PCODE / SCODE:
+var pcode = txt_property_get(st, br, TEXTBOX.code_p);
+
+NSP_execute_string(pcode);
+
+var scode = txt_property_get(st, br, TEXTBOX.code_s);
+
+_txt_local_scode = scode;
+
+// Answers:
 var do_show;
                       
 for (var i = 1; i <= cnt; i += 1) {
@@ -66,15 +76,6 @@ for (var i = 1; i <= cnt; i += 1) {
   _txt_local_array[1, i] = do_show;
    
   }
-  
-// PCODE / SCODE:
-var pcode = txt_property_get(st, br, TEXTBOX.code_p);
-
-NSP_execute_string(pcode);
-
-var scode = txt_property_get(st, br, TEXTBOX.code_s);
-
-_txt_local_scode = scode;
 
 // Return OK:
 return TXT_STATUS.update_ok;
