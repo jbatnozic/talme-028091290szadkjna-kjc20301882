@@ -1194,7 +1194,8 @@ draw_set_alpha(1);*/
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>rinv_refresh(-1, true);
+            <string>/// TEMP
+//rinv_refresh(-1, true);
 </string>
           </argument>
         </arguments>
@@ -1275,11 +1276,12 @@ show_debug_overlay(_debugOverlay);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>rinv_destroy(rinv_get_default());
+            <string>/// TEMP
+/*rinv_destroy(rinv_get_default());
 
 var new = rinv_read(rinv_string);
 
-rinv_set_default(new);
+rinv_set_default(new);*/
 </string>
           </argument>
         </arguments>
@@ -1302,7 +1304,16 @@ rinv_set_default(new);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>rinv_string = rinv_write(-1);
+            <string>/// TEMP
+//rinv_string = rinv_write(-1);
+
+instance_activate_object(global.ACT_ID);
+
+with (global.ACT_ID) {
+
+    event_user(EVENT_CLEANUP);
+
+    }
 </string>
           </argument>
         </arguments>

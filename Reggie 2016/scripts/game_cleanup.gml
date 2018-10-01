@@ -3,7 +3,7 @@
 Releases all memory in use by the game.
 */
 
-res_cleanup_all();
+res_cleanup_loop();
 
 //SYSTEMS:
 pspec_rinv_free();

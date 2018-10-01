@@ -29,6 +29,8 @@
 
 ai_land_initialize_default();
 
+res_instance_register();
+
 _group = GROUP.friendly;
 
 def_maxspeed     = 4;
@@ -59,6 +61,8 @@ def_jumpPower    = 12;
             <string>/// Free memory
 
 ai_land_cleanup_default();
+
+res_instance_unreg();
 
 </string>
           </argument>

@@ -72,7 +72,7 @@ _bufWeightCounter=0;
 _invWeight=0;
 
 //Resource management:
-res_instance_init();
+res_instance_register();
 
 //Image data:
 _eyesY=20;
@@ -170,7 +170,7 @@ sh_bx = 0; sh_by = 0;
             <string>
 buf_instance_free();
 
-res_instance_free();
+res_instance_unreg();
 </string>
           </argument>
         </arguments>
@@ -232,7 +232,7 @@ res_instance_free();
 if !(global.scene_active) begin
 
  //*** LOAD RECOVERY: ***
- if (res_instance_get_flag() == RES_FLAG.do_recover) {
+ /*if (res_instance_get_flag() == RES_FLAG.do_recover) {
  
   buf_instance_recover();
   
@@ -240,7 +240,7 @@ if !(global.scene_active) begin
     
   show_message("Player recovered resources");
  
-  }
+  }*/
  
  //*** INVENTORY WEIGHT: ***
  if (_bufWeightCounter == 0) {
