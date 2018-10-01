@@ -21,12 +21,14 @@ DYNAMIC RESOURCE MANAGEMENT:
   res_initialize()
   res_free()
   
-  res_instance_init() - register (on Create or Restore)
-  res_instance_free() - unregister (on Destroy or Cleanup)
+  res_instance_register() - register (on Create or Restore)
+  res_instance_unreg() - unregister (on Destroy or Cleanup)
   
-  res_cleanup() - call destroy events of all registered instances
+  res_cleanup_loop() - call destroy events of all registered instances
 
-  res_backup() - call event_user(0) of all registered instances
+  ==============================================================================
+  
+  res_backup_loop() - call event_user(8) of all registered instances
   
   res_instance_flag([RES_FLAG enum] action, [OPT] value) - get or set "recovery needed" flag
   

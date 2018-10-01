@@ -267,7 +267,7 @@ switch (_aiState) begin
     }
    //Morale too low:
    if _morale<MORALE.flee 
-    _aiState=AI_STATE.flee
+    _aiState=AI_STATE.flee;
     //No target:
     else if !(instance_exists(_target) and _target>0) {
      _aiState=AI_STATE.idle;
@@ -275,9 +275,9 @@ switch (_aiState) begin
      _target=-1;
      }
      //Hide:
-     else if (_attackMode=-1) {
+     /*else if (_attackMode=-1) {
       _aiState=AI_STATE.hide;
-      }
+      }*/
       else {
        var __clf, __pd;
        

@@ -1,8 +1,10 @@
-///res_backup_all()
+///res_backup_loop()
 /*
 
 */
 var i, list, size;
+
+show_error("res_backup_loop() - Deprecated functionality", true);
 
 list = global.RES_USER_LIST;
 
@@ -14,7 +16,7 @@ for (i = 0; i < size; i += 1) {
 
   with (list[|i]) {
   
-    event_user(0);
+    event_user(EVENT_BACKUP);
     
     res_instance_set_flag(RES_FLAG.do_recover);
     

@@ -6,6 +6,8 @@
 */
 var i, list, size;
 
+show_error("res_clear_all_flags() - Deprecated functionality", true);
+
 list = global.RES_USER_LIST;
 
 size = ds_list_size(list);

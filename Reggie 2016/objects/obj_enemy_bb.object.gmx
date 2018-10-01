@@ -29,7 +29,7 @@
 
 set_behavior_values_bb();
 
-res_instance_init();
+res_instance_register();
 
 _isCommander=false;
 _isPrimal=true;
@@ -99,7 +99,7 @@ _isPrimal=true;
             <kind>1</kind>
             <string>///Free memory
 buf_instance_free();
-res_instance_free();
+res_instance_unreg();
 </string>
           </argument>
         </arguments>

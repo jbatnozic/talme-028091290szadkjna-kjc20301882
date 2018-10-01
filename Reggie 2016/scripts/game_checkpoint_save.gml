@@ -9,7 +9,7 @@
 
 game_checkpoint_del();
 
-res_backup_all();
+res_backup_loop();
 
 global.svld_string = "ChkptRestore";
  

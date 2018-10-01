@@ -28,7 +28,7 @@
             <string>light = HG_light_create_static(-1,x,y-80,spr_light_torch,c_white,2.0,270,1);
 // ^ If changing, also change the Recovery in Step event
 
-res_instance_init();
+res_instance_register();
 </string>
           </argument>
         </arguments>
@@ -55,7 +55,7 @@ res_instance_init();
 
 HG_light_destroy(-1, light, HG_LTYPE.static);
 
-res_instance_free();
+res_instance_unreg();
 </string>
           </argument>
         </arguments>
@@ -78,13 +78,13 @@ res_instance_free();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (res_instance_get_flag() == RES_FLAG.do_recover) {
+            <string>/*if (res_instance_get_flag() == RES_FLAG.do_recover) {
 
   light = HG_light_create_static(-1,x,y-80,spr_light_torch,c_white,2.0,270,1);
 
   res_instance_init();
   
-  }
+  }*/
 </string>
           </argument>
         </arguments>

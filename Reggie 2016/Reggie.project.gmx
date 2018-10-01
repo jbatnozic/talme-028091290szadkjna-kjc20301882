@@ -410,6 +410,9 @@
         <script>scripts\gp_sum.gml</script>
         <script>scripts\bias_0.gml</script>
         <script>scripts\bias_1.gml</script>
+        <script>scripts\array_to_string_1d.gml</script>
+        <script>scripts\vprint.gml</script>
+        <script>scripts\objdist.gml</script>
         <script>scripts\mp_grid_to_str.gml</script>
         <script>scripts\str_to_mp_grid.gml</script>
         <script>scripts\set_abs_end_action.gml</script>
@@ -444,7 +447,6 @@
           <script>scripts\armour_get_ratio.gml</script>
           <script>scripts\armour_max_dur.gml</script>
         </scripts>
-        <script>scripts\objdist.gml</script>
       </scripts>
       <scripts name="Pspec">
         <script>scripts\pspec_rinv_initialize.gml</script>
@@ -458,10 +460,10 @@
       <scripts name="Resource Management">
         <script>scripts\res_initialize.gml</script>
         <script>scripts\res_free.gml</script>
-        <script>scripts\res_instance_init.gml</script>
-        <script>scripts\res_instance_free.gml</script>
-        <script>scripts\res_cleanup_all.gml</script>
-        <script>scripts\res_backup_all.gml</script>
+        <script>scripts\res_instance_register.gml</script>
+        <script>scripts\res_instance_unreg.gml</script>
+        <script>scripts\res_cleanup_loop.gml</script>
+        <script>scripts\res_backup_loop.gml</script>
         <script>scripts\res_instance_get_flag.gml</script>
         <script>scripts\res_instance_set_flag.gml</script>
         <script>scripts\res_clear_all_flags.gml</script>
@@ -1526,12 +1528,15 @@
   <rooms name="rooms">
     <room>rooms\room_initialize</room>
     <room>rooms\room_menu</room>
-    <room>rooms\room_intro</room>
     <room>rooms\room_demo</room>
+    <room>rooms\room_intro</room>
     <room>rooms\room_hospital</room>
     <room>rooms\room_cemetary</room>
     <room>rooms\room_HQ_mission_brief</room>
   </rooms>
+  <constants number="1">
+    <constant name="EVENT_BACKUP">8</constant>
+  </constants>
   <help>
     <rtf>help.rtf</rtf>
   </help>

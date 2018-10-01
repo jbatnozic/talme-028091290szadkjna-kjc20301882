@@ -1,12 +1,12 @@
-///res_instance_free()
+///res_instance_unreg()
 /*
 
 */
 var pos;
 
-//show_message("res_instance_free - instance = " + string(id));
+//vprint("Instance with ID ", id, " unregistered from res");
 
-if (res_local_free_on_destroy) {
+if (res_local_unreg_on_destroy) {
 
   pos = ds_list_find_index(global.RES_USER_LIST, id);
   
