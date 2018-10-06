@@ -1,11 +1,13 @@
-///weapon_initialize()
+///wpn_local_initialize(InventoryId, ItemIndex)
 /*
 THIS SCRIPT SETS UP SOME BASIC VARIABLES FOR THE WEAPON'S BACKGROUND WORKINGS.
 
-argument0 - (Integer) The weapon's object ID.
-
 Returns nothing.
 */
+
+//INVENTORY:
+my_inventory    = 999999;
+patron_item_ind = -1;
 
 //BASIC:
 modes_available = 0;
@@ -38,6 +40,7 @@ bullet_yoff = 0;
 
 //AMMUNITION:
 ammo_available = 0;
+ammo_current   = 0;
 
 //SPRITE:
 index_rs = 0;
@@ -53,19 +56,10 @@ s_empty  = -1;
 
 //OTHER: (These are some inner-mechanism variables and must not be changed)
 reloading      = 0;
-mode_current   = 1;
+mode_current   = 0;
 preparing      = 0;
 refiring       = 0;
 unload_counter = 0;
 reload_lock    = false;
-special_action = false;
 old_yscale     = 0;
-
-//LOAD VARIABLES FROM ITEM:
-/*patron = global.rinv_active_slot;
-//"patron" is the item's index in quick items.
-xammo        = rinv_item_get_dynamic_value(-1, patron, 0);
-ammo_current = rinv_item_get_dynamic_value(-1, patron, 1);
-xdur         = rinv_item_get_dynamic_value(-1, patron, 2);
-b_state      = rinv_item_get_dynamic_value(-1, patron, 3);
-reloading    = rinv_item_get_dynamic_value(-1, patron, 4);*/
+image_speed    = 0;

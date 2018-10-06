@@ -1000,7 +1000,7 @@ a[2] = rinv_add_simple(-1, "Relaxer",  5);
 a[3] = rinv_add_simple(-1, "CTW",      5);
 a[4] = rinv_add_simple(-1, "Bullet", 100);
 
-a[5] = rinv_add_complex(-1, "Machinegun", 0, 1, 100, 0, 0);
+a[5] = rinv_add_complex(-1, "Machinegun", 0, 0, 100, 0, 0);
 
 //show_message(a);
 </string>
@@ -1031,10 +1031,10 @@ inv_add_item("Machinegun",1);*/
 
 rinv_add_simple(-1, "Spare parts", 8);
 rinv_add_complex(-1, "Bullet vest");
-rinv_add_complex(-1, "Revolver", 0, 1, 100, 0, 0);
+rinv_add_complex(-1, "Revolver", 0, 0, 100, 0, 0);
 
-rinv_add_complex(-1, "Assault Rifle", 0, 1, 100, 0, 0);
-rinv_add_complex(-1, "Bolt Action Rifle", 0, 1, 100, 0, 0);
+rinv_add_complex(-1, "Assault Rifle", 0, 0, 100, 0, 0);
+rinv_add_complex(-1, "Bolt Action Rifle", 0, 0, 100, 0, 0);
 </string>
           </argument>
         </arguments>

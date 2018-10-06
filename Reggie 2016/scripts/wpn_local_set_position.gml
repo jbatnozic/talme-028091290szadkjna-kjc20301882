@@ -1,24 +1,33 @@
-///weapon_set_position(RSpeed, Smoothness);
+///wpn_local_set_position(Sh_Fx, Sh_Fy, Tar_x, Tar_y);
 /*
 THIS SCRIPT REGULATES THE WEAPON'S POSITION AND ANGLE.
 
-argument0 - (Integer) Rotation speed of the weapon (usually about 15 is good, but this may
-                      be decreased to simulate "heavy" weapons, or increased to simulate
-                      "lighter" ones).
-argument1 - (Integer) How smooth the rotation will be (about 80 is optimal).
+argument0 - (Real)    Shoulder (front) X coordinate;
 
-Returns nothing.
+argument1 - (Real)    Shoulder (front) Y coordinate;
+
+argument2 - (Real)    Target X coordinate;
+
+argument3 - (Real)    Target Y coordinate;
+
+Returns: void
+
+Output variables:
+    fore_hand_x (absolute coordinate)
+    fore_hand_y (absolute coordinate)
+    back_hand_x (absolute coordinate)
+    back_hand_y (absolute coordinate)
+    
 */
 
-//shoulder_x = (global.player_obj_id).x;
-//shoulder_y = (global.player_obj_id).y + (global.player_obj_id)._weaponYOffset;
+shoulder_x = argument0;
+shoulder_y = argument1;
 
-shoulder_x = (global.player_obj_id).sh_fx;
-shoulder_y = (global.player_obj_id).sh_fy;
+var tar_x  = argument2, tar_y  = argument3;
  
 old_yscale = image_yscale;
 
-if (mouse_x > shoulder_x)
+if (tar_x > shoulder_x)
   image_yscale = +1;
 else
   image_yscale = -1;
@@ -36,20 +45,23 @@ if (image_yscale * old_yscale == -1 &&
 // Angle:
 var needed, diff, fi;
 
-if (point_distance(x,y,mouse_x,mouse_y) > 4) {
+if (point_distance(x, y, tar_x, tar_y) > 4) {
 
   //Needed angle:
-  needed = point_direction(shoulder_x, shoulder_y, mouse_x, mouse_y);
+  needed = point_direction(shoulder_x, shoulder_y, tar_x, tar_y);
   
   //Angle difference:
   diff = angle_difference(needed, image_angle);
   
   //Speed coefficient:
-  fi = min(1,abs(diff)/argument1);
+  fi = min(1, abs(diff) / b_smoothness);
   
-  if (diff > 0) image_angle+=argument0*fi else image_angle-=argument0*fi;
+  if (diff > 0)
+    image_angle += b_rspeed * fi;
+  else
+    image_angle -= b_rspeed * fi;
   
-  if (abs(diff) <= 1) image_angle=needed;
+  if (abs(diff) <= 1) image_angle = needed;
   
   //Angle correction:
   if (image_angle > 360) image_angle -= 360;
@@ -73,7 +85,6 @@ var a = xy_rotated(back_hand_xoff, back_hand_yoff * image_yscale, image_angle);
 
 back_hand_x = x + a[0];
 back_hand_y = y + a[1];
-
 
 
 

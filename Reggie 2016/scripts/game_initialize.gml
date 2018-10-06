@@ -36,6 +36,7 @@ enum KEYBOARD {
     hotSwap5 = 12,
     reload = 13,
     change_frm = 14,
+    change_amt = 25,
     defibrillate = 17,
     refresh = 18,
     openInv = 19,
@@ -49,8 +50,8 @@ enum KEYBOARD {
 
 enum MOUSE {
     
-    shoot = 16,    
-    change_amt = 15
+    aim   = 15,
+    shoot = 16
     
 }
 
@@ -105,11 +106,11 @@ userControls[KEYBOARD.hotSwap5]=ord("5");
 
 userControls[KEYBOARD.sprint]=vk_shift;
 userControls[KEYBOARD.interact]=ord("E");
-userControls[MOUSE.shoot] = mb_left;
+
 
 userControls[KEYBOARD.reload]=ord("R");
 userControls[KEYBOARD.change_frm]=ord("M");
-userControls[MOUSE.change_amt]=mb_right;
+userControls[KEYBOARD.change_amt]=ord("T");
 
 userControls[KEYBOARD.defibrillate]=vk_space;
 
@@ -123,6 +124,9 @@ userControls[KEYBOARD.openJou]=ord("J");
 userControls[KEYBOARD.pause]=vk_escape;
 
 userControls[KEYBOARD.pickUp] = ord("E");
+
+userControls[MOUSE.shoot] = mb_left;
+userControls[MOUSE.aim]   = mb_right;
 
 //Game Properties:
 game_set_properties();

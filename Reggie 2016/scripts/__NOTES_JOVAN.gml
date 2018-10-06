@@ -1,4 +1,9 @@
 /*
+
+gml_Script_wpn_sys_get_amt_name (line 22)
+called from - gml_Object_obj_gui_inventory_UserEvent1_1 (line 18) -       amt_name = wpn_sys_get_amt_name(name, rinv_item_get_dynamic_value(-1, selected, WPTRN.ammo_curr));
+called from - gml_Object_obj_gui_inventory_DrawGUI_1 (line 36) -     event_user(ev_update_desc);
+
 >>General notes:
    -- Additional, 'learned', recipes and repair items in Create events of their 
       respective window objects.

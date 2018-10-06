@@ -807,7 +807,9 @@ draw_set_valign(fa_top);
 draw_set_halign(fa_left);
 draw_set_alpha(1);
 
-if (instance_exists(weaponHoldingPar)) {
+var __wid = (global.player_obj_id)._weaponInstanceId;
+
+if (instance_exists(__wid)) {
 
  xx=gui_width()-sprite_get_width(spr_equip_info);
   xx+=sprite_get_width(spr_equip_info)*(_hudOffset);
@@ -819,28 +821,28 @@ if (instance_exists(weaponHoldingPar)) {
 
  var str,ammo,ammo_max,ammo_inv,ammo_name,dur,dur_max,frm,rld;
  
- ammo=weaponHoldingPar.xammo;
- ammo_max=weaponHoldingPar.b_clipsize;
- ammo_inv=rinv_count_item(-1, weaponHoldingPar.bl_name[weaponHoldingPar.ammo_current]);
- ammo_name=weaponHoldingPar.bl_name[weaponHoldingPar.ammo_current];
+ ammo=__wid.xammo;
+ ammo_max=__wid.b_clipsize;
+ ammo_inv=rinv_count_item(-1, __wid.bl_name[__wid.ammo_current]);
+ ammo_name=__wid.bl_name[__wid.ammo_current];
  
- dur=round(weaponHoldingPar.xdur);
- dur_max=round(weaponHoldingPar.b_dur);
+ dur=round(__wid.xdur);
+ dur_max=round(__wid.b_dur);
  
- frm=weaponHoldingPar.fm_name[weaponHoldingPar.mode_current];
- rld=1-weaponHoldingPar.reloading/(weaponHoldingPar.b_reloadtime-1);
+ frm=__wid.fm_name[__wid.mode_current];
+ rld=1-__wid.reloading/(__wid.b_reloadtime-1);
   
- //str=global.inventory_quick[weaponHoldingPar.patron,1];
+ //str=global.inventory_quick[__wid.patron,1];
  str = "Name [STUB]";
  if string_length(str)&gt;20
    str=string_copy(str,1,17)+"...";
     
  draw_text(xx+4,yy+2,str);
  
- if rinv_count_item(-1, ammo_name)&lt;1 and weaponHoldingPar.xammo&lt;1
+ if rinv_count_item(-1, ammo_name)&lt;1 and __wid.xammo&lt;1
   draw_text(xx+17,yy+19,"No ammo left!")
   else
-   draw_text(xx+17,yy+19,string(ammo)+"/"+string(ammo_inv)+cpptern(weaponHoldingPar.b_state=1," [Reloading]",""));
+   draw_text(xx+17,yy+19,string(ammo)+"/"+string(ammo_inv)+cpptern(__wid.b_state=1," [Reloading]",""));
    
  draw_text(xx+17,yy+44,"-"+ammo_name);
  draw_text(xx+17,yy+57,"-"+frm);
@@ -849,7 +851,7 @@ if (instance_exists(weaponHoldingPar)) {
   gui_draw_bar(spr_reload_bar,1,xx+17,yy+34,1,true);
   gui_draw_bar(spr_reload_bar,0,xx+17,yy+34,ammo/ammo_max,true);
   }
-  else if (weaponHoldingPar.b_state=1) {
+  else if (__wid.b_state=1) {
    gui_draw_bar(spr_reload_bar,1,xx+17,yy+34,rld+1,true);
    gui_draw_bar(spr_reload_bar,0,xx+17,yy+34,rld,true);
    cha_draw_channel_bar("Reloading...",rld);

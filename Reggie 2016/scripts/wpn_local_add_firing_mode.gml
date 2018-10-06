@@ -1,4 +1,4 @@
-///weapon_add_firing_mode(Name, RateOfFire, Automatic, Recoil, Scatter)
+///wpn_local_add_firing_mode(Name, RateOfFire, Automatic, Recoil, Scatter)
 /*
 THIS SCRIPT ADDS ANOTHER FIRING MODE TO THE WEAPON.
 
@@ -14,11 +14,11 @@ argument4 - (Integer) How much can the projectiles diverge from their ideal traj
 
 Returns nothing.
 */
-
-modes_available+=1;
  
-fm_name[modes_available]=argument0;
-b_tbs[modes_available]=argument1;
-b_automatic[modes_available]=argument2;
-b_recoil[modes_available]=argument3;
-bl_scatter[modes_available]=argument4;
+fm_name[modes_available]     = argument0;
+b_tbs[modes_available]       = argument1;
+b_automatic[modes_available] = argument2;
+b_recoil[modes_available]    = argument3;
+bl_scatter[modes_available]  = argument4;
+
+modes_available += 1;

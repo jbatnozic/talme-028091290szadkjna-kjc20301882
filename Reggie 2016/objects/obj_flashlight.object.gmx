@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>weapon_set_offset(20, 1, -8, 3, 0, 0, 13, -3);
+            <string>wpn_local_set_offset(20, 1, -8, 3, 0, 0, 13, -3);
 
 myLight = HG_light_create_dynamic(-1, x, y, spr_light_torch, c_white, 2, image_angle, 1);
 </string>
@@ -50,7 +50,7 @@ myLight = HG_light_create_dynamic(-1, x, y, spr_light_torch, c_white, 2, image_a
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>weapon_set_position(15, 80);
+            <string>//wpn_local_set_position(15, 80);
 
 HG_light_set_position(-1, myLight, x, y, image_angle);
 //HG_light_set_position(-1, myLight, mouse_x, mouse_y, image_angle);

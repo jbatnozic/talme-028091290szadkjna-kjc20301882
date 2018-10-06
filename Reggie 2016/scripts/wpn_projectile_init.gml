@@ -1,4 +1,4 @@
-///weapon_projectile_init(Target, WeaponObject, AmmoType, Group)
+///wpn_projectile_init(Target, WeaponObject, AmmoType, Group)
 /*
 
 */

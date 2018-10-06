@@ -13,9 +13,11 @@ sett_set_value("Sprint",vk_shift);
 
 sett_set_value("WEAPONS:",-1);
 sett_set_value("Fire (Attack)","L Mouse");
+sett_set_value("Aim (Free look)","R Mouse");
 sett_set_value("Change Ammo","R Mouse");
 sett_set_value("Reload",ord("R"));
 sett_set_value("Change Mode",ord("M"));
+sett_set_value("Change Ammo",ord("T"));
 
 sett_set_value("INTERFACE:",-1);
 sett_set_value("Open Inventory",ord("I"));

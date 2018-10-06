@@ -1,4 +1,4 @@
-///weapon_set_sounds(Change, Reloaded, Empty, Unload, Jam)
+///wpn_local_set_sounds(Change, Reloaded, Empty, Unload, Jam)
 /*
 THIS SCRIPT SETS THE BASIC SOUNDS FOR THE WEAPON.
 

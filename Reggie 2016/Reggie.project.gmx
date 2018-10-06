@@ -456,6 +456,8 @@
         <script>scripts\pspec_pickup_init.gml</script>
         <script>scripts\pspec_pickup_init_arr.gml</script>
         <script>scripts\pspec_rinv_player_inv.gml</script>
+        <script>scripts\pspec_rinv_add_weapon.gml</script>
+        <script>scripts\pspec_rinv_find_usable_weapon.gml</script>
       </scripts>
       <scripts name="Resource Management">
         <script>scripts\res_initialize.gml</script>
@@ -933,30 +935,32 @@
         <scripts name="System">
           <script>scripts\wpn_sys_initialize.gml</script>
           <script>scripts\wpn_sys_free.gml</script>
-          <scripts name="Inspection">
-            <script>scripts\wpn_sys_get_amt_name.gml</script>
-            <script>scripts\wpn_sys_get_max_ammo.gml</script>
-            <script>scripts\wpn_sys_get_max_dur.gml</script>
-          </scripts>
+          <script>scripts\wpn_sys_get_amt_cnt.gml</script>
+          <script>scripts\wpn_sys_get_amt_name.gml</script>
+          <script>scripts\wpn_sys_get_max_ammo.gml</script>
+          <script>scripts\wpn_sys_get_max_dur.gml</script>
         </scripts>
         <scripts name="Local">
           <scripts name="Setup">
-            <script>scripts\weapon_create.gml</script>
-            <script>scripts\weapon_initialize.gml</script>
-            <script>scripts\weapon_set_basics.gml</script>
-            <script>scripts\weapon_set_sprite.gml</script>
-            <script>scripts\weapon_set_offset.gml</script>
-            <script>scripts\weapon_set_sounds.gml</script>
-            <script>scripts\weapon_add_firing_mode.gml</script>
-            <script>scripts\weapon_add_ammo_type.gml</script>
+            <script>scripts\wpn_local_initialize.gml</script>
+            <script>scripts\wpn_local_set_basics.gml</script>
+            <script>scripts\wpn_local_set_sprite.gml</script>
+            <script>scripts\wpn_local_set_offset.gml</script>
+            <script>scripts\wpn_local_set_sounds.gml</script>
+            <script>scripts\wpn_local_add_firing_mode.gml</script>
+            <script>scripts\wpn_local_add_ammo_type.gml</script>
           </scripts>
           <scripts name="Execution">
-            <script>scripts\weapon_set_position.gml</script>
-            <script>scripts\weapon_execute.gml</script>
-            <script>scripts\weapon_update_patron.gml</script>
-            <script>scripts\weapon_projectile_init.gml</script>
-            <script>scripts\projectile_get_object.gml</script>
+            <script>scripts\wpn_local_set_position.gml</script>
+            <script>scripts\wpn_local_execute.gml</script>
+            <script>scripts\wpn_local_update_patron.gml</script>
           </scripts>
+        </scripts>
+        <scripts name="Miscellaneous">
+          <script>scripts\wpn_instance_create.gml</script>
+          <script>scripts\wpn_projectile_init.gml</script>
+          <script>scripts\wpn_get_projobj.gml</script>
+          <script>scripts\wpn_draw.gml</script>
         </scripts>
       </scripts>
     </scripts>
@@ -1499,6 +1503,7 @@
           <object>objects\obj_fsm_intro</object>
           <object>objects\obj_intro_richard</object>
           <object>objects\obj_parachute_soldier</object>
+          <object>objects\obj_intro_bridge</object>
         </objects>
         <objects name="Hospital">
           <object>objects\obj_fsm_hospital</object>
@@ -1528,14 +1533,15 @@
   <rooms name="rooms">
     <room>rooms\room_initialize</room>
     <room>rooms\room_menu</room>
-    <room>rooms\room_demo</room>
     <room>rooms\room_intro</room>
+    <room>rooms\room_demo</room>
     <room>rooms\room_hospital</room>
     <room>rooms\room_cemetary</room>
     <room>rooms\room_HQ_mission_brief</room>
   </rooms>
-  <constants number="1">
+  <constants number="2">
     <constant name="EVENT_BACKUP">8</constant>
+    <constant name="HG_CELL_SIZE">32</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

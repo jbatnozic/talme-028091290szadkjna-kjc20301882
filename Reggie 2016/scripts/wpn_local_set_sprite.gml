@@ -1,4 +1,4 @@
-///weapon_set_sprite(Index, ReadyStart, ReadyEnd, FireStart, FireEnd, Reloading)
+///wpn_local_set_sprite(Index, ReadyStart, ReadyEnd, FireStart, FireEnd, Reloading)
 /*
 THIS SCRIPT SETS THE SPRITE PARAMETERS FOR THE WEAPON.
 

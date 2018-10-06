@@ -31,7 +31,7 @@ global.sett_map=ds_map_create();
 //DEFINITIONS:
 
  //Controls:
- global.sett_controls=22;
+ global.sett_controls=23;
  sett_define_value("MOVEMENT:",SETT_TYPE.title,SETT_GROUP.controls); 
  sett_define_value("Walk left",SETT_TYPE.control_button,SETT_GROUP.controls);
  sett_define_value("Walk right",SETT_TYPE.control_button,SETT_GROUP.controls);
@@ -41,7 +41,8 @@ global.sett_map=ds_map_create();
   
  sett_define_value("WEAPONS:",SETT_TYPE.title,SETT_GROUP.controls);
  sett_define_value("Fire (Attack)",SETT_TYPE.fixed,SETT_GROUP.controls);
- sett_define_value("Change Ammo",SETT_TYPE.fixed,SETT_GROUP.controls);
+ sett_define_value("Aim (Free look)",SETT_TYPE.fixed,SETT_GROUP.controls);
+ sett_define_value("Change Ammo",SETT_TYPE.control_button,SETT_GROUP.controls);
   sett_desc_to_last("Press to change the ammo type used (where it's available).");
  sett_define_value("Change Mode",SETT_TYPE.control_button,SETT_GROUP.controls);
   sett_desc_to_last("Press to change the weapon's firing mode (where it's available).");

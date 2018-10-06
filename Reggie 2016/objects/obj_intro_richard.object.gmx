@@ -28,6 +28,8 @@
             <string>/// Initialization
 
 ai_land_initialize_default();
+_maxHealth = 500; 
+_health    = _maxHealth;
 
 res_instance_register();
 
@@ -36,6 +38,23 @@ _group = GROUP.friendly;
 def_maxspeed     = 4;
 def_acceleration = 0.5;
 def_jumpPower    = 12;
+
+// Attack setup
+my_inv = rinv_create();
+
+pspec_rinv_add_weapon(my_inv, "Assault Rifle", 1.0, 0, 1.0);
+pspec_rinv_add_weapon(my_inv, "Revolver", 1.0, 0, 1.0);
+
+rinv_add_simple(my_inv, "Bullet",      100);
+rinv_add_simple(my_inv, "9mm Bullets", 100);
+
+_weaponInstanceId = noone;
+
+// Attack pause
+att_pause_chance = 10;
+att_pause_time   = 30;
+att_pause_cnt    =  0;
+
 </string>
           </argument>
         </arguments>
@@ -61,6 +80,13 @@ def_jumpPower    = 12;
             <string>/// Free memory
 
 ai_land_cleanup_default();
+
+if (instance_exists(_weaponInstanceId)) {
+    remove(_weaponInstanceId);
+    _weaponInstanceId = noone;
+    }
+    
+rinv_destroy(my_inv);
 
 res_instance_unreg();
 
@@ -145,6 +171,128 @@ ai_land_execute_movement();
           <argument>
             <kind>1</kind>
             <string>/// Attack
+
+// Check if weapon is equipped, and if it is, can it be used:
+var __no_weapon = (!instance_exists(_weaponInstanceId) ||
+                   _weaponInstanceId.b_state == WPN_STATE.Disabled);
+
+// Try to equip a new weapon:
+if (__no_weapon) {
+
+    if (instance_exists(_weaponInstanceId)) {
+        remove(_weaponInstanceId);
+        _weaponInstanceId = noone;
+        }
+        
+    var __local_id = pspec_rinv_find_usable_weapon(my_inv);
+        
+    if (__local_id != -1) {
+        _weaponInstanceId = wpn_instance_create(x, y, my_inv, __local_id);
+        __no_weapon = false;
+        }
+    else {
+        // ???
+        }
+
+    }
+    
+if (att_pause_cnt &gt; 0) att_pause_cnt -= 1;
+    
+if (!__no_weapon) {
+      
+    var tar_x, tar_y, fire;
+             
+    if (_aiState == AI_STATE.hunt &amp;&amp; _target != -1 &amp;&amp; instance_exists(_target)) {
+        tar_x = _target.x;
+        tar_y = _target.y;
+        fire = (att_pause_cnt == 0);
+        }
+    else {
+        tar_x = x + 32 * image_xscale;
+        tar_y = y + 32;
+        fire = false;
+        }
+    
+    with (_weaponInstanceId) {
+    
+        wpn_local_set_position(other.x, other.y - 20, tar_x, tar_y);
+        wpn_local_execute(other._group, fire, 1.0, 1.0);
+        wpn_local_update_patron();
+    
+        }
+        
+    if (random(100) &lt; att_pause_chance) att_pause_cnt = att_pause_time;
+    
+    }
+    
+if (false) begin
+
+    // Primary attack state ///////////////////////////////////////////////////////
+    var att_p_can_shoot = true;
+    
+    if (att_p_pause_cnt &gt; 0) { // In pause
+           
+        att_p_pause_cnt -= 1;  
+        att_p_can_shoot = false;
+        
+        }
+    else if (att_p_rld_cnt &gt;= 0) { // Reloading
+            
+        att_p_rld_cnt -= 1;
+        
+        if (att_p_rld_cnt == 0 &amp;&amp; att_p_clips &gt; 0) {
+            att_p_ammo_cnt = att_p_clip_size;
+            att_p_clips -= 1;
+            }
+            
+        att_p_can_shoot = false;
+    
+        }
+    else if (att_p_cd_cnt &gt; 0) { // Cooldown
+            
+        att_p_cd_cnt -= 1;
+        att_p_can_shoot = false;
+    
+        }
+    // Secondary attack state /////////////////////////////////////////////////////
+    { /*STUB*/ }
+    
+    if (_aiState == AI_STATE.hunt &amp;&amp; _target != -1 &amp;&amp; instance_exists(_target)) {
+    
+        // Primary attack /////////////////////////////////////////////////////////
+        if (att_p_clips &gt; 0 || att_p_ammo_cnt &gt; 0) {
+    
+            if (att_p_can_shoot)  { // Shoot
+            
+                var dir = point_direction(x, y, _target.x, _target.y);
+            
+                create_projectile_bullet(x, y, object_index, _group, placeholderSpr, 
+                                         dir, 20, 5, -1, -1, 0, 0, 0, 0, 0);
+                                         
+                if (irandom_range(0, 100) / 100 &lt;= att_p_pause_chance) {
+                
+                    att_p_pause_cnt = att_p_pause_time;
+                
+                    }
+                else {
+                
+                    att_p_cd_cnt = att_p_cooldown;
+                
+                    }
+            
+                }
+            
+            }
+        // Secondary attack ///////////////////////////////////////////////////////
+        else {
+        
+            // STUB
+        
+            }
+    
+        }
+    
+end;
 </string>
           </argument>
         </arguments>
@@ -247,6 +395,12 @@ if (_grounded) {
   }
   else
     image_index=0;
+    
+if (_weaponInstanceId != noone) {
+
+    wpn_draw(_weaponInstanceId);
+
+    }
 
 //draw_set_colour(c_aqua);
 //draw_set_halign(fa_center);

@@ -21,8 +21,9 @@ else {
   
   wp_obj -= (RINV_OBJ(wp_obj) - wp_obj);
   
-  var son = weapon_create(0, 0, wp_obj, -1);
-
+  //var son = wpn_instance_create(0, 0, wp_obj, -1, -1);
+  var son = instance_create(0, 0, wp_obj);
+  
   var rv = son.b_dur;
   
   remove(son);

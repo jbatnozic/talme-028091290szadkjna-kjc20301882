@@ -1,14 +1,14 @@
-///wpn_sys_get_max_ammo(WeaponItemName)
+///wpn_sys_get_amt_cnt(WeaponItemName)
 /*
-THIS SCRIPT FETCHES THE CLIP SIZE OF THE INDICATED WEAPON.
+THIS SCRIPT FETCHES THE NUMBER OF AMMO TYPES OF PASSED WEAPON.
 
 argument0 - (String)  Item name.
 
-Returns - Clip size of the indicated weapon.
+Returns
 */
 
 var map = global.wpn_sys_property_map;
-var key = argument0 + "_max_ammo";
+var key = argument0 + "_amt_cnt";
 
 if (ds_map_exists(map, key)) {
 
@@ -23,8 +23,8 @@ else {
   
   //var son = wpn_instance_create(0, 0, wp_obj, -1, -1);
   var son = instance_create(0, 0, wp_obj);
-
-  var rv = son.b_clipsize;
+  
+  var rv = son.ammo_available;
   
   remove(son);
   

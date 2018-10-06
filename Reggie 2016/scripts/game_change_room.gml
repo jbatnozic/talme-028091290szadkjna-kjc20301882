@@ -1,4 +1,4 @@
-///game_change_room(Room)
+///game_change_room([OPT] Room)
 /*
 
 */

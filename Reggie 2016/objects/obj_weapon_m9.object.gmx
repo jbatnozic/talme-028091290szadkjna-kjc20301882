@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>//Weapon setup:
-weapon_initialize();
+/*weapon_initialize();
 weapon_set_basics(8,150,0,0.3,20,PROJECTILE.bullet);
 weapon_set_sprite(weaponTestSpr,0,0,0,0,1);
 weapon_set_offset(20, -2, -8, 6, 0, 3, 0, 0);
@@ -34,7 +34,7 @@ weapon_set_sounds(-1,-1,-1,-1,-1);
 
 weapon_add_firing_mode("Semi-Auto",5,false,1,1);
 
-weapon_add_ammo_type("9mm Bullets",12,spr_bullet_standard,3,1,0.99,-1,-1,1,0,0,0,-1,2,-1);
+weapon_add_ammo_type("9mm Bullets",12,spr_bullet_standard,3,1,0.99,-1,-1,1,0,0,0,-1,2,-1);*/
 
 /*NOTES:
 cv1 = Ammo left
@@ -67,9 +67,9 @@ cv5 = Reloading left
             <string>///Weapon action
 if !game_paused() begin
 
- weapon_set_position(30,80);
+ /*weapon_set_position(30,80);
  weapon_execute((global.player_obj_id).mod_rel,(global.player_obj_id).mod_acc);
- weapon_update_patron();
+ weapon_update_patron();*/
  
 end;
 </string>

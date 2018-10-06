@@ -1,22 +1,53 @@
 ///weapon_execute(ReloadMod, AccuracyMod)
+///weapon_execute(Group, Activate, ReloadMod, AccuracyMod, [OPT] chkReload, [OPT] chkReloadReleased, [OPT] ChngAmtPress, [OPT] ChngFrmPress);
 /*
 THIS SCRIPT MAKES THE WEAPON DO... WHAT WEAPONS DO.
 
+Returns: void
 
-
-Returns nothing.
 */
 
-if xdur<0 xdur=0;
+if (argument_count < 3) show_error("weapon_execute() -- Too few arguments!", true);
+
+var __group = argument[0], __fire = argument[1], __reload_mod = argument[2], __acc_mod = argument[3];
+var __chk_reload, __chk_reload_rel, __change_amt, __change_frm;
+
+if (argument_count >= 5) {
+    __chk_reload = argument[4];
+    }
+else 
+    __chk_reload = false;
+    
+if (argument_count >= 6) {
+    __chk_reload_rel = argument[5];
+    }
+else 
+    __chk_reload_rel = false;   
+    
+if (argument_count >= 7) {
+    __change_amt = argument[6];
+    }
+else 
+    __change_amt = false;
+    
+if (argument_count >= 8) {
+    __change_frm = argument[7];
+    }
+else 
+    __change_frm = false;
+
+///////////////////////////////////////////////////////////////////////////////
+    
+if xdur < 0 xdur = 0;
 
 //Unload counter:
-if keyboard_check(userControls[KEYBOARD.reload])=true {
+if (__chk_reload) {
  if unload_counter<24 unload_counter+=1;
  }
 
  //State correction:
  if ((b_state=0 and xammo=0 and reload_lock=false) 
- or (keyboard_check_released(userControls[KEYBOARD.reload]) and unload_counter<24 and xammo<b_clipsize))
+ or (__chk_reload_rel and unload_counter<24 and xammo<b_clipsize))
  and rinv_count_item(-1, bl_name[ammo_current])>0 {
   rinv_add_simple(-1, bl_name[ammo_current], xammo);
   xammo=0;
@@ -24,14 +55,14 @@ if keyboard_check(userControls[KEYBOARD.reload])=true {
   unload_counter=0;
   reload_lock=false;
   }
-  else if b_state=0 and keyboard_check_released(userControls[KEYBOARD.reload]) and unload_counter=24 and xammo>0 {
+  else if b_state=0 and __chk_reload_rel and unload_counter=24 and xammo>0 {
    unload_counter=0;
    rinv_add_simple(-1, bl_name[ammo_current], xammo);
    reload_lock=true;
    xammo=0;
    if s_unload<>-1 sound_play(s_unload);
    }
-   else if b_state=0 and mouse_check_button_pressed(userControls[MOUSE.change_amt])=true and ammo_available>1 {
+   else if b_state=0 and __change_amt and ammo_available>1 {
     //Change ammo type - with unloading
     rinv_add_simple(-1, bl_name[ammo_current], xammo);
     xammo=0;
@@ -41,7 +72,7 @@ if keyboard_check(userControls[KEYBOARD.reload])=true {
     reload_lock=false;
     if s_change<>-1 sound_play(s_change);
     }
-    else if b_state=1 and mouse_check_button_pressed(userControls[MOUSE.change_amt])=true and ammo_available>1 {
+    else if b_state=1 and __change_amt and ammo_available>1 {
      //Change ammo type - without unloading
      ammo_current+=1;
      reload_lock=false;
@@ -53,13 +84,13 @@ if keyboard_check(userControls[KEYBOARD.reload])=true {
  if b_state=0 and xammo>0 {
  
   //Changing firing mode:
-  if keyboard_check_pressed(userControls[KEYBOARD.change_frm])=true {
+  if (__change_frm) {
   
    mode_current+=1;
    if mode_current>modes_available mode_current=1;
    if s_change<>-1 sound_play(s_change); }
  
-  if mouse_check_button(userControls[MOUSE.shoot])=true {
+  if (__fire) {
   
   if xdur>0 {
   
@@ -84,7 +115,7 @@ if keyboard_check(userControls[KEYBOARD.reload])=true {
       //Create the projectile
       var a,b,xx,yy,son;
       
-      if mouse_x>x a=1 else a=-1;
+      a = image_yscale;
       
       b = xy_rotated(bullet_xoff, bullet_yoff * a, image_angle);
       
@@ -95,7 +126,7 @@ if keyboard_check(userControls[KEYBOARD.reload])=true {
       
        son=instance_create(xx,yy,b_projobj);
       
-       son._direction=image_angle+random_range(-bl_scatter[mode_current],bl_scatter[mode_current])*(1.5-argument1/2);
+       son._direction=image_angle+random_range(-bl_scatter[mode_current],bl_scatter[mode_current])*(1.5-_acc_mod/2);
        son.image_angle=son._direction;
        son._speed=bl_speed[ammo_current];
        son._sprite=bl_sprite[ammo_current];
@@ -108,7 +139,7 @@ if keyboard_check(userControls[KEYBOARD.reload])=true {
        son.dot_type=bl_dot_type[ammo_current];
        son.arc=bl_arc[ammo_current];
        
-       weapon_projectile_init(son,object_index,ammo_current,GROUP.friendly);
+       weapon_projectile_init(son,object_index,ammo_current,__group);
       
        }
        
@@ -127,7 +158,7 @@ if keyboard_check(userControls[KEYBOARD.reload])=true {
        }
       
       //Apply recoil     
-      image_angle+=b_recoil[mode_current]*a*(2-sqr(argument1));
+      image_angle+=b_recoil[mode_current]*a*(2-sqr(__acc_mod));
       
       if bl_firesound[ammo_current]<>-1 sound_play(bl_firesound[ammo_current]);
       refiring=b_tbs[mode_current];

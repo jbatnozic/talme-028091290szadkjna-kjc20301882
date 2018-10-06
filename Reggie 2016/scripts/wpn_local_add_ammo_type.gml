@@ -1,4 +1,4 @@
-///weapon_add_ammo_type(Name, Speed, Sprite, Damage, BlNumber, DRLoss, ExScale, ExSprite, Knock, DoT, DoTtype, Arc, FSpr, FInt, Sound);
+///wpn_local_add_ammo_type(Name, Speed, Sprite, Damage, BlNumber, DRLoss, ExScale, ExSprite, Knock, DoT, DoTtype, Arc, FSpr, FInt, Sound);
 /*
 THIS SCRIPT ADDS ANOTHER AMMO TYPE WHICH THE WEAPON CAN USE.
 
@@ -27,35 +27,36 @@ argument14 - (Integer) The sound that is played when the weapon fires this ammo 
 Returns nothing.
 */
 
-ammo_available+=1;
-
 //Basic:
-bl_name[ammo_available]=argument0;
-bl_speed[ammo_available]=argument1;
-bl_sprite[ammo_available]=argument2;
-bl_damage[ammo_available]=argument3;
-bl_number[ammo_available]=argument4;
+bl_name[ammo_available]   = argument0;
+bl_speed[ammo_available]  = argument1;
+bl_sprite[ammo_available] = argument2;
+bl_damage[ammo_available] = argument3;
+bl_number[ammo_available] = argument4;
  
-//Duration loss:
-bl_durloss[ammo_available]=argument5;
+// Duration loss:
+bl_durloss[ammo_available] = argument5;
  
-//Explosion:
-bl_expradius[ammo_available]=argument6;
-bl_expsprite[ammo_available]=argument7;
+// Explosion:
+bl_expradius[ammo_available] = argument6;
+bl_expsprite[ammo_available] = argument7;
  
-//Knockback:
-bl_knockback[ammo_available]=argument8;
+// Knockback:
+bl_knockback[ammo_available] = argument8;
  
-//Damage over time:
-bl_dot[ammo_available]=argument9;
-bl_dot_type[ammo_available]=argument10;
+// Damage over time:
+bl_dot[ammo_available]      = argument9;
+bl_dot_type[ammo_available] = argument10;
  
-//Arc:
-bl_arc[ammo_available]=argument11;
+// Arc:
+bl_arc[ammo_available] = argument11;
  
-//Muzzle flash:
-bl_flashsprite[ammo_available]=argument12;
-bl_flashint[ammo_available]=argument13;
+// Muzzle flash:
+bl_flashsprite[ammo_available] = argument12;
+bl_flashint[ammo_available]    = argument13;
  
-//Sound:
-bl_firesound[ammo_available]=argument14;
+// Sound:
+bl_firesound[ammo_available] = argument14;
+
+// Adjust counter:
+ammo_available += 1;

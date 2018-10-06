@@ -1,4 +1,4 @@
-///projectile_get_object(Type)
+///wpn_get_projobj(Type)
 /*
 
 */

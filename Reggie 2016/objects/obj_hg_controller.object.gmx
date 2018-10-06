@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var w, cs=32;
+            <string>var w, cs = HG_CELL_SIZE;
 
 w = HG_world_create(ceil(room_width/cs), ceil(room_height/cs),
                     cs, 0, GLOBAL.view_width, GLOBAL.view_height,

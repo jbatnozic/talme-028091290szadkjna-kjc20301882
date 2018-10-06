@@ -1,4 +1,4 @@
-///weapon_set_offset(Weapon xOff, Weapon yOff, Fore xOff, Fore yOff, Back xOff, Back yOff, Bullet xOff, Bullet yOff)
+///wpn_local_set_offset(Weapon xOff, Weapon yOff, Fore xOff, Fore yOff, Back xOff, Back yOff, Bullet xOff, Bullet yOff)
 /*
 
 */

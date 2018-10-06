@@ -64,6 +64,7 @@ _defib=3;     // Defibrillator charges
 _group=GROUP.friendly;
 _isInHarmful = 0;
 _weaponYOffset = -16;
+_weaponInstanceId = noone;
 
 //Buff system:
 buf_instance_init();
@@ -169,6 +170,13 @@ sh_bx = 0; sh_by = 0;
             <kind>1</kind>
             <string>
 buf_instance_free();
+
+if (instance_exists(_weaponInstanceId)) {
+
+    remove(_weaponInstanceId);
+    _weaponInstanceId = noone;
+
+    }
 
 res_instance_unreg();
 </string>
@@ -612,79 +620,9 @@ end else { //Movement in cut-scenes
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Quick items
-
-if (!global.scene_active) {
-
-  //EQUIPPING:
-
-  //First the script checks whether the currently active item has changes since the last step:
-  var old_active = global.rinv_active_slot;
-  
-  var a = global.rinv_active_slot;
-  
-  if keyboard_check_pressed(userControls[KEYBOARD.hotSwap1])      a = 0;
-  else if keyboard_check_pressed(userControls[KEYBOARD.hotSwap2]) a = 1;
-  else if keyboard_check_pressed(userControls[KEYBOARD.hotSwap3]) a = 2;
-  else if keyboard_check_pressed(userControls[KEYBOARD.hotSwap4]) a = 3;
-  else if keyboard_check_pressed(userControls[KEYBOARD.hotSwap5]) a = 4;
-    
-  if (mouse_wheel_up() and gui_get_mouse_in_hud() != 1) a -= 1
-  else if (mouse_wheel_down() and gui_get_mouse_in_hud() != 1) a += 1;
- 
-  if (a &gt; 4) a = 0;
-  else if (a &lt; 0) a = 4;
-
-  global.rinv_active_slot = a; 
- 
-  //Action:
-  if (old_active != global.rinv_active_slot)
-    player_update_hands();
- 
-  //USING:
-  if (mouse_check_button_pressed(userControls[MOUSE.shoot])) {
-  
-    if (!rinv_item_is_null(-1, global.rinv_active_slot)) {
-    
-      var static_id = rinv_local_to_static(-1, global.rinv_active_slot);
-    
-      //rinv_use_item(global.inventory_active);
-    
-      }
-   
-    }
-  
-  }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
             <string>///Image -- STUB
+
+var in_scene = global.scene_active;
 
 //Grounded check (Very important!):
 _grounded = (place_meeting_terrain(x, y+32, !keyboard_check(userControls[KEYBOARD.crawl]), y+2) == true);
@@ -706,7 +644,7 @@ else {
   }
 
 //Facing:
-if (has_item) {
+if (has_item &amp;&amp; !in_scene) {
   if (mouse_x - x != 0) _imageXScale = sign(mouse_x - x);
   }
 else {
@@ -792,6 +730,120 @@ sh_bx = x - (sprite_get_xoffset(spr) - arr_back_h[image_index,0]) * _imageXScale
 _handX = sh_fx + dcos(point_direction(sh_fx,sh_fy,mouse_x,mouse_y)) * sprite_get_width(spr_temp_arm) * 0.66;
 _handY = sh_fy - dsin(point_direction(sh_fx,sh_fy,mouse_x,mouse_y)) * sprite_get_width(spr_temp_arm) * 0.66;
 
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Quick items
+
+var in_scene = global.scene_active;
+
+if (!in_scene) {
+
+    //EQUIPPING:
+    
+    //First the script checks whether the currently active item has changes since the last step:
+    var old_active = global.rinv_active_slot;
+    
+    var a = global.rinv_active_slot;
+    
+    if keyboard_check_pressed(userControls[KEYBOARD.hotSwap1])      a = 0;
+    else if keyboard_check_pressed(userControls[KEYBOARD.hotSwap2]) a = 1;
+    else if keyboard_check_pressed(userControls[KEYBOARD.hotSwap3]) a = 2;
+    else if keyboard_check_pressed(userControls[KEYBOARD.hotSwap4]) a = 3;
+    else if keyboard_check_pressed(userControls[KEYBOARD.hotSwap5]) a = 4;
+      
+    if (mouse_wheel_up() and gui_get_mouse_in_hud() != 1) a -= 1
+    else if (mouse_wheel_down() and gui_get_mouse_in_hud() != 1) a += 1;
+    
+    if (a &gt; 4) a = 0;
+    else if (a &lt; 0) a = 4;
+    
+    global.rinv_active_slot = a; 
+    
+    //Action:
+    if (old_active != global.rinv_active_slot) player_update_hands();
+        
+    }
+ 
+//USING:
+if (!rinv_item_is_null(-1, global.rinv_active_slot)) {
+
+    var static_id = rinv_local_to_static(-1, global.rinv_active_slot);
+
+    // Update weapon:
+    if (rinv_item_get_static_value(static_id, RINV_STATIC.type) == RINV_TYPE.weapon) {
+  
+        if (!instance_exists(_weaponInstanceId)) 
+            show_error("Player Step - Quick item / _weaponInstanceId mismatch!", true);
+    
+        with (_weaponInstanceId) {
+        
+            var tar_x, tar_y;
+            
+            if (!in_scene) {
+                tar_x = mouse_x;
+                tar_y = mouse_y;
+                }
+            else {
+                tar_x = x + 32 * other._imageXScale;
+                tar_y = y + 32;
+                }
+        
+            wpn_local_set_position(other.sh_fx, other.sh_fy, tar_x, tar_y);
+            wpn_local_execute( other._group
+                             , !in_scene &amp;&amp; mouse_check_button(userControls[MOUSE.shoot])
+                             , other.mod_rel
+                             , other.mod_acc
+                             , !in_scene &amp;&amp; keyboard_check(userControls[KEYBOARD.reload])
+                             , !in_scene &amp;&amp; keyboard_check_released(userControls[KEYBOARD.reload])
+                             , !in_scene &amp;&amp; keyboard_check_pressed(userControls[KEYBOARD.change_amt])
+                             , !in_scene &amp;&amp; keyboard_check_pressed(userControls[KEYBOARD.change_frm])
+                             ) ;
+            wpn_local_update_patron();
+        
+            }
+            
+        }
+    // Update other item:
+    else {
+  
+        if (mouse_check_button_pressed(userControls[MOUSE.shoot])) { 
+        
+            //rinv_use_item(global.inventory_active);
+        
+            }
+      
+        }
+
+    }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </string>
           </argument>
         </arguments>
@@ -927,9 +979,9 @@ show_message("Player backed up resources");
             <kind>1</kind>
             <string>///Draw self
 
-if (instance_exists(weaponHoldingPar)) {
+if (instance_exists(_weaponInstanceId)) {
 
-  var weapon = weaponHoldingPar.id;
+  var weapon = _weaponInstanceId;
 
   var xx = weapon.back_hand_x,
       yy = weapon.back_hand_y;
@@ -949,13 +1001,11 @@ draw_sprite_ext(cpptern(_movementState == 0, sprite_index, spr_player_crouch_arm
                 cpptern(_movementState != 0, 1 /*0.5*/, 1),
                 0, c_white, 1);
 
-if (instance_exists(weaponHoldingPar)) {
+if (instance_exists(_weaponInstanceId)) {
 
-  var weapon = weaponHoldingPar.id;
+  var weapon = _weaponInstanceId;
   
-  draw_sprite_ext(weapon.sprite_index,weapon.image_index,
-                  weapon.x,weapon.y,1,weapon.image_yscale,
-                  weapon.image_angle,c_white,1);
+  wpn_draw(weapon);
 
   var xx = weapon.fore_hand_x,
       yy = weapon.fore_hand_y;

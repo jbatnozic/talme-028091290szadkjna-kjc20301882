@@ -1,6 +1,6 @@
 ///rinv_create()
 /*
-
+Instantiate a new inventory.
 */
 
 enum RINV_LOCAL {

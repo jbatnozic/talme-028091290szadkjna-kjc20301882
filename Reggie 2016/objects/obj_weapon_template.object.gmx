@@ -26,14 +26,14 @@
           <argument>
             <kind>1</kind>
             <string>//Weapon setup:
-weapon_initialize();
-weapon_set_basics(30,150,0,0.3,200,PROJECTILE.bullet);
-weapon_set_sprite(weaponTestSpr,0,0,0,0,1);
-weapon_set_offset(20, -2, -8, 6, 0, 3, 0, 0);
-weapon_set_sounds(-1,-1,-1,-1,-1);
+wpn_local_initialize();
+wpn_local_set_basics(30,150,0,0.3,200,PROJECTILE.bullet,15, 80);
+wpn_local_set_sprite(weaponTestSpr,0,0,0,0,1);
+wpn_local_set_offset(20, -2, -8, 6, 0, 3, 0, 0);
+wpn_local_set_sounds(-1,-1,-1,-1,-1);
 
-weapon_add_firing_mode("FiringMode1",2,1,3,6);
-weapon_add_ammo_type("Bullet",5,placeholderSpr,5,1,1,-1,-1,1,0,0,0,-1,2,-1);
+wpn_local_add_firing_mode("FiringMode1",2,1,3,6);
+wpn_local_add_ammo_type("Bullet",5,placeholderSpr,5,1,1,-1,-1,1,0,0,0,-1,2,-1);
 
 /*NOTES:
 cv1 = Ammo left
@@ -64,7 +64,7 @@ cv5 = Reloading left
           <argument>
             <kind>1</kind>
             <string>///Weapon action
-if !game_paused() begin
+/*if !game_paused() begin
 
  weapon_set_position(15,80);
  weapon_execute((global.player_obj_id).mod_rel,(global.player_obj_id).mod_acc);
@@ -74,7 +74,7 @@ if !game_paused() begin
   special_action=false;
   }
  
-end;
+end;*/
 </string>
           </argument>
         </arguments>

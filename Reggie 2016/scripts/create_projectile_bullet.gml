@@ -19,6 +19,6 @@ son.dot=argument11;
 son.dot_type=argument12;
 son.arc=argument13;
 
-weapon_projectile_init(son,argument2,argument14,argument3);
+wpn_projectile_init(son,argument2,argument14,argument3);
 
 return son;

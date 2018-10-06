@@ -229,7 +229,33 @@ while (true) {
     txt_load_from_file("Dialogues/Intro/DIA_intro_04.das");
     txt_interface_open(reggie.x, reggie.y);
     
-    // Enable bridge collapse
+    // Await(Reggie.x &lt; 6240 &amp;&amp; y &gt;= 880)
+    case 8: if (!(reggie.x &lt; 6240 &amp;&amp; reggie.y &gt;= 880)) {
+      SELECTOR = 8;
+      exit;
+      }
+      
+    // Collapse bridge
+    HG_world_clear_region( -1
+                         , lvm_get("bridge_grid_x") - floor(lvm_get("bridge_grid_w") / 2)
+                         , lvm_get("bridge_grid_y") - floor(lvm_get("bridge_grid_h") / 2)
+                         , lvm_get("bridge_grid_x") + floor(lvm_get("bridge_grid_w") / 2) + 1
+                         , lvm_get("bridge_grid_y") + floor(lvm_get("bridge_grid_h") / 2) + 1
+                         , terrainType[TERRAIN.Empty]
+                         , false
+                         ) ;
+    
+    // STUB - create some effects
+    
+    // Await(Reggie.y &gt;= 940)
+    case 9: if (!(reggie.y &gt;= 940)) {
+      SELECTOR = 9;
+      exit;
+      }
+    
+    game_start_scene(false);
+    screen_fade(c_black, 25, 99);
+    execute_string_delayed("game_change_room()", 30, true);
     
     default:
       instance_destroy();

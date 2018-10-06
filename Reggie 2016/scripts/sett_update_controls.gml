@@ -14,6 +14,7 @@ userControls[KEYBOARD.sprint]=sett_get_value("Sprint");
 userControls[KEYBOARD.reload]=sett_get_value("Reload");
 userControls[KEYBOARD.change_frm]=sett_get_value("Change Mode");
 
+
 //Interface:
 userControls[KEYBOARD.openInv]=sett_get_value("Open Inventory");
 userControls[KEYBOARD.openSet]=sett_get_value("Open Settings");
