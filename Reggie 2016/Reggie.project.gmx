@@ -135,7 +135,9 @@
     <extension index="1">extensions\Turbo Print Parser</extension>
     <extension index="2">extensions\N String Parser 2</extension>
   </NewExtensions>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sound>sound\sound0_DestroyerFire</sound>
+  </sounds>
   <sprites name="sprites">
     <sprite>sprites\placeholderSpr</sprite>
     <sprite>sprites\TEMPORARY</sprite>
@@ -844,6 +846,13 @@
         <script>scripts\lvm_get.gml</script>
         <script>scripts\lvm_set.gml</script>
       </scripts>
+      <scripts name="Sound">
+        <script>scripts\snd_initialize.gml</script>
+        <script>scripts\snd_free.gml</script>
+        <script>scripts\snd_update.gml</script>
+        <script>scripts\snd_play.gml</script>
+        <script>scripts\snd_play_at.gml</script>
+      </scripts>
     </scripts>
     <scripts name="Local">
       <script>scripts\object_damage.gml</script>
@@ -1539,9 +1548,10 @@
     <room>rooms\room_cemetary</room>
     <room>rooms\room_HQ_mission_brief</room>
   </rooms>
-  <constants number="2">
+  <constants number="3">
     <constant name="EVENT_BACKUP">8</constant>
     <constant name="HG_CELL_SIZE">32</constant>
+    <constant name="SND_NULL">-1</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

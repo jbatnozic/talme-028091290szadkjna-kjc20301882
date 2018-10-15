@@ -151,6 +151,7 @@ if (argument0 == false) {
   ptc_initialize();
   pnc_initialize();
   lvm_initialize();
+  snd_initialize();
   
   spl_initialize();
   

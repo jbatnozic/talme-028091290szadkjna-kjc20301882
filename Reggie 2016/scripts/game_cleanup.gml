@@ -20,6 +20,7 @@ sev_free();
 res_free();
 buf_free();
 lvm_free();
+snd_free();
 
 spl_free();
 
